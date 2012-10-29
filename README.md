@@ -4,6 +4,10 @@
 - [Official Website](http://gageh.us/githubgameoff/2012/) *coming soon*
 - [Development Blog]( http://blog.gageh.us/?tag=github-gameoff)
 
+## Description
+
+2 player action puzzle game.
+
 ## Story
 
 You and a friend/enemy are two government contracted hazardous-materials sorting robots. Orders for 3 deadly elements; Lithium, Plutonium, and Uranium, are coming in fast. It's up to you to fulfill those orders!
