@@ -5,6 +5,8 @@ import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.Lib;
 
+import Player;
+
 class PushPullFactory extends Sprite {
 	
 	public function new () {
@@ -21,6 +23,8 @@ class PushPullFactory extends Sprite {
 		
 		makeBackground();
 		
+		var player1 = new Player(1);
+		var player2 = new Player(2);
 	}
 	
 	private function makeLineRect(sprite:Sprite, x:Int, y:Int, width:Int, height:Int):Sprite
