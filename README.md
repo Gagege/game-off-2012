@@ -6,7 +6,7 @@
 
 ## Story
 
-You and a friend/enemy are two government contracted hazardous-materials sorting robots. Orders for 3 deadly elements; Lithium, Plutonium, and Uranium, are coming in fast and it's up to you to fulfill them!
+You and a friend/enemy are two government contracted hazardous-materials sorting robots. Orders for 3 deadly elements; Lithium, Plutonium, and Uranium, are coming in fast. It's up to you to fulfill those orders!
 
 Boxes will appear in any one of the three hatches in front of you. You can either pull a box into your own inventory, to fulfill your orders, or push boxes into your enemy's inventory and sabotage his order (his comission will be docked for giving the customer too much product)!
 
