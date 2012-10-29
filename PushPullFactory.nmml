@@ -4,8 +4,9 @@
 	<meta title="PushPullFactory" package="com.gagege.pushpullfactory" version="1.0.0" company="Gage Herrmann" />
 	<app path="Export" file="PushPullFactory" main="PushPullFactory" />
 	
-	<window width="800" height="600" if="desktop" />
-	<window fps="30" />
+	<window background="#000000" fps="60" orientation="landscape" />
+	<window width="640" height="480" unless="mobile" />
+	<window vsync="true" antialiasing="0" if="cpp" />
 	
 	<source path="Source" />
 	
@@ -20,5 +21,8 @@
 	<ndll name="regexp" />
 	<ndll name="zlib" />
 	<ndll name="nme" haxelib="nme" />
+
+	<!-- optimize JS output -->
+	<haxeflag name="--dead-code-elimination" if="html5" />
 	
 </project>

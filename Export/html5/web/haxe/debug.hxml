@@ -3,6 +3,7 @@
 -cp Source
 -lib nme
 -lib actuate
+--dead-code-elimination
 -D web
 -js Export/html5/web/bin/PushPullFactory.js
 -cp Export/html5/web/haxe
