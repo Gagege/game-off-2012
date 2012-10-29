@@ -1,17 +1,11 @@
 package ;
 
-
 import nme.display.Sprite;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.Lib;
 
-
-/**
- * @author Gage Herrmann
- */
 class PushPullFactory extends Sprite {
-	
 	
 	public function new () {
 		
@@ -56,14 +50,6 @@ class PushPullFactory extends Sprite {
 			Lib.current.stage.stageWidth - 3,
 			Lib.current.stage.stageHeight - 3);
 		addChild(outerBorder);
-		
-		var innerBorder = new Sprite();
-		innerBorder.graphics.clear();
-		innerBorder.graphics.lineStyle(1.0, 0x000000, 0.10);
-		innerBorder = makeLineRect(innerBorder, 2, 2,
-			Lib.current.stage.stageWidth - 3,
-			Lib.current.stage.stageHeight - 3);
-		addChild(innerBorder);
 	}
 	
 	// Entry point
