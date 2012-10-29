@@ -1,0 +1,11 @@
+-main ApplicationMain 
+-D nme_install_tool
+-cp Source
+-lib nme
+-lib actuate
+-D web
+-js Export/html5/web/bin/PushPullFactory.js
+-cp Export/html5/web/haxe
+-D html5
+--remap flash:nme
+--js-modern
