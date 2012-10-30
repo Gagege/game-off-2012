@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="PushPullFactory" package="com.gagege.pushpullfactory" version="1.0.0" company="Gage Herrmann" />
-	<app path="Export" file="PushPullFactory" main="PushPullFactory" />
+	<meta title="Push/Pull Factory" package="com.gagege.pushpullfactory" version="1.0.0" company="Gage Herrmann" />
+	<app path="Export" file="Game" main="Game" />
 	
 	<window background="#000000" fps="60" orientation="landscape" />
 	<window width="640" height="480" unless="mobile" />

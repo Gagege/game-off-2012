@@ -8,7 +8,7 @@ import nme.Lib;
 import Player;
 import DrawHelper;
 
-class PushPullFactory extends Sprite {
+class Game extends Sprite {
 	
 	public function new () {
 		
@@ -59,7 +59,7 @@ class PushPullFactory extends Sprite {
 	
 	public static function main () {
 		
-		Lib.current.addChild (new PushPullFactory ());
+		Lib.current.addChild (new Game ());
 		
 	}
 }
