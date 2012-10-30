@@ -4,6 +4,8 @@
 - [Official Website](http://gageh.us/githubgameoff/2012/) *coming soon*
 - [Development Blog]( http://blog.gageh.us/?tag=github-gameoff)
 
+[![endorse](http://api.coderwall.com/gagege/endorsecount.png)](http://coderwall.com/gagege)
+
 ## Description
 
 2 player action puzzle game.
