@@ -1,11 +1,16 @@
 package ;
 
+import nme.display.Sprite;
 import nme.Lib;
 
-class Player 
+import DrawHelper;
+
+class Player extends Sprite
 {	
 	public function new(player:Int) 
 	{
+		super();
+		
 		initialize(player);
 	}
 	
@@ -16,7 +21,7 @@ class Player
 	
 	private function drawField(player:Int):Void
 	{
-		var railX = 0;
+		var railX:Float = 0.0;
 		if (player == 1)
 		{
 			railX = Lib.current.stage.stageWidth * .20;
@@ -25,5 +30,11 @@ class Player
 		{
 			railX = Lib.current.stage.stageWidth * .80;
 		}
+		
+		var rail = new Sprite();
+		rail.graphics.clear();
+		rail.graphics.lineStyle(3.0, 0x000000);
+		rail = DrawHelper.makeLine(railX, 0, railX, Lib.current.stage.stageHeight);
+		addChild(rail);
 	}
 }
