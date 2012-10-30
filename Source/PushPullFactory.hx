@@ -6,6 +6,7 @@ import nme.display.StageScaleMode;
 import nme.Lib;
 
 import Player;
+import DrawHelper;
 
 class PushPullFactory extends Sprite {
 	
@@ -25,16 +26,9 @@ class PushPullFactory extends Sprite {
 		
 		var player1 = new Player(1);
 		var player2 = new Player(2);
-	}
-	
-	private function makeLineRect(sprite:Sprite, x:Int, y:Int, width:Int, height:Int):Sprite
-	{
-		sprite.graphics.moveTo(x, y);
-		sprite.graphics.lineTo(width, y);
-		sprite.graphics.lineTo(width, height);
-		sprite.graphics.lineTo(x, height);
-		sprite.graphics.lineTo(x, y);
-		return sprite;
+		
+		addChild(player1);
+		addChild(player2);
 	}
 	
 	private function makeBackground():Void 
@@ -50,7 +44,7 @@ class PushPullFactory extends Sprite {
 		var outerBorder = new Sprite();
 		outerBorder.graphics.clear();
 		outerBorder.graphics.lineStyle(3.0, 0xE60045);
-		outerBorder = makeLineRect(outerBorder, 2, 2,
+		outerBorder = DrawHelper.makeLineRect(outerBorder, 2, 2,
 			Lib.current.stage.stageWidth - 3,
 			Lib.current.stage.stageHeight - 3);
 		addChild(outerBorder);
