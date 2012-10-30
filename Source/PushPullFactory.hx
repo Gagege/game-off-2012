@@ -22,16 +22,18 @@ class PushPullFactory extends Sprite {
 		Lib.current.stage.align = StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		
-		makeBackground();
+		drawBackground();
 		
 		var player1 = new Player(1);
 		var player2 = new Player(2);
 		
 		addChild(player1);
 		addChild(player2);
+		
+		drawBorder();
 	}
 	
-	private function makeBackground():Void 
+	private function drawBackground():Void 
 	{
 		var background = new Sprite();
 		background.graphics.clear();
@@ -40,7 +42,10 @@ class PushPullFactory extends Sprite {
 			Lib.current.stage.stageWidth,
 			Lib.current.stage.stageHeight);
 		addChild(background);
-		
+	}
+	
+	private function drawBorder():Void 
+	{
 		var outerBorder = new Sprite();
 		outerBorder.graphics.clear();
 		outerBorder.graphics.lineStyle(3.0, 0xE60045);
