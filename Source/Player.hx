@@ -1,9 +1,10 @@
 package ;
 
+import DrawHelper;
 import nme.display.Sprite;
+import nme.display.GradientType;
 import nme.Lib;
 
-import DrawHelper;
 
 class Player extends Sprite
 {	
@@ -22,7 +23,7 @@ class Player extends Sprite
 	private function drawField(player:Int):Void
 	{
 		var railX:Float = 0.0;
-		side:String = "";
+		var side:String = "";
 		if (player == 1)
 		{
 			railX = Lib.current.stage.stageWidth * .20;
@@ -50,13 +51,15 @@ class Player extends Sprite
 	
 	private function drawArm(railX:Float, side:String):Void 
 	{
-			if (side == "left")
-			{
-				
-			}
-			else if (side == "right")
-			{
-				
-			}
+		var joint = new Sprite();
+		if (side == "left")
+		{
+			joint.graphics.clear();
+			joint.graphics.beginGradientFill(GradientType.LINEAR, [0x000000, 0x555555, 0x000000]);
+		}
+		else if (side == "right")
+		{
+			
+		}
 	}
 }
