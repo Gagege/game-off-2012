@@ -14,7 +14,7 @@ class DrawHelper
 		return sprite;
 	}
 	
-	public static function makeLine(sprite:Sprite, startX:Int, startY:Int, endX:Int, endY:Int):Sprite
+	public static function makeLine(sprite:Sprite, startX:Float, startY:Float, endX:Float, endY:Float):Sprite
 	{
 		sprite.graphics.moveTo(startX, startY);
 		sprite.graphics.lineTo(endX, endY);

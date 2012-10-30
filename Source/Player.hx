@@ -31,10 +31,16 @@ class Player extends Sprite
 			railX = Lib.current.stage.stageWidth * .80;
 		}
 		
+		drawRail(railX);
+		
+	}
+	
+	private function drawRail(railX:Float):Void
+	{
 		var rail = new Sprite();
 		rail.graphics.clear();
 		rail.graphics.lineStyle(3.0, 0x000000);
-		rail = DrawHelper.makeLine(railX, 0, railX, Lib.current.stage.stageHeight);
+		rail = DrawHelper.makeLine(rail, railX, 0, railX, Lib.current.stage.stageHeight);
 		addChild(rail);
 	}
 }
