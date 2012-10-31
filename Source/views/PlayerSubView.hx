@@ -9,6 +9,8 @@ import controllers.PlayController;
 
 class PlayerSubView extends Sprite
 {	
+	var robotArm:Sprite;
+	
 	public function new(player:Int) 
 	{
 		super();
@@ -23,40 +25,14 @@ class PlayerSubView extends Sprite
 	
 	private function drawField(player:Int):Void
 	{
-		var railX:Float = 0.0;
+		var onRight = true;
 		
-		railX = Lib.current.stage.stageWidth * .20;
-		
-		if (player == 2)
+		if (player == 1)
 		{
-			railX = ((Lib.current.stage.stageWidth / 2) - railX) + (Lib.current.stage.stageWidth / 2);
+			onRight = false;
 		}
 		
-		drawRail(railX);
-		
-		drawArm(railX, "left");
-	}
-	
-	private function drawRail(railX:Float):Void
-	{
-		var rail = new Sprite();
-		rail.graphics.clear();
-		rail.graphics.lineStyle(Lib.current.stage.stageWidth * 0.01, 0x000000);
-		rail = DrawHelper.makeLine(rail, railX, 0, railX, Lib.current.stage.stageHeight);
-		addChild(rail);
-	}
-	
-	private function drawArm(railX:Float, side:String):Void 
-	{
-		var joint = new Sprite();
-		if (side == "left")
-		{
-			joint.graphics.clear();
-			//joint.graphics.beginGradientFill(GradientType.LINEAR, [0x000000, 0x555555, 0x000000]);
-		}
-		else if (side == "right")
-		{
-			
-		}
+		robotArm = new RobotArmSubView(onRight);
+		addChild(robotArm);
 	}
 }

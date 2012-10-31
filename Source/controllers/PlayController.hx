@@ -10,5 +10,4 @@ class PlayController
 	{
 		Lib.current.addChild(new PlayView());
 	}
-	
 }
