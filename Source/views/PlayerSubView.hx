@@ -1,12 +1,13 @@
-package ;
+package views;
 
-import DrawHelper;
 import nme.display.Sprite;
 import nme.display.GradientType;
 import nme.Lib;
 
+import DrawHelper;
+import controllers.PlayController;
 
-class PlayerView extends Sprite
+class PlayerSubView extends Sprite
 {	
 	public function new(player:Int) 
 	{
@@ -33,14 +34,14 @@ class PlayerView extends Sprite
 		
 		drawRail(railX);
 		
-		drawArm(railX);
+		drawArm(railX, "left");
 	}
 	
 	private function drawRail(railX:Float):Void
 	{
 		var rail = new Sprite();
 		rail.graphics.clear();
-		rail.graphics.lineStyle(3.0, 0x000000);
+		rail.graphics.lineStyle(Lib.current.stage.stageWidth * 0.01, 0x000000);
 		rail = DrawHelper.makeLine(rail, railX, 0, railX, Lib.current.stage.stageHeight);
 		addChild(rail);
 	}

@@ -5,10 +5,11 @@
 	<app path="Export" file="Game" main="Game" />
 	
 	<window background="#000000" fps="60" orientation="landscape" />
-	<window width="1024" height="768" unless="mobile" />
+	<window width="640" height="480" unless="mobile" />
 	<window vsync="true" antialiasing="0" if="cpp" />
 	
 	<source path="Source" />
+	<source path="Source\Controllers" />
 	
 	<haxelib name="nme" />
 	<haxelib name="actuate" />

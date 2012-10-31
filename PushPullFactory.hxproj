@@ -11,11 +11,12 @@
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
-    <movie background="#000000" />
+    <movie background="000000" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="Source" />
+    <class path="Source\Controllers" />
     <class path="Export/html5/web/haxe" />
   </classpaths>
   <!-- Build options -->
