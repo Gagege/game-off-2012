@@ -18,6 +18,26 @@ class PlayerSubView extends Sprite
 		initialize(player);
 	}
 	
+	public function robotForward():Void
+	{
+		robotArm.forward();
+	}
+	
+	public function robotBack():Void
+	{
+		robotArm.back();
+	}
+	
+	public function robotUp():Void
+	{
+		robotArm.up();
+	}
+	
+	public function robotDown():Void
+	{
+		robotArm.down();
+	}
+	
 	private function initialize(player:Int):Void
 	{
 		drawField(player);
