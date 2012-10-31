@@ -1,5 +1,6 @@
 package views;
 
+import haxe.Public;
 import nme.Lib;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
@@ -11,7 +12,9 @@ import controllers.PlayController;
 
 class PlayView extends Sprite
 {
-
+	var player1View:PlayerSubView;
+    var player2View:PlayerSubView;
+	
 	public function new() 
 	{
 		super();
@@ -20,13 +23,40 @@ class PlayView extends Sprite
 		
 		drawBackground();
 		
-		var player1View = new PlayerSubView(1);
-		var player2View = new PlayerSubView(2);
+		player1View = new PlayerSubView(1);
+		player2View = new PlayerSubView(2);
 		
 		addChild(player1View);
 		addChild(player2View);
 		
 		drawBorder();
+	}
+	
+	public function playerMotion(player:Int, command:Command):Void
+	{
+			switch(command)
+			{
+				case Right:
+					(player == 1) ? player1View.robotForward() : player2View.robotBack();
+					break;
+				case Left:
+					(player == 1) ? player1View.robotBack() : player2View.robotForward();
+					break;
+				case Up:
+					(player == 1) ? player1View.robotUp() : player2View.robotUp();
+					break;
+				case Down:
+					(player == 1) ? player1View.robotDown() : player2View.robotDown();
+					break;
+			}
+	}
+	
+	public enum Command
+	{
+		Left;
+		Right;
+		Up;
+		Down;
 	}
 	
 	private function drawBackground():Void 
