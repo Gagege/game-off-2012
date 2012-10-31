@@ -2,38 +2,44 @@ package views;
 
 import nme.Lib;
 import nme.display.Sprite;
+import com.eclecticdesignstudio.motion.Actuate;
 
 class RobotArmSubView extends Sprite
 {
-	
+	private var isRight:Bool;
 	private var rail:Sprite;
 	private var arm:Sprite;
 	private var grabber:Sprite;
-	private var railX:Float;
+	private var homeX:Float;
 
-	public function new(isRight:Bool) 
+	public function new(isRightIn:Bool) 
 	{
 		super();
 		
-		railX = Lib.current.stage.stageWidth * .20;
+		isRight = isRightIn;
+		
+		homeX = Lib.current.stage.stageWidth * .20;
 
 		if (isRight)
 		{
-			railX = opposite(railX);
+			homeX = opposite(homeX);
 		}
 		
-		drawRail(isRight);
 		drawArm(isRight);
 	}
 	
-	private function drawRail(isRight:Bool): Void
+	public function stretch():Void
 	{
-		
-		rail = new Sprite();
-		rail.graphics.clear();
-		rail.graphics.lineStyle(Lib.current.stage.stageWidth * 0.01, 0x000000);
-		rail = DrawHelper.makeLine(rail, railX, 0, railX, Lib.current.stage.stageHeight);
-		addChild(rail);
+		if (isRight)
+		{
+			Actuate.tween(arm, 1,
+				{ x: arm.x - (Lib.current.stage.stageWidth * 0.1) } );
+		}
+		else
+		{
+			Actuate.tween(arm, 1,
+				{ x: arm.x + (Lib.current.stage.stageWidth * 0.1) } );
+		}
 	}
 	
 	private function drawArm(isRight:Bool):Void 
@@ -45,14 +51,14 @@ class RobotArmSubView extends Sprite
 		var armSegment = new Sprite();
 		armSegment.graphics.clear();
 		armSegment.graphics.lineStyle(Lib.current.stage.stageHeight * 0.01);
-		armSegment.graphics.moveTo(railX, verticalCenter);
+		armSegment.graphics.moveTo(homeX, verticalCenter);
 		if (isRight)
 		{
-			armSegment.graphics.lineTo(railX - armSegmentLength, verticalCenter);
+			armSegment.graphics.lineTo(homeX - armSegmentLength, verticalCenter);
 		}
 		else
 		{
-			armSegment.graphics.lineTo(railX + armSegmentLength, verticalCenter);
+			armSegment.graphics.lineTo(homeX + armSegmentLength, verticalCenter);
 		}
 		
 		var jointWidth:Float = Lib.current.stage.stageWidth * 0.015;
@@ -60,7 +66,7 @@ class RobotArmSubView extends Sprite
 		joint.graphics.clear();
 		joint.graphics.beginFill(0xA100E6, 0.75);
 		joint.graphics.drawRect(
-			railX - (jointWidth / 2),
+			homeX - (jointWidth / 2),
 			verticalCenter - (jointWidth / 2),
 			jointWidth, jointWidth);
 			

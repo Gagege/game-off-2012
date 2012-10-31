@@ -9,13 +9,15 @@ import controllers.PlayController;
 
 class PlayerSubView extends Sprite
 {	
-	var robotArm:Sprite;
+	var robotArm:RobotArmSubView;
 	
 	public function new(player:Int) 
 	{
 		super();
 		
 		initialize(player);
+		
+		robotArm.stretch();
 	}
 	
 	private function initialize(player:Int):Void
