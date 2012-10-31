@@ -38,25 +38,13 @@ class PlayView extends Sprite
 			{
 				case Right:
 					(player == 1) ? player1View.robotForward() : player2View.robotBack();
-					break;
 				case Left:
 					(player == 1) ? player1View.robotBack() : player2View.robotForward();
-					break;
 				case Up:
 					(player == 1) ? player1View.robotUp() : player2View.robotUp();
-					break;
 				case Down:
 					(player == 1) ? player1View.robotDown() : player2View.robotDown();
-					break;
 			}
-	}
-	
-	public enum Command
-	{
-		Left;
-		Right;
-		Up;
-		Down;
 	}
 	
 	private function drawBackground():Void 
