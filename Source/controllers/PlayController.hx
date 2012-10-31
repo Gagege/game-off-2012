@@ -6,8 +6,10 @@ import views.PlayView;
 
 class PlayController 
 {
+	var playView:PlayView;
 	public function new() 
 	{
-		Lib.current.addChild(new PlayView());
+		playView = new PlayView();
+		Lib.current.addChild(playView);
 	}
 }
