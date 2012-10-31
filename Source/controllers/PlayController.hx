@@ -29,6 +29,14 @@ class PlayController
 				playView.playerMotion(1, Command.Up);
 			case 83: // 'S' key
 				playView.playerMotion(1, Command.Down);
+			case 39: // 'right arrow' key
+				playView.playerMotion(2, Command.Right);
+			case 37: // 'left arrow' key
+				playView.playerMotion(2, Command.Left);
+			case 38: // 'up arrow' key
+				playView.playerMotion(2, Command.Up);
+			case 40: // 'down arrow' key
+				playView.playerMotion(2, Command.Down);
 		}
 	}
 }
