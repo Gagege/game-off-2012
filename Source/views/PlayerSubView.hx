@@ -16,8 +16,6 @@ class PlayerSubView extends Sprite
 		super();
 		
 		initialize(player);
-		
-		robotArm.stretch();
 	}
 	
 	private function initialize(player:Int):Void

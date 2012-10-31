@@ -28,7 +28,7 @@ class RobotArmSubView extends Sprite
 		drawArm(isRight);
 	}
 	
-	public function stretch():Void
+	public function forward():Void
 	{
 		if (isRight)
 		{
@@ -39,6 +39,20 @@ class RobotArmSubView extends Sprite
 		{
 			Actuate.tween(arm, 1,
 				{ x: arm.x + (Lib.current.stage.stageWidth * 0.1) } );
+		}
+	}
+	
+	public function back():Void
+	{
+		if (isRight)
+		{
+			Actuate.tween(arm, 1,
+				{ x: arm.x + (Lib.current.stage.stageWidth * 0.1) } );
+		}
+		else
+		{
+			Actuate.tween(arm, 1,
+				{ x: arm.x - (Lib.current.stage.stageWidth * 0.1) } );
 		}
 	}
 	
