@@ -59,13 +59,13 @@ class RobotArmSubView extends Sprite
 	public function up():Void
 	{
 		Actuate.tween(arm, 1,
-			{ y: x - (Lib.current.stage.stageHeight * 0.25) } );
+			{ y: arm.y - (Lib.current.stage.stageHeight * 0.25) } );
 	}
 	
 	public function down():Void
 	{
 		Actuate.tween(arm, 1,
-			{ y: x + (Lib.current.stage.stageHeight * 0.25) } );
+			{ y: arm.y + (Lib.current.stage.stageHeight * 0.25) } );
 	}
 	
 	private function drawArm(isRight:Bool):Void 
