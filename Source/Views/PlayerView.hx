@@ -6,7 +6,7 @@ import nme.display.GradientType;
 import nme.Lib;
 
 
-class Player extends Sprite
+class PlayerView extends Sprite
 {	
 	public function new(player:Int) 
 	{
@@ -23,21 +23,17 @@ class Player extends Sprite
 	private function drawField(player:Int):Void
 	{
 		var railX:Float = 0.0;
-		var side:String = "";
-		if (player == 1)
+		
+		railX = Lib.current.stage.stageWidth * .20;
+		
+		if (player == 2)
 		{
-			railX = Lib.current.stage.stageWidth * .20;
-			side = "left";
-		}
-		else
-		{
-			railX = Lib.current.stage.stageWidth * .80;
-			side = "right";
+			railX = ((Lib.current.stage.stageWidth / 2) - railX) + (Lib.current.stage.stageWidth / 2);
 		}
 		
 		drawRail(railX);
 		
-		drawArm(railX, side);
+		drawArm(railX);
 	}
 	
 	private function drawRail(railX:Float):Void
@@ -55,7 +51,7 @@ class Player extends Sprite
 		if (side == "left")
 		{
 			joint.graphics.clear();
-			joint.graphics.beginGradientFill(GradientType.LINEAR, [0x000000, 0x555555, 0x000000]);
+			//joint.graphics.beginGradientFill(GradientType.LINEAR, [0x000000, 0x555555, 0x000000]);
 		}
 		else if (side == "right")
 		{
