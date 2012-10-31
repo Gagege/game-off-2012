@@ -25,14 +25,14 @@ class PlayerSubView extends Sprite
 	
 	private function drawField(player:Int):Void
 	{
-		var onRight = true;
+		var isRight = true;
 		
 		if (player == 1)
 		{
-			onRight = false;
+			isRight = false;
 		}
 		
-		robotArm = new RobotArmSubView(onRight);
+		robotArm = new RobotArmSubView(isRight);
 		addChild(robotArm);
 	}
 }
