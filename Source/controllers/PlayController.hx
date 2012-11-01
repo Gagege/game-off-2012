@@ -1,5 +1,8 @@
 package controllers;
 
+import events.BoxSender;
+import events.SendBox;
+import nme.events.Event;
 import nme.Lib;
 import nme.events.KeyboardEvent;
 import views.PlayView;
@@ -14,7 +17,12 @@ class PlayController
 		playView = new PlayView();
 		Lib.current.addChild(playView);
 		
+		var sender = new BoxSender();
+		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		sender.addEventListener("SendBox", onSendBox);
+		
+		sender.testSend();
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void
@@ -38,6 +46,11 @@ class PlayController
 			case 40: // 'down arrow' key
 				playView.playerMotion(2, Command.Down);
 		}
+	}
+	
+	private function onSendBox(event:SendBox):Void 
+	{
+		trace("Box sent! It contains " + event.resource.name + ".");
 	}
 }
 	
