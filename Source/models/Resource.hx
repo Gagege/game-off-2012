@@ -10,3 +10,10 @@ class Resource
 		
 	}
 }
+
+enum ResourceTypes
+{
+	Lithium,
+	Plutonium,
+	Uranium
+}
