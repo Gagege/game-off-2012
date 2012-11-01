@@ -17,7 +17,7 @@ enum ResourceType
 	Lithium,
 	Plutonium,
 	Uranium,
-	DefectiveLithium,
-	DefectivePlutonium,
-	DefectiveUranium
+	AntiLithium,
+	AntiPlutonium,
+	AntiUranium
 }
