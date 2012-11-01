@@ -1,4 +1,6 @@
 package views;
+
+import models.Resource;
 import nme.display.Sprite;
 
 /**
@@ -9,7 +11,7 @@ import nme.display.Sprite;
 class BoxSubView extends Sprite
 {
 
-	public function new() 
+	public function new(itemInBox:Resource) 
 	{
 		super();
 	}

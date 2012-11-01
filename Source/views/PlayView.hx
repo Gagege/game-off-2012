@@ -1,6 +1,7 @@
 package views;
 
 import haxe.Public;
+import models.Resource;
 import nme.Lib;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
@@ -42,6 +43,19 @@ class PlayView extends Sprite
 		addChild(player2View);
 		
 		drawBorder();
+	}
+	
+	public function deliverBoxToHatch(hatch:Int, itemInBox:Resource):Void 
+	{
+		switch(hatch)
+		{
+			case 1:
+				hatch1.deliverBox(new BoxSubView(itemInBox));
+			case 2:
+				hatch2.deliverBox(new BoxSubView(itemInBox));
+			case 3:
+				hatch3.deliverBox(new BoxSubView(itemInBox));
+		}
 	}
 	
 	public function playerMotion(player:Int, command:Command):Void
