@@ -11,9 +11,12 @@ class Resource
 	}
 }
 
-enum ResourceTypes
+enum ResourceType
 {
 	Lithium,
 	Plutonium,
-	Uranium
+	Uranium,
+	DefectiveLithium,
+	DefectivePlutonium,
+	DefectiveUranium
 }
