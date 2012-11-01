@@ -2,6 +2,7 @@ package views;
 
 import nme.Lib;
 import nme.display.Sprite;
+import com.eclecticdesignstudio.motion.Actuate;
 
 class BoxHatchSubView extends Sprite
 {
@@ -19,6 +20,11 @@ class BoxHatchSubView extends Sprite
 		hatchWidth = Lib.current.stage.stageWidth * 0.1;
 		
 		drawHatch(position);
+	}
+	
+	public function deliverBox(box:BoxSubView):Void 
+	{
+		openDoors();
 	}
 	
 	private function drawHatch(position:Int):Void 
@@ -71,6 +77,18 @@ class BoxHatchSubView extends Sprite
 		addChild(hole);
 		addChild(topDoor);
 		addChild(bottomDoor);
+	}
+	
+	private function openDoors():Void 
+	{
+		Actuate.tween(topDoor, 1, {y: topDoor.y - (hatchWidth / 2)});
+		Actuate.tween(bottomDoor, 1, {y: bottomDoor.y + (hatchWidth / 2)});
+	}
+	
+	private function closeDoors():Void 
+	{
+		Actuate.tween(topDoor, 1, {y: topDoor.y + (hatchWidth / 2)});
+		Actuate.tween(bottomDoor, 1, {y: bottomDoor.y - (hatchWidth / 2)});
 	}
 	
 }
