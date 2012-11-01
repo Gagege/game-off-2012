@@ -50,7 +50,7 @@ class PlayController
 	
 	private function onSendBox(event:SendBox):Void 
 	{
-		trace("Box sent! It contains " + event.resource.name + ".");
+		playView.deliverBoxToHatch(1, event.resource);
 	}
 }
 	
