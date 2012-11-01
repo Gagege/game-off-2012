@@ -34,6 +34,24 @@ class BoxHatchSubView extends Sprite
 			(hatchWidth / 2) * -1, 
 			hatchWidth, 
 			hatchWidth);
+			
+		topDoor.graphics.clear();
+		topDoor.graphics.beginFill(0xAAAAAA, .75);
+		topDoor.graphics.drawRect(
+			((hatchWidth * 1.1) / 2) * -1,
+			((hatchWidth * 1.1) / 2) * -1,
+			hatchWidth * 1.1,
+			(hatchWidth * 1.1) / 2
+			);
+			
+		bottomDoor.graphics.clear();
+		bottomDoor.graphics.beginFill(0xAAAAAA, .75);
+		bottomDoor.graphics.drawRect(
+			((hatchWidth * 1.1) / 2) * -1,
+			0,
+			hatchWidth * 1.1,
+			(hatchWidth * 1.1) / 2
+			);
 		
 		this.x = Lib.current.stage.stageWidth / 2;
 		
@@ -51,6 +69,8 @@ class BoxHatchSubView extends Sprite
 		}
 		
 		addChild(hole);
+		addChild(topDoor);
+		addChild(bottomDoor);
 	}
 	
 }
