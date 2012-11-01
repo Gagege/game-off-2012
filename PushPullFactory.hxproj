@@ -6,12 +6,12 @@
     <movie input="" />
     <movie path="PushPullFactory.nmml" />
     <movie fps="60" />
-    <movie width="640" />
-    <movie height="480" />
+    <movie width="320" />
+    <movie height="240" />
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
-    <movie background="#000000" />
+    <movie background="000000" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
