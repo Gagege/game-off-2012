@@ -4,11 +4,10 @@ import nme.Lib;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
 
+import DrawHelper;
+
 class RobotArmSubView extends Sprite
 {
-	private var vertical1Fourth:Float;
-	private var verticalCenter:Float;
-	private var vertical3Fourths:Float;
 	private var isRight:Bool;
 	private var rail:Sprite;
 	private var arm:Sprite;
@@ -22,10 +21,6 @@ class RobotArmSubView extends Sprite
 		super();
 		
 		isRight = isRightIn;
-		
-		vertical1Fourth = Lib.current.stage.stageHeight * 0.25;
-		verticalCenter = Lib.current.stage.stageHeight * 0.5;
-		vertical3Fourths = Lib.current.stage.stageHeight * 0.75;
 		
 		moving = false;
 		
@@ -81,21 +76,21 @@ class RobotArmSubView extends Sprite
 		if (!moving)
 		{
 			moving = true;
-			var newY:Float = verticalCenter;
+			var newY:Float = DrawHelper.verticalCenter;
 			
-			if (arm.y <= (verticalCenter * 1.3))
+			if (arm.y <= (DrawHelper.verticalCenter * 1.3))
 			{
-				newY = vertical1Fourth;
+				newY = DrawHelper.vertical1Fourth;
 			}
 			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
 		}
 		else
 		{
-			if ((arm.y > (verticalCenter * .7) &&
-				arm.y < (verticalCenter * 1.3)) ||
-				arm.y < (vertical1Fourth * 1.3) ||
-				arm.y > (vertical3Fourths * .7))
+			if ((arm.y > (DrawHelper.verticalCenter * .7) &&
+				arm.y < (DrawHelper.verticalCenter * 1.3)) ||
+				arm.y < (DrawHelper.vertical1Fourth * 1.3) ||
+				arm.y > (DrawHelper.vertical3Fourths * .7))
 			{
 				Actuate.stop(arm);
 				moving = false;
@@ -109,21 +104,21 @@ class RobotArmSubView extends Sprite
 		if (!moving)
 		{
 			moving = true;
-			var newY:Float = verticalCenter;
+			var newY:Float = DrawHelper.verticalCenter;
 			
-			if (arm.y >= (verticalCenter * .7))
+			if (arm.y >= (DrawHelper.verticalCenter * .7))
 			{
-				newY = vertical3Fourths;
+				newY = DrawHelper.vertical3Fourths;
 			}
 			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
 		}
 		else
 		{
-			if ((arm.y > (verticalCenter * .7) &&
-				arm.y < (verticalCenter * 1.3)) ||
-				arm.y < (vertical1Fourth * 1.3) ||
-				arm.y > (vertical3Fourths * .7))
+			if ((arm.y > (DrawHelper.verticalCenter * .7) &&
+				arm.y < (DrawHelper.verticalCenter * 1.3)) ||
+				arm.y < (DrawHelper.vertical1Fourth * 1.3) ||
+				arm.y > (DrawHelper.vertical3Fourths * .7))
 			{
 				Actuate.stop(arm);
 				moving = false;
@@ -159,7 +154,7 @@ class RobotArmSubView extends Sprite
 			arm.scaleX = arm.scaleX * -1;
 		
 		arm.x = homeX;
-		arm.y = verticalCenter;
+		arm.y = DrawHelper.verticalCenter;
 		addChild(arm);
 	}
 	
