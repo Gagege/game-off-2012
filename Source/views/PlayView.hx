@@ -14,6 +14,9 @@ class PlayView extends Sprite
 {
 	var player1View:PlayerSubView;
     var player2View:PlayerSubView;
+	var hatch1:BoxHatchSubView;
+	var hatch2:BoxHatchSubView;
+	var hatch3:BoxHatchSubView;
 	
 	public function new() 
 	{
@@ -22,6 +25,10 @@ class PlayView extends Sprite
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		
 		drawBackground();
+		
+		hatch1 = new BoxHatchSubView(1);
+		hatch2 = new BoxHatchSubView(2);
+		hatch3 = new BoxHatchSubView(3);
 		
 		player1View = new PlayerSubView(1);
 		player2View = new PlayerSubView(2);
