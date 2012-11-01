@@ -15,10 +15,13 @@ class RobotArmSubView extends Sprite
 	private var grabber:Sprite;
 	private var homeX:Float;
 	private var moving:Bool;
+	private var speed:Float;
 
 	public function new(isRightIn:Bool) 
 	{
 		super();
+		
+		isRight = isRightIn;
 		
 		vertical1Fourth = Lib.current.stage.stageHeight * 0.25;
 		verticalCenter = Lib.current.stage.stageHeight * 0.5;
@@ -26,9 +29,7 @@ class RobotArmSubView extends Sprite
 		
 		moving = false;
 		
-		trace("verticalCenter: " + verticalCenter);
-		
-		isRight = isRightIn;
+		speed = 0.2;
 		
 		homeX = Lib.current.stage.stageWidth * .20;
 
@@ -38,8 +39,6 @@ class RobotArmSubView extends Sprite
 		}
 		
 		drawArm(isRight);
-		
-		trace("armY: " + arm.y);
 	}
 	
 	public function forward():Void
@@ -51,11 +50,10 @@ class RobotArmSubView extends Sprite
 			
 			if (isRight)
 			{
-				trace("isRight" + isRight);
-				var newX = arm.x - (Lib.current.stage.stageWidth * 0.1);
+				newX = arm.x - (Lib.current.stage.stageWidth * 0.1);
 			}
 			
-			Actuate.tween(arm, 1,
+			Actuate.tween(arm, speed,
 					{ x: newX } )
 					.onComplete(setMoving, [false]);
 		}
@@ -69,11 +67,10 @@ class RobotArmSubView extends Sprite
 			var newX = arm.x - (Lib.current.stage.stageWidth * 0.1);
 			if (isRight)
 			{
-				trace("isRight" + isRight);
-				var newX = arm.x + (Lib.current.stage.stageWidth * 0.1);
+				newX = arm.x + (Lib.current.stage.stageWidth * 0.1);
 			}
 			
-			Actuate.tween(arm, 1,
+			Actuate.tween(arm, speed,
 					{ x: newX } )
 					.onComplete(setMoving, [false]);
 		}
@@ -86,12 +83,24 @@ class RobotArmSubView extends Sprite
 			moving = true;
 			var newY:Float = verticalCenter;
 			
-			if (arm.y <= verticalCenter)
+			if (arm.y <= (verticalCenter * 1.3))
 			{
 				newY = vertical1Fourth;
 			}
-			Actuate.tween(arm, 1, { y: newY } )
+			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
+		}
+		else
+		{
+			if ((arm.y > (verticalCenter * .7) &&
+				arm.y < (verticalCenter * 1.3)) ||
+				arm.y < (vertical1Fourth * 1.3) ||
+				arm.y > (vertical3Fourths * .7))
+			{
+				Actuate.stop(arm);
+				moving = false;
+				up();
+			}
 		}
 	}
 	
@@ -102,12 +111,24 @@ class RobotArmSubView extends Sprite
 			moving = true;
 			var newY:Float = verticalCenter;
 			
-			if (arm.y >= verticalCenter)
+			if (arm.y >= (verticalCenter * .7))
 			{
 				newY = vertical3Fourths;
 			}
-			Actuate.tween(arm, 1, { y: newY } )
+			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
+		}
+		else
+		{
+			if ((arm.y > (verticalCenter * .7) &&
+				arm.y < (verticalCenter * 1.3)) ||
+				arm.y < (vertical1Fourth * 1.3) ||
+				arm.y > (vertical3Fourths * .7))
+			{
+				Actuate.stop(arm);
+				moving = false;
+				down();
+			}
 		}
 	}
 	
@@ -121,23 +142,21 @@ class RobotArmSubView extends Sprite
 		var armSegment = new Sprite();
 		armSegment.graphics.clear();
 		armSegment.graphics.lineStyle(Lib.current.stage.stageHeight * 0.01);
-		armSegment.graphics.moveTo(jointWidth / 2, jointWidth / 2);
-		if (isRight)
-		{
-			armSegmentLength *= -1;
-		}
-		armSegment.graphics.lineTo(armSegmentLength, jointWidth / 2);
+		armSegment.graphics.lineTo(armSegmentLength, 0);
 		
 		var joint = new Sprite();
 		joint.graphics.clear();
 		joint.graphics.beginFill(0xA100E6, 0.75);
 		joint.graphics.drawRect(
-			0,
-			0,
+			(jointWidth / 2) * -1,
+			(jointWidth / 2) * -1,
 			jointWidth, jointWidth);
 			
 		arm.addChild(armSegment);
 		arm.addChild(joint);
+		
+		if (isRight)
+			arm.scaleX = arm.scaleX * -1;
 		
 		arm.x = homeX;
 		arm.y = verticalCenter;
