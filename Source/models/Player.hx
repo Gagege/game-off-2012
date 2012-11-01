@@ -7,6 +7,7 @@ class Player
 	public var lithium(default, default):Int;
 	public var plutonium(default, default):Int;
 	public var uranium(default, default):Int;
+	public var money(default, default):Int;
 	
 	public function new(playerNumber:Int) 
 	{
