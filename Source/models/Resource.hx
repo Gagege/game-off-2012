@@ -2,9 +2,9 @@ package models;
 
 class Resource 
 {
-	public var(default, null) name:String;
-	public var(default, null) quantity:Int;
-	public var(default, null) type:ResourceType;
+	public var name(default, null):String;
+	public var quantity(default, null):Int;
+	public var type(default, null):ResourceType;
 
 	public function new(resourceName:String, resourceQuantity:Int, resourceType:ResourceType):Void
 	{
