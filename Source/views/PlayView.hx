@@ -7,6 +7,7 @@ import nme.display.StageScaleMode;
 import nme.display.Sprite;
 
 import DrawHelper;
+import views.BoxHatchSubView;
 import views.PlayerSubView;
 import controllers.PlayController;
 
@@ -32,6 +33,10 @@ class PlayView extends Sprite
 		
 		player1View = new PlayerSubView(1);
 		player2View = new PlayerSubView(2);
+		
+		addChild(hatch1);
+		addChild(hatch2);
+		addChild(hatch3);
 		
 		addChild(player1View);
 		addChild(player2View);

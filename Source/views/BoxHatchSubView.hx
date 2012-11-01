@@ -1,13 +1,56 @@
 package views;
 
+import nme.Lib;
 import nme.display.Sprite;
 
 class BoxHatchSubView extends Sprite
 {
 
+	private var hole:Sprite;
+	private var topDoor:Sprite;
+	private var bottomDoor:Sprite;
+	
+	private var hatchWidth:Float;
+	
 	public function new(position:Int) 
 	{
 		super();
+		
+		hatchWidth = Lib.current.stage.stageWidth * 0.1;
+		
+		drawHatch(position);
+	}
+	
+	private function drawHatch(position:Int):Void 
+	{
+		hole = new Sprite();
+		topDoor = new Sprite();
+		bottomDoor = new Sprite();
+		
+		hole.graphics.clear();
+		hole.graphics.beginFill(0x000000, 1);
+		hole.graphics.drawRect(
+			(hatchWidth / 2) * -1,
+			(hatchWidth / 2) * -1, 
+			hatchWidth, 
+			hatchWidth);
+		
+		this.x = Lib.current.stage.stageWidth / 2;
+		
+		if (position == 1)
+		{
+			this.y = DrawHelper.vertical1Fourth;
+		}
+		else if (position == 2)
+		{
+			this.y = DrawHelper.verticalCenter;
+		}
+		else if (position == 3)
+		{
+			this.y = DrawHelper.vertical3Fourths;
+		}
+		
+		addChild(hole);
 	}
 	
 }
