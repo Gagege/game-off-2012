@@ -24,7 +24,8 @@ class BoxHatchSubView extends Sprite
 	
 	public function deliverBox(box:BoxSubView):Void 
 	{
-		openDoors();
+		addChild(box);
+		openDoors(5, box);
 	}
 	
 	private function drawHatch(position:Int):Void 
@@ -79,10 +80,10 @@ class BoxHatchSubView extends Sprite
 		addChild(bottomDoor);
 	}
 	
-	private function openDoors():Void 
+	private function openDoors(delay:Float, box:BoxSubView):Void 
 	{
-		Actuate.tween(topDoor, 1, {y: topDoor.y - (hatchWidth / 2)});
-		Actuate.tween(bottomDoor, 1, {y: bottomDoor.y + (hatchWidth / 2)});
+		Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
+		Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
 	}
 	
 	private function closeDoors():Void 

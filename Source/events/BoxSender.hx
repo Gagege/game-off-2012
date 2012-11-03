@@ -15,7 +15,6 @@ class BoxSender extends EventDispatcher
 	{
 		var resource = new Resource("1 Lithium", 1, ResourceType.Lithium);
 		
-		trace("Trying to send box of " + resource.name + ".");
 		var event = new SendBox(resource, "SendBox");
 		dispatchEvent(event);
 	}
