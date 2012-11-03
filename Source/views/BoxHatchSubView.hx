@@ -82,7 +82,7 @@ class BoxHatchSubView extends Sprite
 	
 	private function openDoors(delay:Float, box:BoxSubView):Void 
 	{
-		Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
+		Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay).onUpdate(box.changeBoxColor);
 		Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
 	}
 	

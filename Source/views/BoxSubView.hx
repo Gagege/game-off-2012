@@ -1,6 +1,7 @@
 package views;
 
 import haxe.Timer;
+import nme.geom.ColorTransform;
 import nme.Lib;
 import models.Resource;
 import nme.display.Sprite;
@@ -25,10 +26,9 @@ class BoxSubView extends Sprite
 		
 		drawBox(defaultColor);
 		fadeBoxIn(7);
-		changeBoxColor();
 	}
 	
-	private function changeBoxColor():Void 
+	public function changeBoxColor():Void 
 	{
 		var boxColor:Int = 0;
 		switch(resource.type)
@@ -40,8 +40,9 @@ class BoxSubView extends Sprite
 			case ResourceType.Uranium:
 				boxColor = uraniumColor;
 		}
+		
 		drawBox(boxColor);
-		fadeBoxIn(0.5, 5);
+		fadeBoxIn(.5, 0);
 	}
 	
 	private function drawBox(fillColor:Int):Void 
