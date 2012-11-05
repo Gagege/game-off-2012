@@ -48,7 +48,15 @@ class PlayView extends Sprite
 	
 	public function moveBox(goLeft:Bool, inHatch:Int):Void 
 	{
-		
+		switch(inHatch)
+		{
+			case 1:
+				hatch1.moveBox(goLeft);
+			case 2:
+				hatch2.moveBox(goLeft);
+			case 3:
+				hatch3.moveBox(goLeft);
+		}
 	}
 	
 	public function deliverBoxToHatch(hatch:Int, itemInBox:Resource):Void 

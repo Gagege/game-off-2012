@@ -23,19 +23,15 @@ class PlayController
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		boxSender.addEventListener("SendBox", onSendBox);
-		robotEvent.addEventListener("Push", push);
-		robotEvent.addEventListener("Pull", pull);
+		robotEvent.addEventListener("PushPull", pushPull);
 		
 		boxSender.testSend();
 		
 	}
 	
-	private function push(event:RobotMove):Void
+	private function pushPull(event:RobotMove):Void
 	{
-	}
-	
-	private function pull(event:RobotMove):Void
-	{
+		playView.moveBox(event.moveLeft, event.position);
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void

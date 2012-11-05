@@ -11,6 +11,8 @@ import DrawHelper;
 
 class RobotArmSubView extends Sprite
 {
+	public static var pushPullSpeed:Float;
+	
 	private var isRight:Bool;
 	private var rail:Sprite;
 	private var arm:Sprite;
@@ -29,6 +31,8 @@ class RobotArmSubView extends Sprite
 		moving = false;
 		
 		speed = 0.2;
+		
+		pushPullSpeed = speed * 3;
 		
 		position = 2;
 		
@@ -59,7 +63,7 @@ class RobotArmSubView extends Sprite
 			if (arm.x == pushPoint)
 			{
 				firePushEvent();
-				Actuate.tween(arm, speed * 3,
+				Actuate.tween(arm, pushPullSpeed,
 							{ x: newX } )
 						.onComplete(pushDone)
 						.ease(Linear.easeNone);
@@ -93,7 +97,7 @@ class RobotArmSubView extends Sprite
 				if (arm.x == pushPoint)
 				{
 					firePullEvent();
-					Actuate.tween(arm, speed * 3,
+					Actuate.tween(arm, pushPullSpeed,
 								{ x: newX } )
 							.onComplete(setMoving, [false])
 							.ease(Linear.easeNone);
@@ -212,12 +216,22 @@ class RobotArmSubView extends Sprite
 	
 	private function firePushEvent():Void 
 	{
-		PlayController.robotEvent.push(isRight, position);
+		var moveLeft:Bool = false;
+		
+		if (isRight)
+			moveLeft = true;
+			
+		PlayController.robotEvent.pushPull(moveLeft, position);
 	}
 	
 	private function firePullEvent():Void 
 	{
-		PlayController.robotEvent.pull(isRight, position);
+		var moveLeft:Bool = true;
+		
+		if (isRight)
+			moveLeft = false;
+			
+		PlayController.robotEvent.pushPull(moveLeft, position);
 	}
 	
 	private function pushDone():Void 

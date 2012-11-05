@@ -11,6 +11,8 @@ class BoxHatchSubView extends Sprite
 	private var topDoor:Sprite;
 	private var bottomDoor:Sprite;
 	
+	private var currentBox:BoxSubView;
+	
 	private var hatchWidth:Float;
 	
 	public function new(position:Int) 
@@ -22,9 +24,20 @@ class BoxHatchSubView extends Sprite
 		drawHatch(position);
 	}
 	
+	public function moveBox(goLeft:Bool):Void 
+	{
+		var boxDestroyed:Bool;
+		boxDestroyed = currentBox.move(goLeft);
+		if (boxDestroyed)
+		{
+			Actuate.timer(2).onComplete(removeOldBox);
+		}
+	}
+	
 	public function deliverBox(box:BoxSubView):Void 
 	{
-		addChild(box);
+		currentBox = box;
+		addChild(currentBox);
 		openDoors(5, box);
 	}
 	
@@ -91,6 +104,12 @@ class BoxHatchSubView extends Sprite
 	{
 		Actuate.tween(topDoor, 1, {y: topDoor.y + (hatchWidth / 2)});
 		Actuate.tween(bottomDoor, 1, {y: bottomDoor.y - (hatchWidth / 2)});
+	}
+	
+	private function removeOldBox():Void 
+	{
+		removeChild(currentBox);
+		currentBox = null;
 	}
 	
 }

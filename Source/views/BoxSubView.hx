@@ -6,6 +6,7 @@ import nme.Lib;
 import models.Resource;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
+import com.eclecticdesignstudio.motion.easing.Linear;
 
 class BoxSubView extends Sprite
 {
@@ -15,6 +16,7 @@ class BoxSubView extends Sprite
 	private var plutoniumColor:Int = 0x00E6A1;
 	private var uraniumColor:Int = 0xB8E600;
 	private var boxWidth:Float;
+	private var moving:Bool;
 	
 	public function new(itemInBox:Resource) 
 	{
@@ -24,8 +26,38 @@ class BoxSubView extends Sprite
 		
 		boxWidth = Lib.current.stage.stageWidth * .08;
 		
+		moving = false;
+		
 		drawBox(defaultColor);
 		fadeBoxIn(7);
+	}
+	
+	public function move(goLeft:Bool):Bool
+	{
+		var destroyed:Bool;
+		if (!moving)
+		{
+			moving = true;
+			var newX:Float = x + (Lib.current.stage.stageWidth * 0.1);
+			if (goLeft)
+			{
+				newX = x - (Lib.current.stage.stageWidth * 0.1);
+			}
+			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { x: newX } )
+				.ease(Linear.easeNone)
+				.onComplete(setMoving, [false]);
+			
+			destroyed = false;
+		}
+		else
+		{
+			Actuate.stop(this);
+			moving = false;
+			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { scaleX: 0 } );
+			
+			destroyed = true;
+		}
+		return destroyed;
 	}
 	
 	public function changeBoxColor():Void 
@@ -59,6 +91,11 @@ class BoxSubView extends Sprite
 	private function fadeBoxIn(speed:Float, delay:Float = 0):Void
 	{
 		Actuate.tween(this, speed, { alpha: 1 } ).delay(delay);
+	}
+	
+	private function setMoving(isMoving:Bool)
+	{
+		moving = isMoving;
 	}
 	
 }
