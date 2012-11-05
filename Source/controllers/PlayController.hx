@@ -17,18 +17,20 @@ class PlayController
 		playView = new PlayView();
 		Lib.current.addChild(playView);
 		
+		var sender = new BoxEvents();
+		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		sender.addEventListener("SendBox", onSendBox);
 		
-		BoxEvents.testSend();
+		sender.testSend();
 	}
 	
-	public function push(player:Int, position:Int):Void
+	public static function push(player:Int, position:Int):Void
 	{
 		
 	}
 	
-	public function pull(player:Int, position:Int):Void
+	public static function pull(player:Int, position:Int):Void
 	{
 		
 	}

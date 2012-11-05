@@ -11,7 +11,7 @@ class BoxEvents extends EventDispatcher
 		super();
 	}
 	
-	public static function testSend():Void
+	public function testSend():Void
 	{
 		var resource = new Resource("1 Plutonium", 1, ResourceType.Plutonium);
 		var event1 = new SendBox(resource, 1, "SendBox");

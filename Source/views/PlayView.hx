@@ -14,8 +14,8 @@ import controllers.PlayController;
 
 class PlayView extends Sprite
 {
-	var player1View:PlayerSubView;
-    var player2View:PlayerSubView;
+	var player1:PlayerSubView;
+    var player2:PlayerSubView;
 	var hatch1:BoxHatchSubView;
 	var hatch2:BoxHatchSubView;
 	var hatch3:BoxHatchSubView;
@@ -66,25 +66,13 @@ class PlayView extends Sprite
 		switch(command)
 		{
 			case Right:
-				(player == 1) ? 
-					hatchPushed = player1.robotForward() : hatchPulled = player2.robotBack();
+				(player == 1) ? player1.robotForward() : player2.robotBack();
 			case Left:
-				(player == 1) ? 
-					hatchPulled = player1.robotBack() : hatchPushed = player2.robotForward();
+				(player == 1) ? player1.robotBack() : player2.robotForward();
 			case Up:
 				(player == 1) ? player1.robotUp() : player2.robotUp();
 			case Down:
 				(player == 1) ? player1.robotDown() : player2.robotDown();
-		}
-		
-		if (hatchPush != 0)
-		{
-			PlayController.push(player, hatchPush);
-		}
-		
-		if (hatchPull != 0)
-		{
-			PlayController.pull(player, hatchPull);
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package views;
 
 import nme.Lib;
+import events.RobotEvent;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
 
@@ -42,15 +43,26 @@ class RobotArmSubView extends Sprite
 		{
 			moving = true;
 			var newX = arm.x + (Lib.current.stage.stageWidth * 0.1);
+			var pushPoint = homeX + (Lib.current.stage.stageWidth * 0.1);
 			
 			if (isRight)
 			{
 				newX = arm.x - (Lib.current.stage.stageWidth * 0.1);
+				pushPoint = homeX - (Lib.current.stage.stageWidth * 0.1);
 			}
 			
-			Actuate.tween(arm, speed,
-					{ x: newX } )
-					.onComplete(setMoving, [false]);
+			if (arm.x == pushPoint)
+			{
+				Actuate.tween(arm, speed * 3,
+						{ x: newX } )
+						.onComplete(firePushEvent);
+			}
+			else
+			{
+				Actuate.tween(arm, speed,
+						{ x: newX } )
+						.onComplete(setMoving, [false]);
+			}
 		}
 	}
 	
@@ -58,16 +70,32 @@ class RobotArmSubView extends Sprite
 	{
 		if (!moving)
 		{
-			moving = true;
-			var newX = arm.x - (Lib.current.stage.stageWidth * 0.1);
-			if (isRight)
+			if (arm.x != homeX) //if robot is home, don't move back
 			{
-				newX = arm.x + (Lib.current.stage.stageWidth * 0.1);
+				moving = true;
+				var newX = arm.x - (Lib.current.stage.stageWidth * 0.1);
+				var pushPoint = homeX + (Lib.current.stage.stageWidth * 0.1);
+				
+				if (isRight)
+				{
+					newX = arm.x + (Lib.current.stage.stageWidth * 0.1);
+					pushPoint = homeX - (Lib.current.stage.stageWidth * 0.1);
+				}
+				
+				
+				if (arm.x == pushPoint)
+				{
+					Actuate.tween(arm, speed * 3,
+							{ x: newX } )
+							.onComplete(firePullEvent);
+				}
+				else
+				{
+					Actuate.tween(arm, speed,
+							{ x: newX } )
+							.onComplete(setMoving, [false]);
+				}
 			}
-			
-			Actuate.tween(arm, speed,
-					{ x: newX } )
-					.onComplete(setMoving, [false]);
 		}
 	}
 	
@@ -169,4 +197,21 @@ class RobotArmSubView extends Sprite
 		moving = isMoving;
 	}
 	
+	private function firePushEvent():Void 
+	{
+		Actuate.tween(arm, speed, { x: homeX } )
+				.onComplete(setMoving, [false]);
+				
+		var event = new RobotEvent();
+		event.push(isRight);
+	}
+	
+	private function firePullEvent():Void 
+	{
+		Actuate.tween(arm, speed, { x: homeX } )
+				.onComplete(setMoving, [false]);
+				
+		var event = new RobotEvent();
+		event.pull(isRight);
+	}
 }
