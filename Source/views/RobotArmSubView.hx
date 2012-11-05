@@ -4,6 +4,7 @@ import nme.Lib;
 import events.RobotEvent;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
+import com.eclecticdesignstudio.motion.easing.Linear;
 
 import DrawHelper;
 
@@ -54,8 +55,9 @@ class RobotArmSubView extends Sprite
 			if (arm.x == pushPoint)
 			{
 				Actuate.tween(arm, speed * 3,
-						{ x: newX } )
-						.onComplete(firePushEvent);
+							{ x: newX } )
+						.onComplete(firePushEvent)
+						.ease(Linear.easeNone);
 			}
 			else
 			{
@@ -86,8 +88,9 @@ class RobotArmSubView extends Sprite
 				if (arm.x == pushPoint)
 				{
 					Actuate.tween(arm, speed * 3,
-							{ x: newX } )
-							.onComplete(firePullEvent);
+								{ x: newX } )
+							.onComplete(firePullEvent)
+							.ease(Linear.easeNone);
 				}
 				else
 				{
