@@ -32,12 +32,10 @@ class PlayController
 	
 	private function push(event:RobotMove):Void
 	{
-		trace(event.fromRight);
 	}
 	
 	private function pull(event:RobotMove):Void
 	{
-		trace(event.fromRight);
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void
