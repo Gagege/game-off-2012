@@ -25,8 +25,6 @@ class PlayController
 		boxSender.addEventListener("SendBox", onSendBox);
 		robotEvent.addEventListener("PushPull", pushPull);
 		
-		boxSender.testSend();
-		
 	}
 	
 	private function pushPull(event:RobotMove):Void
