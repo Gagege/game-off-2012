@@ -50,7 +50,7 @@ class PlayController
 	
 	private function onSendBox(event:SendBox):Void 
 	{
-		playView.deliverBoxToHatch(1, event.resource);
+		playView.deliverBoxToHatch(event.deliverTo, event.resource);
 	}
 }
 	
