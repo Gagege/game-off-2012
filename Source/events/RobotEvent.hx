@@ -11,15 +11,15 @@ class RobotEvent extends EventDispatcher
 		super();
 	}
 	
-	public function push(fromRight:Bool):Void
+	public function push(fromRight:Bool, position:Int):Void
 	{
-		var event = new RobotMove(fromRight, "Push");
+		var event = new RobotMove(fromRight, position, "Push");
 		dispatchEvent(event);
 	}
 	
-	public function pull(fromRight:Bool):Void
+	public function pull(fromRight:Bool, position:Int):Void
 	{
-		var event = new RobotMove(fromRight, "Pull");
+		var event = new RobotMove(fromRight, position, "Pull");
 		dispatchEvent(event);
 	}
 	
