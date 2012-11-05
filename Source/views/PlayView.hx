@@ -46,6 +46,11 @@ class PlayView extends Sprite
 		drawBorder();
 	}
 	
+	public function moveBox(goLeft:Bool, inHatch:Int):Void 
+	{
+		
+	}
+	
 	public function deliverBoxToHatch(hatch:Int, itemInBox:Resource):Void 
 	{
 		switch(hatch)
