@@ -13,13 +13,13 @@ class RobotEvent extends EventDispatcher
 	
 	public function push(fromRight:Bool):Void
 	{
-		var event = new RobotMove(fromRight, "push");
+		var event = new RobotMove(fromRight, "Push");
 		dispatchEvent(event);
 	}
 	
 	public function pull(fromRight:Bool):Void
 	{
-		var event = new RobotMove(fromRight, "pull");
+		var event = new RobotMove(fromRight, "Pull");
 		dispatchEvent(event);
 	}
 	

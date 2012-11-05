@@ -1,5 +1,6 @@
 package views;
 
+import controllers.PlayController;
 import nme.Lib;
 import events.RobotEvent;
 import nme.display.Sprite;
@@ -54,9 +55,10 @@ class RobotArmSubView extends Sprite
 			
 			if (arm.x == pushPoint)
 			{
+				firePushEvent();
 				Actuate.tween(arm, speed * 3,
 							{ x: newX } )
-						.onComplete(firePushEvent)
+						.onComplete(pushDone)
 						.ease(Linear.easeNone);
 			}
 			else
@@ -87,9 +89,10 @@ class RobotArmSubView extends Sprite
 				
 				if (arm.x == pushPoint)
 				{
+					firePullEvent();
 					Actuate.tween(arm, speed * 3,
 								{ x: newX } )
-							.onComplete(firePullEvent)
+							.onComplete(setMoving, [false])
 							.ease(Linear.easeNone);
 				}
 				else
@@ -202,19 +205,17 @@ class RobotArmSubView extends Sprite
 	
 	private function firePushEvent():Void 
 	{
-		Actuate.tween(arm, speed, { x: homeX } )
-				.onComplete(setMoving, [false]);
-				
-		var event = new RobotEvent();
-		event.push(isRight);
+		PlayController.robotEvent.push(isRight);
 	}
 	
 	private function firePullEvent():Void 
 	{
+		PlayController.robotEvent.pull(isRight);
+	}
+	
+	private function pushDone():Void 
+	{
 		Actuate.tween(arm, speed, { x: homeX } )
 				.onComplete(setMoving, [false]);
-				
-		var event = new RobotEvent();
-		event.pull(isRight);
 	}
 }

@@ -1,7 +1,9 @@
 package controllers;
 
 import events.BoxEvents;
+import events.RobotEvent;
 import events.SendBox;
+import events.RobotMove;
 import nme.events.Event;
 import nme.Lib;
 import nme.events.KeyboardEvent;
@@ -11,28 +13,31 @@ import views.PlayView;
 class PlayController 
 {
 	var playView:PlayView;
+	public static var boxSender:BoxEvents = new BoxEvents();
+	public static var robotEvent:RobotEvent = new RobotEvent();
 	
 	public function new() 
 	{
 		playView = new PlayView();
 		Lib.current.addChild(playView);
 		
-		var sender = new BoxEvents();
-		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-		sender.addEventListener("SendBox", onSendBox);
+		boxSender.addEventListener("SendBox", onSendBox);
+		robotEvent.addEventListener("Push", push);
+		robotEvent.addEventListener("Pull", pull);
 		
-		sender.testSend();
-	}
-	
-	public static function push(player:Int, position:Int):Void
-	{
+		boxSender.testSend();
 		
 	}
 	
-	public static function pull(player:Int, position:Int):Void
+	private function push(event:RobotMove):Void
 	{
-		
+		trace(event.fromRight);
+	}
+	
+	private function pull(event:RobotMove):Void
+	{
+		trace(event.fromRight);
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void
