@@ -26,11 +26,14 @@ class BoxHatchSubView extends Sprite
 	
 	public function moveBox(goLeft:Bool):Void 
 	{
-		var boxDestroyed:Bool;
-		boxDestroyed = currentBox.move(goLeft);
-		if (boxDestroyed)
+		if (currentBox != null)
 		{
-			Actuate.timer(2).onComplete(removeOldBox);
+			var boxDestroyed:Bool;
+			boxDestroyed = currentBox.move(goLeft);
+			if (boxDestroyed)
+			{
+				Actuate.timer(2).onComplete(removeOldBox);
+			}
 		}
 	}
 	
