@@ -3,7 +3,7 @@ package events;
 import models.Resource;
 import nme.events.EventDispatcher;
 
-class BoxSender extends EventDispatcher
+class BoxEvents extends EventDispatcher
 {
 
 	public function new() 
@@ -11,7 +11,7 @@ class BoxSender extends EventDispatcher
 		super();
 	}
 	
-	public function testSend():Void
+	public static function testSend():Void
 	{
 		var resource = new Resource("1 Plutonium", 1, ResourceType.Plutonium);
 		var event1 = new SendBox(resource, 1, "SendBox");

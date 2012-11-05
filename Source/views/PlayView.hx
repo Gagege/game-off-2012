@@ -23,6 +23,7 @@ class PlayView extends Sprite
 	public function new() 
 	{
 		super();
+		
 		Lib.current.stage.align = StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		
@@ -32,15 +33,15 @@ class PlayView extends Sprite
 		hatch2 = new BoxHatchSubView(2);
 		hatch3 = new BoxHatchSubView(3);
 		
-		player1View = new PlayerSubView(1);
-		player2View = new PlayerSubView(2);
+		player1 = new PlayerSubView(1);
+		player2 = new PlayerSubView(2);
 		
 		addChild(hatch1);
 		addChild(hatch2);
 		addChild(hatch3);
 		
-		addChild(player1View);
-		addChild(player2View);
+		addChild(player1);
+		addChild(player2);
 		
 		drawBorder();
 	}
@@ -60,17 +61,31 @@ class PlayView extends Sprite
 	
 	public function playerMotion(player:Int, command:Command):Void
 	{
-			switch(command)
-			{
-				case Right:
-					(player == 1) ? player1View.robotForward() : player2View.robotBack();
-				case Left:
-					(player == 1) ? player1View.robotBack() : player2View.robotForward();
-				case Up:
-					(player == 1) ? player1View.robotUp() : player2View.robotUp();
-				case Down:
-					(player == 1) ? player1View.robotDown() : player2View.robotDown();
-			}
+		var hatchPushed:Int = 0;
+		var hatchPulled:Int = 0;
+		switch(command)
+		{
+			case Right:
+				(player == 1) ? 
+					hatchPushed = player1.robotForward() : hatchPulled = player2.robotBack();
+			case Left:
+				(player == 1) ? 
+					hatchPulled = player1.robotBack() : hatchPushed = player2.robotForward();
+			case Up:
+				(player == 1) ? player1.robotUp() : player2.robotUp();
+			case Down:
+				(player == 1) ? player1.robotDown() : player2.robotDown();
+		}
+		
+		if (hatchPush != 0)
+		{
+			PlayController.push(player, hatchPush);
+		}
+		
+		if (hatchPull != 0)
+		{
+			PlayController.pull(player, hatchPull);
+		}
 	}
 	
 	private function drawBackground():Void 

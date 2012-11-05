@@ -1,6 +1,6 @@
 package controllers;
 
-import events.BoxSender;
+import events.BoxEvents;
 import events.SendBox;
 import nme.events.Event;
 import nme.Lib;
@@ -17,12 +17,20 @@ class PlayController
 		playView = new PlayView();
 		Lib.current.addChild(playView);
 		
-		var sender = new BoxSender();
-		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		sender.addEventListener("SendBox", onSendBox);
 		
-		sender.testSend();
+		BoxEvents.testSend();
+	}
+	
+	public function push(player:Int, position:Int):Void
+	{
+		
+	}
+	
+	public function pull(player:Int, position:Int):Void
+	{
+		
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void
