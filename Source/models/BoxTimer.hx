@@ -5,18 +5,18 @@ import controllers.PlayController;
 
 class BoxTimer 
 {
+	private var position1Timer:Timer;
 	
 	public function new() 
 	{
 		var firstBox = new Resource();
-		deliverToRandomPosition(firstBox);
-		
+		deliverToPosition(firstBox, 1);
 	}
 	
-	private function deliverToRandomPosition(box:Resource):Void
+	private function deliverToPosition(box:Resource, position:Int):Void
 	{
-		var randomPosition = Math.round(Math.random() * 2) + 1; //Add one, so we never get 0
-		PlayController.boxSender.send(box, randomPosition);
+		PlayController.boxSender.send(box, position);
+		PlayController.boxSender.remove(position);
 	}
 	
 }

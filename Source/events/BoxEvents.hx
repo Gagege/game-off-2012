@@ -17,4 +17,10 @@ class BoxEvents extends EventDispatcher
 		dispatchEvent(event);
 	}
 	
+	public function remove(position:Int):Void
+	{
+		var event = new RemoveBox(position, "RemoveBox");
+		dispatchEvent(event);
+	}
+	
 }

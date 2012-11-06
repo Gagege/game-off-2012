@@ -72,6 +72,19 @@ class PlayView extends Sprite
 		}
 	}
 	
+	public function removeBoxFromHatch(hatch:Int):Void 
+	{
+		switch(hatch)
+		{
+			case 1:
+				hatch1.removeBox();
+			case 2:
+				hatch2.removeBox();
+			case 3:
+				hatch3.removeBox();
+		}
+	}
+	
 	public function playerMotion(player:Int, command:Command):Void
 	{
 		var hatchPushed:Int = 0;

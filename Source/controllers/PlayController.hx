@@ -1,15 +1,16 @@
 package controllers;
 
+import nme.Lib;
+import nme.events.Event;
+import nme.events.KeyboardEvent;
+
+import views.PlayView;
+import models.BoxTimer;
 import events.BoxEvents;
 import events.RobotEvent;
 import events.SendBox;
+import events.RemoveBox;
 import events.RobotMove;
-import models.BoxTimer;
-import nme.events.Event;
-import nme.Lib;
-import nme.events.KeyboardEvent;
-import views.PlayView;
-
 
 class PlayController 
 {
@@ -26,14 +27,10 @@ class PlayController
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		boxSender.addEventListener("SendBox", onSendBox);
+		boxSender.addEventListener("RemoveBox", onRemoveBox);
 		robotEvent.addEventListener("PushPull", pushPull);
 		
 		boxTimer = new BoxTimer();
-	}
-	
-	private function pushPull(event:RobotMove):Void
-	{
-		playView.moveBox(event.moveLeft, event.position);
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void
@@ -62,6 +59,16 @@ class PlayController
 	private function onSendBox(event:SendBox):Void 
 	{
 		playView.deliverBoxToHatch(event.deliverTo, event.resource);
+	}
+	
+	private function onRemoveBox(event:RemoveBox):Void 
+	{
+		playView.removeBoxFromHatch(event.removeFrom);
+	}
+	
+	private function pushPull(event:RobotMove):Void
+	{
+		playView.moveBox(event.moveLeft, event.position);
 	}
 }
 	

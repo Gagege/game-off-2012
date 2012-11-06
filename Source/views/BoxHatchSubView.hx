@@ -39,9 +39,20 @@ class BoxHatchSubView extends Sprite
 	
 	public function deliverBox(box:BoxSubView):Void 
 	{
+		var delay:Float = 5;
 		currentBox = box;
 		addChild(currentBox);
-		openDoors(5, box);
+		openDoors(delay);
+		Actuate.timer(delay).onComplete(box.changeBoxColor);
+	}
+	
+	public function removeBox():Void 
+	{
+		if (currentBox != null)
+		{
+			removeOldBox();
+			closeDoors();
+		}
 	}
 	
 	private function drawHatch(position:Int):Void 
@@ -96,11 +107,10 @@ class BoxHatchSubView extends Sprite
 		addChild(bottomDoor);
 	}
 	
-	private function openDoors(delay:Float, box:BoxSubView):Void 
+	private function openDoors(delay:Float):Void 
 	{
 		Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
 		Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
-		Actuate.timer(delay).onComplete(box.changeBoxColor);
 	}
 	
 	private function closeDoors():Void 
