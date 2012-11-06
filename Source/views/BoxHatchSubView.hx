@@ -10,14 +10,15 @@ class BoxHatchSubView extends Sprite
 	private var hole:Sprite;
 	private var topDoor:Sprite;
 	private var bottomDoor:Sprite;
-	
 	private var currentBox:BoxSubView;
-	
 	private var hatchWidth:Float;
+	private var doorsOpen:Bool;
 	
 	public function new(position:Int) 
 	{
 		super();
+		
+		doorsOpen = false;
 		
 		hatchWidth = Lib.current.stage.stageWidth * 0.1;
 		
@@ -26,13 +27,16 @@ class BoxHatchSubView extends Sprite
 	
 	public function moveBox(goLeft:Bool):Void 
 	{
-		if (currentBox != null)
+		if (doorsOpen)
 		{
-			var boxDestroyed:Bool;
-			boxDestroyed = currentBox.move(goLeft);
-			if (boxDestroyed)
+			if (currentBox != null)
 			{
-				Actuate.timer(2).onComplete(removeOldBox);
+				var boxDestroyed:Bool;
+				boxDestroyed = currentBox.move(goLeft);
+				if (boxDestroyed)
+				{
+					Actuate.timer(2).onComplete(removeOldBox);
+				}
 			}
 		}
 	}
@@ -51,8 +55,8 @@ class BoxHatchSubView extends Sprite
 		if (currentBox != null)
 		{
 			removeOldBox();
-			closeDoors();
 		}
+		closeDoors();
 	}
 	
 	private function drawHatch(position:Int):Void 
@@ -111,12 +115,16 @@ class BoxHatchSubView extends Sprite
 	{
 		Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
 		Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
+		Actuate.timer(delay).onComplete(function() {
+			doorsOpen = true;
+		});
 	}
 	
 	private function closeDoors():Void 
 	{
 		Actuate.tween(topDoor, 1, {y: topDoor.y + (hatchWidth / 2)});
 		Actuate.tween(bottomDoor, 1, {y: bottomDoor.y - (hatchWidth / 2)});
+		doorsOpen = false;
 	}
 	
 	private function removeOldBox():Void 
