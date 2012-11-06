@@ -46,7 +46,7 @@ class BoxHatchSubView extends Sprite
 		var delay:Float = 5;
 		currentBox = box;
 		addChild(currentBox);
-		openDoors(delay);
+		toggleDoors(delay);
 		Actuate.timer(delay).onComplete(box.changeBoxColor);
 	}
 	
@@ -56,7 +56,7 @@ class BoxHatchSubView extends Sprite
 		{
 			removeOldBox();
 		}
-		closeDoors();
+		toggleDoors();
 	}
 	
 	private function drawHatch(position:Int):Void 
@@ -81,7 +81,7 @@ class BoxHatchSubView extends Sprite
 			hatchWidth * 1.1,
 			(hatchWidth * 1.1) / 2
 			);
-			
+				
 		bottomDoor.graphics.clear();
 		bottomDoor.graphics.beginFill(0xAAAAAA, .75);
 		bottomDoor.graphics.drawRect(
@@ -111,20 +111,22 @@ class BoxHatchSubView extends Sprite
 		addChild(bottomDoor);
 	}
 	
-	private function openDoors(delay:Float):Void 
+	private function toggleDoors(delay:Float = 0):Void 
 	{
-		Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
-		Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
-		Actuate.timer(delay).onComplete(function() {
-			doorsOpen = true;
-		});
-	}
-	
-	private function closeDoors():Void 
-	{
-		Actuate.tween(topDoor, 1, {y: topDoor.y + (hatchWidth / 2)});
-		Actuate.tween(bottomDoor, 1, {y: bottomDoor.y - (hatchWidth / 2)});
-		doorsOpen = false;
+		if (doorsOpen)
+		{
+			Actuate.tween(topDoor, 1, { y: 0 } );
+			Actuate.tween(bottomDoor, 1, { y: 0 } );
+			doorsOpen = false;
+		}
+		else
+		{
+			Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
+			Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
+			Actuate.timer(delay).onComplete(function() {
+				doorsOpen = true;
+			});
+		}
 	}
 	
 	private function removeOldBox():Void 
