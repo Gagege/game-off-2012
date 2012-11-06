@@ -6,6 +6,7 @@ import nme.Lib;
 import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.display.Sprite;
+import com.eclecticdesignstudio.motion.Actuate;
 
 import DrawHelper;
 import views.BoxHatchSubView;
@@ -48,14 +49,19 @@ class PlayView extends Sprite
 	
 	public function moveBox(goLeft:Bool, inHatch:Int):Void 
 	{
+		var box:BoxSubView = null;
 		switch(inHatch)
 		{
 			case 1:
-				hatch1.moveBox(goLeft);
+				box = hatch1.getBox();
 			case 2:
-				hatch2.moveBox(goLeft);
+				box = hatch2.getBox();
 			case 3:
-				hatch3.moveBox(goLeft);
+				box = hatch3.getBox();
+		}
+		if (box != null)
+		{
+			slideBox(box, goLeft);
 		}
 	}
 	
@@ -99,6 +105,16 @@ class PlayView extends Sprite
 				(player == 1) ? player1.robotUp() : player2.robotUp();
 			case Down:
 				(player == 1) ? player1.robotDown() : player2.robotDown();
+		}
+	}
+	
+	private function slideBox(box:BoxSubView, goLeft:Bool):Void 
+	{
+		var boxDestroyed:Bool;
+		boxDestroyed = box.move(goLeft);
+		if (boxDestroyed)
+		{
+			Actuate.timer(2).onComplete(removeChild, [box]);
 		}
 	}
 	

@@ -11,6 +11,7 @@ import com.eclecticdesignstudio.motion.easing.Linear;
 class BoxSubView extends Sprite
 {
 	public var resource(default, null):Resource;
+	public var pushed(default, null):Bool;
 	private var defaultColor:Int = 0xAAAAAA;
 	private var lithiumColor:Int = 0x0045E6;
 	private var plutoniumColor:Int = 0x00E6A1;
@@ -34,7 +35,8 @@ class BoxSubView extends Sprite
 	
 	public function move(goLeft:Bool):Bool
 	{
-		var destroyed:Bool;
+		pushed = true;
+		var destroyed:Bool = false;
 		if (!moving)
 		{
 			moving = true;

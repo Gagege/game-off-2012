@@ -25,20 +25,17 @@ class BoxHatchSubView extends Sprite
 		drawHatch(position);
 	}
 	
-	public function moveBox(goLeft:Bool):Void 
+	public function getBox():BoxSubView
 	{
+		var box:BoxSubView = null;
 		if (doorsOpen)
 		{
 			if (currentBox != null)
 			{
-				var boxDestroyed:Bool;
-				boxDestroyed = currentBox.move(goLeft);
-				if (boxDestroyed)
-				{
-					Actuate.timer(2).onComplete(removeOldBox);
-				}
+				box = currentBox;
 			}
 		}
+		return box;
 	}
 	
 	public function deliverBox(box:BoxSubView):Void 
@@ -131,7 +128,10 @@ class BoxHatchSubView extends Sprite
 	
 	private function removeOldBox():Void 
 	{
-		removeChild(currentBox);
+		if (!currentBox.pushed)
+		{
+			removeChild(currentBox);
+		}
 		currentBox = null;
 	}
 	
