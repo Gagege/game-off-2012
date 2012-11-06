@@ -6,11 +6,19 @@ class Resource
 	public var quantity(default, null):Int;
 	public var type(default, null):ResourceType;
 
-	public function new(resourceName:String, resourceQuantity:Int, resourceType:ResourceType)
+	// Running this default constructor gets a random box
+	public function new()
 	{
-		name = resourceName;
-		quantity = resourceQuantity;
-		type = resourceType;
+		switch(Math.round(Math.random() * 2))
+		{
+			case 0: type = ResourceType.Lithium;
+			case 1: type = ResourceType.Plutonium;
+			case 2: type = ResourceType.Uranium;
+		}
+		
+		quantity = Math.round(Math.random() * 2) + 1; //Add one, so we never get 0
+		
+		name = quantity + " " + type;
 	}
 }
 

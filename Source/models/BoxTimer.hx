@@ -1,20 +1,22 @@
 package models;
 
 import haxe.Timer;
+import controllers.PlayController;
 
 class BoxTimer 
 {
-	var private position1:Resource;
-	var private position2:Resource;
-	var private position3:Resource;
-	
-	var private position1Timer:Timer;
-	var private position2Timer:Timer;
-	var private position3Timer:Timer;
 	
 	public function new() 
 	{
+		var firstBox = new Resource();
+		deliverToRandomPosition(firstBox);
 		
+	}
+	
+	private function deliverToRandomPosition(box:Resource):Void
+	{
+		var randomPosition = Math.round(Math.random() * 2) + 1; //Add one, so we never get 0
+		PlayController.boxSender.send(box, randomPosition);
 	}
 	
 }

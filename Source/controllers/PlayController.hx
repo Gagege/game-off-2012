@@ -4,6 +4,7 @@ import events.BoxEvents;
 import events.RobotEvent;
 import events.SendBox;
 import events.RobotMove;
+import models.BoxTimer;
 import nme.events.Event;
 import nme.Lib;
 import nme.events.KeyboardEvent;
@@ -13,6 +14,8 @@ import views.PlayView;
 class PlayController 
 {
 	var playView:PlayView;
+	var boxTimer:BoxTimer;
+	
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
 	
@@ -25,6 +28,7 @@ class PlayController
 		boxSender.addEventListener("SendBox", onSendBox);
 		robotEvent.addEventListener("PushPull", pushPull);
 		
+		boxTimer = new BoxTimer();
 	}
 	
 	private function pushPull(event:RobotMove):Void
