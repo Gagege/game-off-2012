@@ -59,6 +59,9 @@ class PlayView extends Sprite
 		{
 			case 1:
 				box = hatch1.getBox();
+				// the following if else is for when both robots want to push or pull a
+				// single box. If the hatch doesn't have the box then we get the box
+				// from the temporary storage, (topBox, middleBox, or bottomBox).
 				if (box == null)
 					box = topBox;
 				else
