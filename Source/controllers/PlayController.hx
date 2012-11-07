@@ -11,6 +11,7 @@ import events.RobotEvent;
 import events.SendBox;
 import events.RemoveBox;
 import events.RobotMove;
+import events.BoxPushed;
 
 class PlayController 
 {
@@ -28,7 +29,8 @@ class PlayController
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		boxSender.addEventListener("SendBox", onSendBox);
 		boxSender.addEventListener("RemoveBox", onRemoveBox);
-		robotEvent.addEventListener("PushPull", pushPull);
+		boxSender.addEventListener("BoxPushed", onBoxPushed);
+		robotEvent.addEventListener("PushPull", onPushPull);
 		
 		boxTimer = new BoxTimer();
 	}
@@ -66,9 +68,14 @@ class PlayController
 		playView.removeBoxFromHatch(event.removeFrom);
 	}
 	
-	private function pushPull(event:RobotMove):Void
+	private function onPushPull(event:RobotMove):Void
 	{
 		playView.moveBox(event.moveLeft, event.position);
+	}
+	
+	private function onBoxPushed(event:BoxPushed):Void 
+	{
+		playView.absorbResource(event.resource, event.toLeft);
 	}
 }
 	

@@ -142,6 +142,18 @@ class PlayView extends Sprite
 		}
 	}
 	
+	public function absorbResource(resource:Resource, toLeft:Bool):Void 
+	{
+		if (toLeft)
+		{
+			player1.absorbResource(resource);
+		}
+		else
+		{
+			player2.absorbResource(resource);
+		}
+	}
+	
 	private function slideBox(box:BoxSubView, goLeft:Bool):Void 
 	{
 		var boxDestroyed:Bool;

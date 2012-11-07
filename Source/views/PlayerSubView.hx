@@ -1,5 +1,7 @@
 package views;
 
+import models.Player;
+import models.Resource;
 import nme.display.Sprite;
 import nme.display.GradientType;
 import nme.Lib;
@@ -10,6 +12,7 @@ import controllers.PlayController;
 class PlayerSubView extends Sprite
 {	
 	var robotArm:RobotArmSubView;
+	private var model:Player;
 	
 	public function new(player:Int) 
 	{
@@ -38,6 +41,11 @@ class PlayerSubView extends Sprite
 		robotArm.down();
 	}
 	
+	public function absorbResource(resource:Resource):Void 
+	{
+		model.addResource(resource);
+	}
+	
 	private function initialize(player:Int):Void
 	{
 		drawField(player);
@@ -51,6 +59,8 @@ class PlayerSubView extends Sprite
 		{
 			isRight = false;
 		}
+		
+		model = new Player(player);
 		
 		robotArm = new RobotArmSubView(isRight);
 		addChild(robotArm);
