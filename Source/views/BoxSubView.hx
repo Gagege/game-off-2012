@@ -4,6 +4,7 @@ import haxe.Timer;
 import nme.geom.ColorTransform;
 import nme.Lib;
 import models.Resource;
+import controllers.PlayController;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
 import com.eclecticdesignstudio.motion.easing.Linear;
@@ -47,7 +48,8 @@ class BoxSubView extends Sprite
 			}
 			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { x: newX } )
 				.ease(Linear.easeNone)
-				.onComplete(setMoving, [false]);
+				.onComplete(setMoving, [false])
+				.onComplete(PlayController.boxSender.pushed(resource, goLeft));
 			
 			destroyed = false;
 		}
