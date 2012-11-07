@@ -23,4 +23,9 @@ class BoxEvents extends EventDispatcher
 		dispatchEvent(event);
 	}
 	
+	public function pushed(resource:Resource, toLeft:Bool):Void 
+	{
+		var event = new BoxPushed(resource, toLeft, "BoxPushed");
+		dispatchEvent(event);
+	}
 }
