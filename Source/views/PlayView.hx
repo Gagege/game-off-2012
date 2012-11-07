@@ -70,10 +70,13 @@ class PlayView extends Sprite
 		
 		if (box != null)
 		{
-			//realign copy of box with hatch
-			box.x = box.x + hatchX;
-			box.y = box.y + hatchY;
-			addChild(box);
+			if (!box.pushed)
+			{
+				//realign copy of box with hatch
+				box.x = box.x + hatchX;
+				box.y = box.y + hatchY;
+				addChild(box);
+			}
 			slideBox(box, goLeft);
 		}
 	}

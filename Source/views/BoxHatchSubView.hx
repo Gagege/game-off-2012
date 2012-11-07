@@ -34,7 +34,7 @@ class BoxHatchSubView extends Sprite
 			if (currentBox != null)
 			{
 				box = currentBox;
-				removeOldBox();
+				currentBox.alpha = 0;
 			}
 		}
 		return box;
@@ -130,7 +130,10 @@ class BoxHatchSubView extends Sprite
 	
 	private function removeOldBox():Void 
 	{
-		removeChild(currentBox);
+		if (currentBox != null)
+		{
+			removeChild(currentBox);
+		}
 		currentBox = null;
 	}
 	
