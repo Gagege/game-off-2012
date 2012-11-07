@@ -20,6 +20,9 @@ class PlayView extends Sprite
 	var hatch1:BoxHatchSubView;
 	var hatch2:BoxHatchSubView;
 	var hatch3:BoxHatchSubView;
+	var topBox:BoxSubView;
+	var middleBox:BoxSubView;
+	var bottomBox:BoxSubView;
 	
 	public function new() 
 	{
@@ -56,14 +59,26 @@ class PlayView extends Sprite
 		{
 			case 1:
 				box = hatch1.getBox();
+				if (box == null)
+					box = topBox;
+				else
+					topBox = box;
 				hatchX = hatch1.x;
 				hatchY = hatch1.y;
 			case 2:
 				box = hatch2.getBox();
+				if (box == null)
+					box = middleBox;
+				else
+					middleBox = box;
 				hatchX = hatch2.x;
 				hatchY = hatch2.y;
 			case 3:
 				box = hatch3.getBox();
+				if (box == null)
+					box = bottomBox;
+				else
+					bottomBox = box;
 				hatchX = hatch3.x;
 				hatchY = hatch3.y;
 		}

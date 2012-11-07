@@ -1,5 +1,6 @@
 package views;
 
+import haxe.Timer;
 import nme.Lib;
 import nme.display.Sprite;
 import nme.display.DisplayObject;
@@ -34,7 +35,7 @@ class BoxHatchSubView extends Sprite
 			if (currentBox != null)
 			{
 				box = currentBox;
-				currentBox.alpha = 0;
+				removeBox();
 			}
 		}
 		return box;
@@ -45,7 +46,7 @@ class BoxHatchSubView extends Sprite
 		var delay:Float = 5;
 		currentBox = box;
 		addChild(currentBox);
-		toggleDoors(delay);
+		openDoors(delay);
 		Actuate.timer(delay).onComplete(box.changeBoxColor);
 	}
 	
@@ -54,8 +55,8 @@ class BoxHatchSubView extends Sprite
 		if (currentBox != null)
 		{
 			removeOldBox();
+			closeDoors();
 		}
-		toggleDoors();
 	}
 	
 	private function drawHatch(position:Int):Void 
@@ -110,30 +111,25 @@ class BoxHatchSubView extends Sprite
 		addChild(bottomDoor);
 	}
 	
-	private function toggleDoors(delay:Float = 0):Void 
+	private function closeDoors():Void
 	{
-		if (doorsOpen)
-		{
-			Actuate.tween(topDoor, 1, { y: 0 } );
-			Actuate.tween(bottomDoor, 1, { y: 0 } );
-			doorsOpen = false;
-		}
-		else
-		{
-			Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
-			Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
-			Actuate.timer(delay).onComplete(function() {
-				doorsOpen = true;
-			});
-		}
+		Actuate.tween(topDoor, 1, { y: 0 } );
+		Actuate.tween(bottomDoor, 1, { y: 0 } );
+		doorsOpen = false;
+	}
+	
+	private function openDoors(delay:Float = 0):Void 
+	{
+		Actuate.tween(topDoor, 1, { y: topDoor.y - (hatchWidth / 2) } ).delay(delay);
+		Actuate.tween(bottomDoor, 1, { y: bottomDoor.y + (hatchWidth / 2) } ).delay(delay);
+		Actuate.timer(delay).onComplete(function() {
+			doorsOpen = true;
+		});
 	}
 	
 	private function removeOldBox():Void 
 	{
-		if (currentBox != null)
-		{
-			removeChild(currentBox);
-		}
+		removeChild(currentBox);
 		currentBox = null;
 	}
 	
