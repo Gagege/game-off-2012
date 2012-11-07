@@ -2,6 +2,7 @@ package views;
 
 import nme.Lib;
 import nme.display.Sprite;
+import nme.display.DisplayObject;
 import com.eclecticdesignstudio.motion.Actuate;
 
 class BoxHatchSubView extends Sprite
@@ -33,6 +34,7 @@ class BoxHatchSubView extends Sprite
 			if (currentBox != null)
 			{
 				box = currentBox;
+				removeOldBox();
 			}
 		}
 		return box;
@@ -128,10 +130,7 @@ class BoxHatchSubView extends Sprite
 	
 	private function removeOldBox():Void 
 	{
-		if (!currentBox.pushed)
-		{
-			removeChild(currentBox);
-		}
+		removeChild(currentBox);
 		currentBox = null;
 	}
 	

@@ -50,17 +50,30 @@ class PlayView extends Sprite
 	public function moveBox(goLeft:Bool, inHatch:Int):Void 
 	{
 		var box:BoxSubView = null;
+		var hatchX:Float = 0;
+		var hatchY:Float = 0;
 		switch(inHatch)
 		{
 			case 1:
 				box = hatch1.getBox();
+				hatchX = hatch1.x;
+				hatchY = hatch1.y;
 			case 2:
 				box = hatch2.getBox();
+				hatchX = hatch2.x;
+				hatchY = hatch2.y;
 			case 3:
 				box = hatch3.getBox();
+				hatchX = hatch3.x;
+				hatchY = hatch3.y;
 		}
+		
 		if (box != null)
 		{
+			//realign copy of box with hatch
+			box.x = box.x + hatchX;
+			box.y = box.y + hatchY;
+			addChild(box);
 			slideBox(box, goLeft);
 		}
 	}
