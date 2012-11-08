@@ -12,6 +12,10 @@ class Player
 	public function new(playerNumber:Int) 
 	{
 		number = playerNumber;
+		lithium = 0;
+		plutonium = 0;
+		uranium = 0;
+		money = 0;
 	}
 	
 	public function addResource(resource:Resource):Void 

@@ -43,11 +43,14 @@ class BoxHatchSubView extends Sprite
 	
 	public function deliverBox(box:BoxSubView):Void 
 	{
-		var delay:Float = 5;
-		currentBox = box;
-		addChild(currentBox);
-		openDoors(delay);
-		Actuate.timer(delay).onComplete(box.changeBoxColor);
+		if (currentBox == null)
+		{
+			var delay:Float = 5;
+			currentBox = box;
+			addChild(currentBox);
+			openDoors(delay);
+			Actuate.timer(delay).onComplete(box.changeBoxColor);
+		}
 	}
 	
 	public function removeBox():Void 
