@@ -157,11 +157,8 @@ class PlayView extends Sprite
 	private function slideBox(box:BoxSubView, goLeft:Bool):Void 
 	{
 		var boxDestroyed:Bool;
-		boxDestroyed = box.move(goLeft);
-		if (boxDestroyed)
-		{
-			Actuate.timer(2).onComplete(removeChild, [box]);
-		}
+		box.move(goLeft);
+		Actuate.timer(2).onComplete(removeChild, [box]);
 	}
 	
 	private function drawBackground():Void 

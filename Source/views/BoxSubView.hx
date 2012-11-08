@@ -1,6 +1,7 @@
 package views;
 
 import haxe.Timer;
+import nme.filters.GlowFilter;
 import nme.geom.ColorTransform;
 import nme.Lib;
 import models.Resource;
@@ -34,10 +35,9 @@ class BoxSubView extends Sprite
 		fadeBoxIn(7);
 	}
 	
-	public function move(goLeft:Bool):Bool
+	public function move(goLeft:Bool):Void
 	{
 		pushed = true;
-		var destroyed:Bool = false;
 		if (!moving)
 		{
 			moving = true;
@@ -50,18 +50,13 @@ class BoxSubView extends Sprite
 				.ease(Linear.easeNone)
 				.onComplete(setMoving, [false])
 				.onComplete(PlayController.boxSender.pushed(resource, goLeft));
-			
-			destroyed = false;
 		}
 		else
 		{
 			Actuate.stop(this);
 			moving = false;
 			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { scaleX: 0 } );
-			
-			destroyed = true;
 		}
-		return destroyed;
 	}
 	
 	public function changeBoxColor():Void 
