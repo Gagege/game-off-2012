@@ -70,6 +70,7 @@ class RobotArmSubView extends Sprite
 			}
 			else
 			{
+				trace(newX);
 				Actuate.tween(arm, speed,
 						{ x: newX } )
 						.onComplete(setMoving, [false]);
@@ -104,6 +105,7 @@ class RobotArmSubView extends Sprite
 				}
 				else
 				{
+					trace(newX);
 					Actuate.tween(arm, speed,
 							{ x: newX } )
 							.onComplete(setMoving, [false]);
@@ -125,6 +127,7 @@ class RobotArmSubView extends Sprite
 				position = 1;
 				newY = DrawHelper.vertical1Fourth;
 			}
+			trace(newY);
 			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
 		}
@@ -155,6 +158,7 @@ class RobotArmSubView extends Sprite
 				position = 3;
 				newY = DrawHelper.vertical3Fourths;
 			}
+			trace(newY);
 			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
 		}
@@ -182,6 +186,7 @@ class RobotArmSubView extends Sprite
 		var armSegment = new Sprite();
 		armSegment.graphics.clear();
 		armSegment.graphics.lineStyle(Lib.current.stage.stageHeight * 0.01);
+		if (isRight) armSegmentLength = -armSegmentLength;
 		armSegment.graphics.lineTo(armSegmentLength, 0);
 		
 		var joint = new Sprite();
@@ -194,9 +199,6 @@ class RobotArmSubView extends Sprite
 			
 		arm.addChild(armSegment);
 		arm.addChild(joint);
-		
-		if (isRight)
-			arm.scaleX = arm.scaleX * -1;
 		
 		arm.x = homeX;
 		arm.y = DrawHelper.verticalCenter;
