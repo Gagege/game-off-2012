@@ -20,6 +20,7 @@ class PlayerSubView extends Sprite
 	private var lithiumDisplay:TextField;
 	private var plutoniumDisplay:TextField;
 	private var uraniumDisplay:TextField;
+	private var moneyDisplay:TextField;
 	private var font:Font;
 	private var fontSize:Float;
 	private var format:TextFormat;
@@ -81,6 +82,7 @@ class PlayerSubView extends Sprite
 		addChild(robotArm);
 		
 		drawResourceMessages(player);
+		drawMoneyMessage(player);
 	}
 	
 	private function drawResourceMessages(player:Int):Void
@@ -123,11 +125,35 @@ class PlayerSubView extends Sprite
 		addChild(uraniumDisplay);
 	}
 	
+	private function drawMoneyMessage(player:Int):Void 
+	{
+		var displayX = Lib.current.stage.stageWidth * 0.2;
+		var	displayY = Lib.current.stage.stageHeight * 0.02;
+		
+		moneyDisplay = new TextField();
+		
+		if (player == 2)
+		{
+			displayX = Lib.current.stage.stageWidth * 0.7;
+		}
+		
+		moneyDisplay.x = displayX;
+		moneyDisplay.y = displayY;
+		
+		moneyDisplay.defaultTextFormat = format;
+		moneyDisplay.selectable = false;
+		moneyDisplay.embedFonts = true;
+		
+		moneyDisplay.text = "$0.00";
+		
+		addChild(moneyDisplay);
+	}
+	
 	private function updateField():Void 
 	{
-		
-		lithiumDisplay.text = "Lithium: " + model.lithium;
-		plutoniumDisplay.text = "Plutonium: " + model.plutonium;
-		uraniumDisplay.text = "Uranium: " + model.uranium;
+		moneyDisplay.text = Std.format("$$$model.money");
+		lithiumDisplay.text = Std.format("Lithium: $model.lithium");
+		plutoniumDisplay.text = Std.format("Plutonium: $model.plutonium");
+		uraniumDisplay.text = Std.format("Uranium: $model.uranium");
 	}
 }
