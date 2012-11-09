@@ -70,7 +70,6 @@ class RobotArmSubView extends Sprite
 			}
 			else
 			{
-				trace(newX);
 				Actuate.tween(arm, speed,
 						{ x: newX } )
 						.onComplete(setMoving, [false]);
@@ -105,7 +104,6 @@ class RobotArmSubView extends Sprite
 				}
 				else
 				{
-					trace(newX);
 					Actuate.tween(arm, speed,
 							{ x: newX } )
 							.onComplete(setMoving, [false]);
@@ -127,7 +125,6 @@ class RobotArmSubView extends Sprite
 				position = 1;
 				newY = DrawHelper.vertical1Fourth;
 			}
-			trace(newY);
 			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
 		}
@@ -158,7 +155,6 @@ class RobotArmSubView extends Sprite
 				position = 3;
 				newY = DrawHelper.vertical3Fourths;
 			}
-			trace(newY);
 			Actuate.tween(arm, speed, { y: newY, x: homeX } )
 					.onComplete(setMoving, [false]);
 		}

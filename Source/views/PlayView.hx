@@ -65,7 +65,10 @@ class PlayView extends Sprite
 				if (box == null)
 					box = topBox;
 				else
+				{
+					box.name = "topBox";
 					topBox = box;
+				}
 				hatchX = hatch1.x;
 				hatchY = hatch1.y;
 			case 2:
@@ -73,7 +76,10 @@ class PlayView extends Sprite
 				if (box == null)
 					box = middleBox;
 				else
+				{
+					box.name = "middleBox";
 					middleBox = box;
+				}
 				hatchX = hatch2.x;
 				hatchY = hatch2.y;
 			case 3:
@@ -81,7 +87,10 @@ class PlayView extends Sprite
 				if (box == null)
 					box = bottomBox;
 				else
+				{
+					box.name = "bottomBox";
 					bottomBox = box;
+				}
 				hatchX = hatch3.x;
 				hatchY = hatch3.y;
 		}
@@ -156,9 +165,12 @@ class PlayView extends Sprite
 	
 	private function slideBox(box:BoxSubView, goLeft:Bool):Void 
 	{
-		var boxDestroyed:Bool;
-		box.move(goLeft);
-		Actuate.timer(2).onComplete(removeChild, [box]);
+		var destroyed:Bool = false;
+		destroyed = box.move(goLeft);
+		if (!destroyed)
+		{
+			Actuate.timer(1).onComplete(removeChild, [getChildByName(box.name)]);
+		}
 	}
 	
 	private function drawBackground():Void 

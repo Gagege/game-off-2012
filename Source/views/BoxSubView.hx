@@ -20,6 +20,7 @@ class BoxSubView extends Sprite
 	private var uraniumColor:Int = 0xB8E600;
 	private var boxWidth:Float;
 	private var moving:Bool;
+	var destroyed:Bool;
 	
 	public function new(itemInBox:Resource) 
 	{
@@ -35,11 +36,12 @@ class BoxSubView extends Sprite
 		fadeBoxIn(7);
 	}
 	
-	public function move(goLeft:Bool):Void
+	public function move(goLeft:Bool):Bool
 	{
 		pushed = true;
 		if (!moving)
 		{
+			destroyed = false;
 			moving = true;
 			var newX:Float = x + (Lib.current.stage.stageWidth * 0.1);
 			if (goLeft)
@@ -48,15 +50,18 @@ class BoxSubView extends Sprite
 			}
 			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { x: newX } )
 				.ease(Linear.easeNone)
-				.onComplete(setMoving, [false])
-				.onComplete(PlayController.boxSender.pushed(resource, goLeft));
+				.onComplete(setMoving, [false]);
+			Actuate.timer(RobotArmSubView.pushPullSpeed)
+				.onComplete(firePushedEvent, [goLeft]);
 		}
 		else
 		{
-			Actuate.stop(this);
+			destroyed = true;
+			Actuate.stop(this, null, false, false);
 			moving = false;
-			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { scaleX: 0 } );
+			Actuate.tween(this, RobotArmSubView.pushPullSpeed / 2, { scaleX: 0 } );
 		}
+		return destroyed;
 	}
 	
 	public function changeBoxColor():Void 
@@ -74,6 +79,14 @@ class BoxSubView extends Sprite
 		
 		drawBox(boxColor);
 		fadeBoxIn(.5, 0);
+	}
+	
+	private function firePushedEvent(goLeft:Bool):Void 
+	{
+		if (!destroyed)
+		{
+			PlayController.boxSender.pushed(resource, goLeft);
+		}
 	}
 	
 	private function drawBox(fillColor:Int):Void 
