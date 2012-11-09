@@ -1,8 +1,10 @@
 # Push/Pull Factory
 ... is the working title of a little 2 player game that I'm making.
 
-- [Official Website](http://gageh.us/githubgameoff/2012/) *coming soon*
+- [Official Website](http://gageh.us/githubgameoff/2012/)
 - [Development Blog]( http://blog.gageh.us/?tag=github-gameoff)
+
+![screenshot](http://gageh.us/githubgameoff/2012/images/pushpullscreenshot.png)
 
 [![endorse](http://api.coderwall.com/gagege/endorsecount.png)](http://coderwall.com/gagege)
 
