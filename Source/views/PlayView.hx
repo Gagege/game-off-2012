@@ -169,7 +169,7 @@ class PlayView extends Sprite
 		destroyed = box.move(goLeft);
 		if (!destroyed)
 		{
-			Actuate.timer(1).onComplete(removeChild, [getChildByName(box.name)]);
+			Actuate.timer(.75).onComplete(removeChild, [getChildByName(box.name)]);
 		}
 	}
 	

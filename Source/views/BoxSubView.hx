@@ -57,9 +57,17 @@ class BoxSubView extends Sprite
 		else
 		{
 			destroyed = true;
-			Actuate.stop(this, null, false, false);
 			moving = false;
-			Actuate.tween(this, RobotArmSubView.pushPullSpeed / 2, { scaleX: 0 } );
+			var scale:Float = 0;
+			if ((x < Lib.current.stage.stageWidth / 2 && !goLeft) ||
+				(x > Lib.current.stage.stageWidth / 2 && goLeft))
+			{
+				scale = 3;
+			}
+			Actuate.stop(this, null, false, false);
+			
+			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { scaleX: scale } )
+				.ease(Linear.easeNone);
 		}
 		return destroyed;
 	}
