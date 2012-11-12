@@ -1,6 +1,7 @@
 package views;
 
 import models.Player;
+import models.Order;
 import models.Resource;
 import nme.display.Sprite;
 import nme.display.GradientType;
@@ -24,6 +25,7 @@ class PlayerSubView extends Sprite
 	private var font:Font;
 	private var fontSize:Float;
 	private var format:TextFormat;
+	private var orders:List<Order>;
 	
 	public function new(player:Int) 
 	{
@@ -60,6 +62,10 @@ class PlayerSubView extends Sprite
 	
 	private function initialize(player:Int):Void
 	{
+		orders.add(Order.getRandomOrder());
+		orders.add(Order.getRandomOrder());
+		orders.add(Order.getRandomOrder());
+		
 		fontSize = Lib.current.stage.stageHeight * 0.03;
 		format = new TextFormat (fontSize, 0xFFFFFF);
 		
