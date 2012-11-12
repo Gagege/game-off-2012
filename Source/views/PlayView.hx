@@ -1,6 +1,7 @@
 package views;
 
 import haxe.Public;
+import haxe.Timer;
 import models.Resource;
 import nme.Lib;
 import nme.display.StageAlign;
@@ -169,7 +170,7 @@ class PlayView extends Sprite
 		destroyed = box.move(goLeft);
 		if (!destroyed)
 		{
-			Actuate.timer(.75).onComplete(removeChild, [getChildByName(box.name)]);
+			Timer.delay(callback(deleteBox, box), 1000);
 		}
 	}
 	
@@ -193,6 +194,18 @@ class PlayView extends Sprite
 			Lib.current.stage.stageWidth - 3,
 			Lib.current.stage.stageHeight - 3);
 		addChild(outerBorder);
+	}
+	
+	private function deleteBox(box:BoxSubView):Void
+	{
+		if (box.name == "topBox")
+			topBox = null;
+		else if (box.name == "middleBox") 
+			middleBox = null;
+		else
+			bottomBox = null;
+			
+		removeChild(getChildByName(box.name));
 	}
 	
 }

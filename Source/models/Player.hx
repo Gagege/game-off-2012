@@ -31,4 +31,9 @@ class Player
 		}
 	}
 	
+	public function getFormattedMoney():String
+	{
+		return Std.format("$$${money}");
+	}
+	
 }

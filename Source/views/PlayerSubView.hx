@@ -144,16 +144,16 @@ class PlayerSubView extends Sprite
 		moneyDisplay.selectable = false;
 		moneyDisplay.embedFonts = true;
 		
-		moneyDisplay.text = "$0.00";
+		moneyDisplay.text = model.getFormattedMoney();
 		
 		addChild(moneyDisplay);
 	}
 	
 	private function updateField():Void 
 	{
-		moneyDisplay.text = Std.format("$$$model.money");
-		lithiumDisplay.text = Std.format("Lithium: $model.lithium");
-		plutoniumDisplay.text = Std.format("Plutonium: $model.plutonium");
-		uraniumDisplay.text = Std.format("Uranium: $model.uranium");
+		moneyDisplay.text = model.getFormattedMoney();
+		lithiumDisplay.text = Std.format("Lithium: ${model.lithium}");
+		plutoniumDisplay.text = Std.format("Plutonium: ${model.plutonium}");
+		uraniumDisplay.text = Std.format("Uranium: ${model.uranium}");
 	}
 }
