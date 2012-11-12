@@ -77,11 +77,12 @@ class RobotArmSubView extends Sprite
 		}
 	}
 	
-	public function back():Void
+	public function back():Bool
 	{
-		if (!moving)
+		var moved:Bool = false;
+		if (arm.x != homeX) //if robot is home, don't move back
 		{
-			if (arm.x != homeX) //if robot is home, don't move back
+			if (!moving)
 			{
 				moving = true;
 				var newX = arm.x - (Lib.current.stage.stageWidth * 0.1);
@@ -109,7 +110,9 @@ class RobotArmSubView extends Sprite
 							.onComplete(setMoving, [false]);
 				}
 			}
+			moved = true;
 		}
+		return moved;
 	}
 	
 	public function up():Void

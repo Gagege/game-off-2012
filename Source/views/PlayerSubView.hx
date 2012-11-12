@@ -25,7 +25,8 @@ class PlayerSubView extends Sprite
 	private var font:Font;
 	private var fontSize:Float;
 	private var format:TextFormat;
-	private var orders:List<Order>;
+	private var orders:Array<Order>;
+	private var orderSprites:Array<OrderSubView>;
 	private var orderX:Float;
 	private var firstOrderY:Float;
 	
@@ -43,7 +44,11 @@ class PlayerSubView extends Sprite
 	
 	public function robotBack():Void
 	{
-		robotArm.back();
+		var moved:Bool = robotArm.back();
+		if (!moved)
+		{
+			//select order
+		}
 	}
 	
 	public function robotUp():Void
@@ -64,10 +69,10 @@ class PlayerSubView extends Sprite
 	
 	private function initialize(player:Int):Void
 	{
-		orders = new List<Order>();
-		orders.add(Order.getRandomOrder());
-		orders.add(Order.getRandomOrder());
-		orders.add(Order.getRandomOrder());
+		orders = new Array<Order>();
+		orders.push(Order.getRandomOrder());
+		orders.push(Order.getRandomOrder());
+		orders.push(Order.getRandomOrder());
 		
 		fontSize = Lib.current.stage.stageHeight * 0.03;
 		format = new TextFormat (fontSize, 0xFFFFFF);
@@ -96,16 +101,19 @@ class PlayerSubView extends Sprite
 		drawResourceMessages(player);
 		drawMoneyMessage(player);
 		
+		orderSprites = new Array<OrderSubView>();
 		var orderPositioner:Int = 1;
 		for (order in orders)
 		{
-			var orderSprite:OrderSubView = new OrderSubView(order);
+			var orderSprite:OrderSubView = new OrderSubView(order, isRight);
 			orderSprite.x = orderX;
 			orderSprite.y = firstOrderY + 
 				((orderSprite.height + Lib.current.stage.stageHeight * 0.02) * orderPositioner);
 			addChild(orderSprite);
 			orderPositioner++;
+			orderSprites.push(orderSprite);
 		}
+		orderSprites[2].select(true);
 	}
 	
 	private function drawResourceMessages(player:Int):Void
