@@ -78,8 +78,8 @@ class PlayerSubView extends Sprite
 	private function drawField(player:Int):Void
 	{
 		var isRight = true;
-		orderX = Lib.current.stage.stageWidth * 0.83;
-		firstOrderY = Lib.current.stage.stageHeight * 0.2;
+		orderX = Lib.current.stage.stageWidth * 0.94;
+		firstOrderY = Lib.current.stage.stageHeight * 0.4;
 		
 		if (player == 1)
 		{
@@ -101,7 +101,8 @@ class PlayerSubView extends Sprite
 		{
 			var orderSprite:OrderSubView = new OrderSubView(order);
 			orderSprite.x = orderX;
-			orderSprite.y = firstOrderY + ((orderSprite.height + 10) * orderPositioner);
+			orderSprite.y = firstOrderY + 
+				((orderSprite.height + Lib.current.stage.stageHeight * 0.02) * orderPositioner);
 			addChild(orderSprite);
 			orderPositioner++;
 		}

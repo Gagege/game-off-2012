@@ -3,6 +3,7 @@ package views;
 import models.Order;
 import nme.display.Sprite;
 import nme.Lib;
+import nme.text.TextFormat;
 
 class OrderSubView extends Sprite
 {
@@ -22,8 +23,8 @@ class OrderSubView extends Sprite
 		background.graphics.drawRect(
 			0,
 			0,
-			Lib.current.stage.stageWidth * 0.15,
-			Lib.current.stage.stageHeight * 0.15);
+			Lib.current.stage.stageHeight * 0.05,
+			Lib.current.stage.stageWidth * 0.05);
 		addChild(background);
 	}
 	
@@ -31,14 +32,37 @@ class OrderSubView extends Sprite
 	{
 		var border:Sprite = new Sprite();
 		border.graphics.clear();
-		border.graphics.lineStyle(1, 0xFFFFFF, 0.2);
+		border.graphics.lineStyle(.5, 0xFFFFFF, 0.2);
 		DrawHelper.makeLineRect(
 			border,
 			0,
 			0,
-			Lib.current.stage.stageWidth * 0.15,
-			Lib.current.stage.stageHeight * 0.15);
+			Lib.current.stage.stageHeight * 0.05,
+			Lib.current.stage.stageWidth * 0.05);
 		addChild(border);
+	}
+	
+	private function drawTitle():Void 
+	{
+		var fontSize:Float = Lib.current.stage.stageHeight * 0.01;
+		var format:TextFormat = new TextFormat (fontSize, 0xFFFFFF);
+		
+		
+		var displayX = this.width * 0.2;
+		var	displayY = this.height * 0.02;
+		
+		var title = new TextField();
+		
+		title.x = displayX;
+		title.y = displayY;
+		
+		title.defaultTextFormat = format;
+		title.selectable = false;
+		title.embedFonts = true;
+		
+		title.text = model.getFormattedMoney();
+		
+		addChild(title);
 	}
 	
 	private function initialize(assignedOrder):Void 
@@ -47,6 +71,7 @@ class OrderSubView extends Sprite
 		
 		drawBackground();
 		drawBorder();
+		drawTitle();
 	}
 	
 }
