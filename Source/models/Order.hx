@@ -18,13 +18,15 @@ class Order
 		money = worth;
 	}
 	
-	public static function getRandomOrder():Void 
+	public static function getRandomOrder():Order 
 	{
 		var amountLithium:Int = Math.round(Math.random() * 13);
 		var amountPlutonium:Int = Math.round(Math.random() * 8);
 		var amountUranium:Int = Math.round(Math.random() * 4);
 		
 		var worth:Int = (amountLithium * 10) + (amountPlutonium * 50) + (amountUranium * 100);
+		
+		return new Order("Alpha Inc.", amountLithium, amountPlutonium, amountUranium, worth);
 	}
 	
 }

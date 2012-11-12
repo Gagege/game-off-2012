@@ -10,7 +10,7 @@ class DrawHelper
 	public static var verticalCenter:Float = Lib.current.stage.stageHeight * 0.5;
 	public static var vertical3Fourths:Float = Lib.current.stage.stageHeight * 0.75;
 	
-	public static function makeLineRect(sprite:Sprite, x:Int, y:Int, width:Int, height:Int):Sprite
+	public static function makeLineRect(sprite:Sprite, x:Float, y:Float, width:Float, height:Float):Sprite
 	{
 		sprite.graphics.moveTo(x, y);
 		sprite.graphics.lineTo(width, y);

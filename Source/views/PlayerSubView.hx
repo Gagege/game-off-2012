@@ -26,6 +26,8 @@ class PlayerSubView extends Sprite
 	private var fontSize:Float;
 	private var format:TextFormat;
 	private var orders:List<Order>;
+	private var orderX:Float;
+	private var firstOrderY:Float;
 	
 	public function new(player:Int) 
 	{
@@ -62,6 +64,7 @@ class PlayerSubView extends Sprite
 	
 	private function initialize(player:Int):Void
 	{
+		orders = new List<Order>();
 		orders.add(Order.getRandomOrder());
 		orders.add(Order.getRandomOrder());
 		orders.add(Order.getRandomOrder());
@@ -75,10 +78,13 @@ class PlayerSubView extends Sprite
 	private function drawField(player:Int):Void
 	{
 		var isRight = true;
+		orderX = Lib.current.stage.stageWidth * 0.83;
+		firstOrderY = Lib.current.stage.stageHeight * 0.2;
 		
 		if (player == 1)
 		{
 			isRight = false;
+			orderX = Lib.current.stage.stageWidth * 0.02;
 		}
 		
 		model = new Player(player);
@@ -89,6 +95,16 @@ class PlayerSubView extends Sprite
 		
 		drawResourceMessages(player);
 		drawMoneyMessage(player);
+		
+		var orderPositioner:Int = 1;
+		for (order in orders)
+		{
+			var orderSprite:OrderSubView = new OrderSubView(order);
+			orderSprite.x = orderX;
+			orderSprite.y = firstOrderY + ((orderSprite.height + 10) * orderPositioner);
+			addChild(orderSprite);
+			orderPositioner++;
+		}
 	}
 	
 	private function drawResourceMessages(player:Int):Void
