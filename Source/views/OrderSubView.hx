@@ -10,6 +10,7 @@ class OrderSubView extends Sprite
 {
 	public var order(default, null):Order;
 	public var selected(default, null):Bool;
+	public var cursored(default, null):Bool;
 	private var border:Sprite;
 	private var background:Sprite;
 	
@@ -26,9 +27,10 @@ class OrderSubView extends Sprite
 		drawBorder();
 	}
 	
-	public function cursorTo():Void 
+	public function cursorTo(cursorTo:Bool):Void 
 	{
-		drawBorder(true);
+		this.cursored = cursorTo;
+		drawBorder();
 	}
 	
 	private function drawBackground():Void 
@@ -49,11 +51,11 @@ class OrderSubView extends Sprite
 			Lib.current.stage.stageWidth * 0.05);
 	}
 	
-	private function drawBorder(cursorTo:Bool = false):Void 
+	private function drawBorder():Void 
 	{
 		border.graphics.clear();
 		
-		if (cursorTo)
+		if (cursored)
 		{
 			border.graphics.lineStyle(1.5, 0x99FF99, 1);
 		}

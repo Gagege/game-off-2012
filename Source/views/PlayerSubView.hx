@@ -28,6 +28,7 @@ class PlayerSubView extends Sprite
 	private var orderSprites:Array<OrderSubView>;
 	private var orderX:Float;
 	private var firstOrderY:Float;
+	private var selectingOrder:Bool;
 	
 	public function new(player:Int) 
 	{
@@ -38,7 +39,21 @@ class PlayerSubView extends Sprite
 	
 	public function robotForward():Void
 	{
-		robotArm.forward();
+		if (selectingOrder)
+		{
+			selectingOrder = false;
+			for (order in orderSprites)
+			{
+				if (order.cursored)
+				{
+					order.select(true);
+				}
+			}
+		}
+		else
+		{
+			robotArm.forward();
+		}
 	}
 	
 	public function robotBack():Void
@@ -46,11 +61,12 @@ class PlayerSubView extends Sprite
 		var moved = robotArm.back();
 		if (!moved)
 		{
+			selectingOrder = true;
 			for (order in orderSprites)
 			{
 				if (order.selected)
 				{
-					order.cursorTo();
+					order.cursorTo(true);
 				}
 			}
 		}
