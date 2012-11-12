@@ -25,7 +25,6 @@ class PlayerSubView extends Sprite
 	private var font:Font;
 	private var fontSize:Float;
 	private var format:TextFormat;
-	private var orders:Array<Order>;
 	private var orderSprites:Array<OrderSubView>;
 	private var orderX:Float;
 	private var firstOrderY:Float;
@@ -44,10 +43,16 @@ class PlayerSubView extends Sprite
 	
 	public function robotBack():Void
 	{
-		var moved:Bool = robotArm.back();
+		var moved = robotArm.back();
 		if (!moved)
 		{
-			//select order
+			for (order in orderSprites)
+			{
+				if (order.selected)
+				{
+					order.cursorTo();
+				}
+			}
 		}
 	}
 	
@@ -69,11 +74,6 @@ class PlayerSubView extends Sprite
 	
 	private function initialize(player:Int):Void
 	{
-		orders = new Array<Order>();
-		orders.push(Order.getRandomOrder());
-		orders.push(Order.getRandomOrder());
-		orders.push(Order.getRandomOrder());
-		
 		fontSize = Lib.current.stage.stageHeight * 0.03;
 		format = new TextFormat (fontSize, 0xFFFFFF);
 		
@@ -101,7 +101,17 @@ class PlayerSubView extends Sprite
 		drawResourceMessages(player);
 		drawMoneyMessage(player);
 		
+		drawOrders(isRight);
+	}
+	private function drawOrders(isRight:Bool):Void 
+	{
 		orderSprites = new Array<OrderSubView>();
+		
+		var orders = new Array<Order>();
+		orders.push(Order.getRandomOrder());
+		orders.push(Order.getRandomOrder());
+		orders.push(Order.getRandomOrder());
+		
 		var orderPositioner:Int = 1;
 		for (order in orders)
 		{
@@ -113,7 +123,7 @@ class PlayerSubView extends Sprite
 			orderPositioner++;
 			orderSprites.push(orderSprite);
 		}
-		orderSprites[2].select(true);
+		orderSprites[0].select(true);
 	}
 	
 	private function drawResourceMessages(player:Int):Void

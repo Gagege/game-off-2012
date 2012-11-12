@@ -19,14 +19,19 @@ class OrderSubView extends Sprite
 		initialize(assignedOrder, isRight);
 	}
 	
-	public function select(selected:Bool):Void 
+	public function select(selected:Bool):Void
 	{
 		this.selected = selected;
-		drawBackground(selected);
-		drawBorder(selected);
+		drawBackground();
+		drawBorder();
 	}
 	
-	private function drawBackground(selected:Bool):Void 
+	public function cursorTo():Void 
+	{
+		drawBorder(true);
+	}
+	
+	private function drawBackground():Void 
 	{
 		background.graphics.clear();
 		if (selected)
@@ -44,10 +49,15 @@ class OrderSubView extends Sprite
 			Lib.current.stage.stageWidth * 0.05);
 	}
 	
-	private function drawBorder(selected:Bool):Void 
+	private function drawBorder(cursorTo:Bool = false):Void 
 	{
 		border.graphics.clear();
-		if (selected)
+		
+		if (cursorTo)
+		{
+			border.graphics.lineStyle(1.5, 0x99FF99, 1);
+		}
+		else if (this.selected)
 		{
 			border.graphics.lineStyle(.8, 0xFFFFFF, 0.5);
 		}
@@ -55,6 +65,7 @@ class OrderSubView extends Sprite
 		{
 			border.graphics.lineStyle(.5, 0xFFFFFF, 0.2);
 		}
+		
 		DrawHelper.makeLineRect(
 			border,
 			0,
@@ -101,7 +112,7 @@ class OrderSubView extends Sprite
 		addChild(background);
 		
 		border = new Sprite();
-		drawBorder(false);
+		drawBorder();
 		addChild(border);
 		
 		drawTitle(isRight);
