@@ -26,7 +26,7 @@ class Order
 		
 		var worth:Int = (amountLithium * 10) + (amountPlutonium * 50) + (amountUranium * 100);
 		
-		return new Order("Alpha Inc.", amountLithium, amountPlutonium, amountUranium, worth);
+		return new Order("Test Inc.", amountLithium, amountPlutonium, amountUranium, worth);
 	}
 	
 }
