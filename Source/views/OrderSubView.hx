@@ -36,7 +36,7 @@ class OrderSubView extends Sprite
 	private function drawBackground():Void 
 	{
 		background.graphics.clear();
-		if (selected)
+		if (this.selected)
 		{
 			background.graphics.beginFill(0x99ff99, 0.8);
 		}
@@ -55,7 +55,7 @@ class OrderSubView extends Sprite
 	{
 		border.graphics.clear();
 		
-		if (cursored)
+		if (this.cursored)
 		{
 			border.graphics.lineStyle(1.5, 0x99FF99, 1);
 		}
@@ -110,7 +110,7 @@ class OrderSubView extends Sprite
 		selected = false;
 		
 		background = new Sprite();
-		drawBackground(false);
+		drawBackground();
 		addChild(background);
 		
 		border = new Sprite();
