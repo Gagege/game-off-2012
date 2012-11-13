@@ -39,18 +39,21 @@ class PlayerSubView extends Sprite
 	
 	public function robotForward():Void
 	{
+		//if selecting order, select cursored order and clear previous selection
 		if (selectingOrder)
 		{
 			selectingOrder = false;
 			for (order in orderSprites)
 			{
+				order.select(false);
+				
 				if (order.cursored)
-				{
 					order.select(true);
-				}
+					
+				order.cursorTo(false);
 			}
 		}
-		else
+		else //otherwise move arm
 		{
 			robotArm.forward();
 		}
@@ -58,15 +61,20 @@ class PlayerSubView extends Sprite
 	
 	public function robotBack():Void
 	{
-		var moved = robotArm.back();
-		if (!moved)
+		//only move back if not currently selecting order, otherwise do nothing
+		if (!selectingOrder)
 		{
-			selectingOrder = true;
-			for (order in orderSprites)
+			//if arm doesn't move, that means the user wants to select an order.
+			var moved = robotArm.back();
+			if (!moved)
 			{
-				if (order.selected)
+				selectingOrder = true;
+				for (order in orderSprites)
 				{
-					order.cursorTo(true);
+					if (order.selected)
+					{
+						order.cursorTo(true);
+					}
 				}
 			}
 		}
@@ -74,12 +82,44 @@ class PlayerSubView extends Sprite
 	
 	public function robotUp():Void
 	{
-		robotArm.up();
+		//if selecting order, move cursor up unless already at order[0]
+		if (selectingOrder)
+		{
+			for (i in 0 ... orderSprites.length)
+			{
+				if (orderSprites[i].cursored && i > 0)
+				{
+					orderSprites[i].cursorTo(false);
+					orderSprites[i - 1].cursorTo(true);
+					break;
+				}
+			}
+		}
+		else //otherwise move arm
+		{
+			robotArm.up();
+		}
 	}
 	
 	public function robotDown():Void
 	{
-		robotArm.down();
+		//if selecting order, move cursor down unless already at order[2]
+		if (selectingOrder)
+		{
+			for (i in 0 ... orderSprites.length)
+			{
+				if (orderSprites[i].cursored && i < 2)
+				{
+					orderSprites[i].cursorTo(false);
+					orderSprites[i + 1].cursorTo(true);
+					break;
+				}
+			}
+		}
+		else //otherwise move arm
+		{
+			robotArm.down();
+		}
 	}
 	
 	public function absorbResource(resource:Resource):Void 
