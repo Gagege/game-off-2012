@@ -52,6 +52,7 @@ class PlayerSubView extends Sprite
 					
 				order.cursorTo(false);
 			}
+			updateField();
 		}
 		else //otherwise move arm
 		{
@@ -154,10 +155,11 @@ class PlayerSubView extends Sprite
 		
 		addChild(robotArm);
 		
+		drawOrders(isRight);
 		drawResourceMessages(player);
 		drawMoneyMessage(player);
 		
-		drawOrders(isRight);
+		updateField();
 	}
 	private function drawOrders(isRight:Bool):Void 
 	{
@@ -213,10 +215,6 @@ class PlayerSubView extends Sprite
 		uraniumDisplay.selectable = false;
 		uraniumDisplay.embedFonts = true;
 		
-		lithiumDisplay.text = "Lithium: 0";
-		plutoniumDisplay.text = "Plutonium: 0";
-		uraniumDisplay.text = "Uranium: 0";
-		
 		addChild(lithiumDisplay);
 		addChild(plutoniumDisplay);
 		addChild(uraniumDisplay);
@@ -248,9 +246,15 @@ class PlayerSubView extends Sprite
 	
 	private function updateField():Void 
 	{
+		var currentOrder:Order = null;
+		for (orderSprite in orderSprites)
+		{
+			if (orderSprite.selected)
+				currentOrder = orderSprite.order;
+		}
 		moneyDisplay.text = model.getFormattedMoney();
-		lithiumDisplay.text = Std.format("Lithium: ${model.lithium}");
-		plutoniumDisplay.text = Std.format("Plutonium: ${model.plutonium}");
-		uraniumDisplay.text = Std.format("Uranium: ${model.uranium}");
+		lithiumDisplay.text = Std.format("Lithium: ${model.lithium} OF ${currentOrder.lithium}");
+		plutoniumDisplay.text = Std.format("Plutonium: ${model.plutonium} OF ${currentOrder.plutonium}");
+		uraniumDisplay.text = Std.format("Uranium: ${model.uranium} OF ${currentOrder.uranium}");
 	}
 }
