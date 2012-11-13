@@ -34,6 +34,7 @@ class BoxHatchSubView extends Sprite
 		{
 			if (currentBox != null)
 			{
+				currentBox.visible = false;
 				box = currentBox;
 				removeBox();
 			}

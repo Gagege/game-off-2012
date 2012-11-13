@@ -100,10 +100,13 @@ class PlayView extends Sprite
 		{
 			if (!box.pushed)
 			{
+				box.visible = false;
 				//realign copy of box with hatch
 				box.x = box.x + hatchX;
 				box.y = box.y + hatchY;
 				addChild(box);
+				//set visible because we hid it before we recreated it
+				box.visible = true;
 			}
 			slideBox(box, goLeft);
 		}
