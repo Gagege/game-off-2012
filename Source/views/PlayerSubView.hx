@@ -29,6 +29,7 @@ class PlayerSubView extends Sprite
 	private var orderX:Float;
 	private var firstOrderY:Float;
 	private var selectingOrder:Bool;
+	private var currentOrder:Order;
 	
 	public function new(player:Int) 
 	{
@@ -48,7 +49,9 @@ class PlayerSubView extends Sprite
 				order.select(false);
 				
 				if (order.cursored)
+				{
 					order.select(true);
+				}
 					
 				order.cursorTo(false);
 			}
@@ -92,6 +95,8 @@ class PlayerSubView extends Sprite
 				{
 					orderSprites[i].cursorTo(false);
 					orderSprites[i - 1].cursorTo(true);
+					currentOrder = orderSprites[i - 1].order;
+					updateField();
 					break;
 				}
 			}
@@ -113,6 +118,8 @@ class PlayerSubView extends Sprite
 				{
 					orderSprites[i].cursorTo(false);
 					orderSprites[i + 1].cursorTo(true);
+					currentOrder = orderSprites[i + 1].order;
+					updateField();
 					break;
 				}
 			}
@@ -182,6 +189,7 @@ class PlayerSubView extends Sprite
 			orderSprites.push(orderSprite);
 		}
 		orderSprites[0].select(true);
+		currentOrder = orderSprites[0].order;
 	}
 	
 	private function drawResourceMessages(player:Int):Void
@@ -244,14 +252,22 @@ class PlayerSubView extends Sprite
 		addChild(moneyDisplay);
 	}
 	
+	private function orderFulfilled(order:Order):Void 
+	{
+		
+	}
+	
+	private function isOrderFulfilled(order:Order):Void 
+	{
+		if (order.isOrderFulfilled(model.lithium, model.plutonium, model.uranium) &&
+			!selectingOrder)
+		{
+			orderFulfilled(order);
+		}
+	}
+	
 	private function updateField():Void 
 	{
-		var currentOrder:Order = null;
-		for (orderSprite in orderSprites)
-		{
-			if (orderSprite.selected)
-				currentOrder = orderSprite.order;
-		}
 		moneyDisplay.text = model.getFormattedMoney();
 		lithiumDisplay.text = Std.format("Lithium: ${model.lithium} OF ${currentOrder.lithium}");
 		plutoniumDisplay.text = Std.format("Plutonium: ${model.plutonium} OF ${currentOrder.plutonium}");
