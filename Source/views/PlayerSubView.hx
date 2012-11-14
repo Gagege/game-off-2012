@@ -1,5 +1,6 @@
 package views;
 
+import haxe.Timer;
 import models.Player;
 import models.Order;
 import models.Resource;
@@ -14,6 +15,7 @@ import nme.text.Font;
 import DrawHelper;
 import controllers.PlayController;
 
+// This class ain't pretty.
 class PlayerSubView extends Sprite
 {	
 	var robotArm:RobotArmSubView;
@@ -27,7 +29,7 @@ class PlayerSubView extends Sprite
 	private var format:TextFormat;
 	private var orderSprites:Array<OrderSubView>;
 	private var orderX:Float;
-	private var firstOrderY:Float;
+	private var yPositions:Array<Float>;
 	private var selectingOrder:Bool;
 	private var currentOrder:OrderSubView;
 	
@@ -149,7 +151,6 @@ class PlayerSubView extends Sprite
 	{
 		var isRight = true;
 		orderX = Lib.current.stage.stageWidth * 0.94;
-		firstOrderY = Lib.current.stage.stageHeight * 0.4;
 		
 		if (player == 1)
 		{
@@ -167,6 +168,8 @@ class PlayerSubView extends Sprite
 		drawResourceMessages(player);
 		drawMoneyMessage(player);
 		
+		Timer.delay(callback(orderFulfilled, currentOrder), 2000);
+		
 		updateField();
 	}
 	private function drawOrders(isRight:Bool):Void 
@@ -178,19 +181,32 @@ class PlayerSubView extends Sprite
 		orders.push(Order.getRandomOrder());
 		orders.push(Order.getRandomOrder());
 		
+		yPositions = new Array<Float>();
+		
 		var orderPositioner:Int = 1;
 		for (order in orders)
 		{
-			var orderSprite:OrderSubView = new OrderSubView(order, isRight);
-			orderSprite.x = orderX;
-			orderSprite.y = firstOrderY + 
-				((orderSprite.height + Lib.current.stage.stageHeight * 0.02) * orderPositioner);
-			addChild(orderSprite);
+			drawOrder(order, isRight, orderPositioner);
 			orderPositioner++;
-			orderSprites.push(orderSprite);
 		}
 		orderSprites[0].select(true);
 		currentOrder = orderSprites[0];
+	}
+	
+	private function drawOrder(order:Order, isRight:Bool, position:Int):Void 
+	{
+		var orderSprite:OrderSubView = new OrderSubView(order, isRight);
+		
+		if (yPositions == null || yPositions.length < 3)
+		{
+			yPositions.push((Lib.current.stage.stageHeight * 0.4) + 
+				(orderSprite.height + Lib.current.stage.stageHeight * 0.02) * position);
+		}
+		
+		orderSprite.x = orderX;
+		orderSprite.y = yPositions[position - 1]; // position - 1 is to match position to it's index in yPositions
+		addChild(orderSprite);
+		orderSprites.push(orderSprite);
 	}
 	
 	private function drawResourceMessages(player:Int):Void
@@ -258,6 +274,10 @@ class PlayerSubView extends Sprite
 		model.money += orderSprite.model.money;
 		orderSprites.remove(orderSprite);
 		removeChild(orderSprite);
+		for (i in 0 ... orderSprites.length) 
+		{
+			orderSprites[i].y = yPositions[i];
+		}
 		currentOrder = orderSprites[0];
 		currentOrder.select(true);
 		updateField();
