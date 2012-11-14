@@ -32,6 +32,7 @@ class PlayerSubView extends Sprite
 	private var yPositions:Array<Float>;
 	private var selectingOrder:Bool;
 	private var currentOrder:OrderSubView;
+	private var isRight:Bool;
 	
 	public function new(player:Int) 
 	{
@@ -149,7 +150,7 @@ class PlayerSubView extends Sprite
 	
 	private function drawField(player:Int):Void
 	{
-		var isRight = true;
+		isRight = true;
 		orderX = Lib.current.stage.stageWidth * 0.94;
 		
 		if (player == 1)
@@ -164,15 +165,13 @@ class PlayerSubView extends Sprite
 		
 		addChild(robotArm);
 		
-		drawOrders(isRight);
+		drawOrders();
 		drawResourceMessages(player);
 		drawMoneyMessage(player);
 		
-		Timer.delay(callback(orderFulfilled, currentOrder), 2000);
-		
 		updateField();
 	}
-	private function drawOrders(isRight:Bool):Void 
+	private function drawOrders():Void 
 	{
 		orderSprites = new Array<OrderSubView>();
 		
@@ -186,14 +185,14 @@ class PlayerSubView extends Sprite
 		var orderPositioner:Int = 1;
 		for (order in orders)
 		{
-			drawOrder(order, isRight, orderPositioner);
+			drawOrder(order, orderPositioner);
 			orderPositioner++;
 		}
 		orderSprites[0].select(true);
 		currentOrder = orderSprites[0];
 	}
 	
-	private function drawOrder(order:Order, isRight:Bool, position:Int):Void 
+	private function drawOrder(order:Order, position:Int):Void 
 	{
 		var orderSprite:OrderSubView = new OrderSubView(order, isRight);
 		
@@ -280,6 +279,9 @@ class PlayerSubView extends Sprite
 		}
 		currentOrder = orderSprites[0];
 		currentOrder.select(true);
+		
+		drawOrder(Order.getRandomOrder(), 3);
+		
 		updateField();
 	}
 	
