@@ -8,7 +8,7 @@ import nme.text.TextFormat;
 
 class OrderSubView extends Sprite
 {
-	public var order(default, null):Order;
+	public var model(default, null):Order;
 	public var selected(default, null):Bool;
 	public var cursored(default, null):Bool;
 	private var border:Sprite;
@@ -31,6 +31,27 @@ class OrderSubView extends Sprite
 	{
 		this.cursored = cursorTo;
 		drawBorder();
+	}
+	
+	public function isOrderFulfilled(amountLithium:Int, amountPlutonium:Int, amountUranium:Int):Bool
+	{
+		var fulfilled:Bool = false;
+		
+		if (amountLithium >= model.lithium &&
+			amountPlutonium >= model.plutonium &&
+			amountUranium >= model.uranium)
+		{
+			fulfilled = true;
+		}
+		
+		if (fulfilled)
+		{
+			model.money -= (amountLithium - model.lithium) * 10;
+			model.money -= (amountPlutonium - model.plutonium) * 50;
+			model.money -= (amountUranium - model.uranium) * 100;
+		}
+		
+		return fulfilled;
 	}
 	
 	private function drawBackground():Void 
@@ -87,7 +108,7 @@ class OrderSubView extends Sprite
 		
 		if (isRight)
 		{
-			displayX = -(order.name.length * (Lib.current.stage.stageWidth * 0.006));
+			displayX = -(model.name.length * (Lib.current.stage.stageWidth * 0.006));
 		}
 		
 		var title = new TextField();
@@ -99,14 +120,14 @@ class OrderSubView extends Sprite
 		title.selectable = false;
 		title.embedFonts = true;
 		
-		title.text = order.name;
+		title.text = model.name;
 		
 		addChild(title);
 	}
 	
 	private function initialize(assignedOrder:Order, isRight:Bool):Void 
 	{
-		order = assignedOrder;
+		model = assignedOrder;
 		selected = false;
 		
 		background = new Sprite();

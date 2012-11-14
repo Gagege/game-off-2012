@@ -7,7 +7,7 @@ class Order
 	public var lithium(default, null):Int;
 	public var plutonium(default, null):Int;
 	public var uranium(default, null):Int;
-	public var money(default, null):Int;
+	public var money:Int;
 	
 	public function new(orderName:String, amountLithium:Int, amountPlutonium:Int, amountUranium:Int, worth:Int) 
 	{
@@ -27,27 +27,6 @@ class Order
 		var worth:Int = (amountLithium * 10) + (amountPlutonium * 50) + (amountUranium * 100);
 		
 		return new Order("Test Inc.", amountLithium, amountPlutonium, amountUranium, worth);
-	}
-	
-	public function isOrderFulfilled(amountLithium:Int, amountPlutonium:Int, amountUranium:Int):Bool
-	{
-		var fulfilled:Bool = false;
-		
-		if (amountLithium >= lithium &&
-			amountPlutonium >= plutonium &&
-			amountUranium >= uranium)
-		{
-			fulfilled = true;
-		}
-		
-		if (fulfilled)
-		{
-			money -= (amountLithium - lithium) * 10;
-			money -= (amountPlutonium - plutonium) * 50;
-			money -= (amountUranium - uranium) * 100;
-		}
-		
-		return fulfilled;
 	}
 	
 }

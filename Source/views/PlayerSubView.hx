@@ -29,7 +29,7 @@ class PlayerSubView extends Sprite
 	private var orderX:Float;
 	private var firstOrderY:Float;
 	private var selectingOrder:Bool;
-	private var currentOrder:Order;
+	private var currentOrder:OrderSubView;
 	
 	public function new(player:Int) 
 	{
@@ -51,11 +51,12 @@ class PlayerSubView extends Sprite
 				if (order.cursored)
 				{
 					order.select(true);
+					currentOrder = order;
 				}
 					
 				order.cursorTo(false);
 			}
-			isOrderFulfilled(order);
+			isOrderFulfilled(currentOrder);
 		}
 		else //otherwise move arm
 		{
@@ -95,7 +96,7 @@ class PlayerSubView extends Sprite
 				{
 					orderSprites[i].cursorTo(false);
 					orderSprites[i - 1].cursorTo(true);
-					currentOrder = orderSprites[i - 1].order;
+					currentOrder = orderSprites[i - 1];
 					updateField();
 					break;
 				}
@@ -118,7 +119,7 @@ class PlayerSubView extends Sprite
 				{
 					orderSprites[i].cursorTo(false);
 					orderSprites[i + 1].cursorTo(true);
-					currentOrder = orderSprites[i + 1].order;
+					currentOrder = orderSprites[i + 1];
 					updateField();
 					break;
 				}
@@ -133,7 +134,7 @@ class PlayerSubView extends Sprite
 	public function absorbResource(resource:Resource):Void 
 	{
 		model.addResource(resource);
-		updateField();
+		isOrderFulfilled(currentOrder);
 	}
 	
 	private function initialize(player:Int):Void
@@ -189,7 +190,7 @@ class PlayerSubView extends Sprite
 			orderSprites.push(orderSprite);
 		}
 		orderSprites[0].select(true);
-		currentOrder = orderSprites[0].order;
+		currentOrder = orderSprites[0];
 	}
 	
 	private function drawResourceMessages(player:Int):Void
@@ -252,25 +253,30 @@ class PlayerSubView extends Sprite
 		addChild(moneyDisplay);
 	}
 	
-	private function orderFulfilled(order:Order):Void 
+	private function orderFulfilled(orderSprite:OrderSubView):Void 
 	{
-		
+		model.money += orderSprite.model.money;
+		orderSprites.remove(orderSprite);
+		removeChild(orderSprite);
+		currentOrder = orderSprites[0];
+		currentOrder.select(true);
+		updateField();
 	}
 	
-	private function isOrderFulfilled(order:Order):Void 
+	private function isOrderFulfilled(orderSprite:OrderSubView):Void 
 	{
-		if (order.isOrderFulfilled(model.lithium, model.plutonium, model.uranium) &&
+		if (orderSprite.isOrderFulfilled(model.lithium, model.plutonium, model.uranium) &&
 			!selectingOrder)
 		{
-			orderFulfilled(order);
+			orderFulfilled(orderSprite);
 		}
 	}
 	
 	private function updateField():Void 
 	{
 		moneyDisplay.text = model.getFormattedMoney();
-		lithiumDisplay.text = Std.format("Lithium: ${model.lithium} OF ${currentOrder.lithium}");
-		plutoniumDisplay.text = Std.format("Plutonium: ${model.plutonium} OF ${currentOrder.plutonium}");
-		uraniumDisplay.text = Std.format("Uranium: ${model.uranium} OF ${currentOrder.uranium}");
+		lithiumDisplay.text = Std.format("Lithium: ${model.lithium} OF ${currentOrder.model.lithium}");
+		plutoniumDisplay.text = Std.format("Plutonium: ${model.plutonium} OF ${currentOrder.model.plutonium}");
+		uraniumDisplay.text = Std.format("Uranium: ${model.uranium} OF ${currentOrder.model.uranium}");
 	}
 }
