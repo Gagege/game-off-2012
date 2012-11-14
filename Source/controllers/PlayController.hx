@@ -36,7 +36,7 @@ class PlayController
 		
 		boxTimer = new BoxTimer();
 		
-		gameDuration = 12000;
+		gameDuration = 1200;
 		Actuate.timer(gameDuration).onUpdate(onUpdateTime);
 	}
 	

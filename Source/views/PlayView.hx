@@ -58,14 +58,14 @@ class PlayView extends Sprite
 		drawBorder();
 	}
 	
-	public function updateTime(secondsLeft:Int):Void 
+	public function updateTime(secondsLeft:Float):Void 
 	{
 		var minutes:Int = Std.int(secondsLeft / 60);
-		var seconds:Int = Std.int((minutes * 60) - secondsLeft);
-		timeDisplay.text = minutes + ":" + seconds;
+		var seconds:Int = Std.int(secondsLeft - (minutes * 60));
+		timeDisplay.text = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds + "");
 	}
 	
-	public function moveBox(goLeft:Bool, inHatch:Int):Void 
+	public function moveBox(goLeft:Bool, inHatch:Int):Void
 	{
 		var box:BoxSubView = null;
 		var hatchX:Float = 0;
