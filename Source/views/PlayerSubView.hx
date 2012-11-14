@@ -55,7 +55,7 @@ class PlayerSubView extends Sprite
 					
 				order.cursorTo(false);
 			}
-			updateField();
+			isOrderFulfilled(order);
 		}
 		else //otherwise move arm
 		{
