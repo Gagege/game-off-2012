@@ -8,6 +8,8 @@ import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
+import nme.text.TextField;
+import nme.text.TextFormat;
 
 import DrawHelper;
 import views.BoxHatchSubView;
@@ -24,6 +26,9 @@ class PlayView extends Sprite
 	var topBox:BoxSubView;
 	var middleBox:BoxSubView;
 	var bottomBox:BoxSubView;
+	
+	private var timeDisplay:TextField;
+	private var format:TextFormat;
 	
 	public function new() 
 	{
@@ -48,7 +53,16 @@ class PlayView extends Sprite
 		addChild(player1);
 		addChild(player2);
 		
+		drawTimeDisplay();
+		
 		drawBorder();
+	}
+	
+	public function updateTime(secondsLeft:Int):Void 
+	{
+		var minutes:Int = Std.int(secondsLeft / 60);
+		var seconds:Int = Std.int((minutes * 60) - secondsLeft);
+		timeDisplay.text = minutes + ":" + seconds;
 	}
 	
 	public function moveBox(goLeft:Bool, inHatch:Int):Void 
@@ -197,6 +211,27 @@ class PlayView extends Sprite
 			Lib.current.stage.stageWidth - 3,
 			Lib.current.stage.stageHeight - 3);
 		addChild(outerBorder);
+	}
+	
+	private function drawTimeDisplay():Void 
+	{
+		var fontSize = Lib.current.stage.stageHeight * 0.03;
+		format = new TextFormat (fontSize, 0xFFFFFF);
+		var displayX = Lib.current.stage.stageWidth * 0.5;
+		var	displayY = Lib.current.stage.stageHeight * 0.95;
+		
+		timeDisplay = new TextField();
+		
+		timeDisplay.x = displayX;
+		timeDisplay.y = displayY;
+		
+		timeDisplay.defaultTextFormat = format;
+		timeDisplay.selectable = false;
+		timeDisplay.embedFonts = true;
+		
+		timeDisplay.text = "0";
+		
+		addChild(timeDisplay);
 	}
 	
 	private function deleteBox(box:BoxSubView):Void

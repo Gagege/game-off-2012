@@ -2,7 +2,11 @@ package models;
 
 class Order 
 {
-
+	static var companies:Array<String> = ["Ruin", "Explosions", "Tragedy", "Trouble", "Danger", 
+		"Intrusion", "Death", "Terrible", "Veridian", "Massive", "Skynet", "Sabotage", "Murder", 
+		"Decimation", "Poison"];
+	static var types:Array<String> = ["Inc.", "Ltd.", "Corp.", "Ind."];
+	
 	public var name(default, null):String;
 	public var lithium(default, null):Int;
 	public var plutonium(default, null):Int;
@@ -26,7 +30,14 @@ class Order
 		
 		var worth:Int = (amountLithium * 10) + (amountPlutonium * 50) + (amountUranium * 100);
 		
-		return new Order("Test Inc.", amountLithium, amountPlutonium, amountUranium, worth);
+		return new Order(getRandomName(), amountLithium, amountPlutonium, amountUranium, worth);
+	}
+	
+	private static function getRandomName():String 
+	{
+		return companies[Math.round((Math.random() * (companies.length - 1)))] +
+				" " +
+				types[Math.round((Math.random() * (types.length - 1)))];
 	}
 	
 }

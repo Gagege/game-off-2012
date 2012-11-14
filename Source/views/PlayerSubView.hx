@@ -198,7 +198,7 @@ class PlayerSubView extends Sprite
 		
 		if (yPositions == null || yPositions.length < 3)
 		{
-			yPositions.push((Lib.current.stage.stageHeight * 0.4) + 
+			yPositions.push((Lib.current.stage.stageHeight * 0.6) + 
 				(orderSprite.height + Lib.current.stage.stageHeight * 0.02) * position);
 		}
 		
@@ -219,7 +219,7 @@ class PlayerSubView extends Sprite
 		
 		if (player == 2)
 		{
-			displayX = Lib.current.stage.stageWidth * 0.85;
+			displayX = Lib.current.stage.stageWidth * 0.78;
 		}
 		
 		lithiumDisplay.x = displayX;
@@ -246,14 +246,14 @@ class PlayerSubView extends Sprite
 	
 	private function drawMoneyMessage(player:Int):Void 
 	{
-		var displayX = Lib.current.stage.stageWidth * 0.2;
+		var displayX = Lib.current.stage.stageWidth * 0.3;
 		var	displayY = Lib.current.stage.stageHeight * 0.02;
 		
 		moneyDisplay = new TextField();
 		
 		if (player == 2)
 		{
-			displayX = Lib.current.stage.stageWidth * 0.7;
+			displayX = Lib.current.stage.stageWidth * 0.65;
 		}
 		
 		moneyDisplay.x = displayX;
@@ -271,6 +271,10 @@ class PlayerSubView extends Sprite
 	private function orderFulfilled(orderSprite:OrderSubView):Void 
 	{
 		model.money += orderSprite.model.money;
+		model.lithium = 0;
+		model.plutonium = 0;
+		model.uranium = 0;
+		
 		orderSprites.remove(orderSprite);
 		removeChild(orderSprite);
 		for (i in 0 ... orderSprites.length) 
@@ -281,8 +285,6 @@ class PlayerSubView extends Sprite
 		currentOrder.select(true);
 		
 		drawOrder(Order.getRandomOrder(), 3);
-		
-		updateField();
 	}
 	
 	private function isOrderFulfilled(orderSprite:OrderSubView):Void 
@@ -292,6 +294,8 @@ class PlayerSubView extends Sprite
 		{
 			orderFulfilled(orderSprite);
 		}
+		
+		updateField();
 	}
 	
 	private function updateField():Void 

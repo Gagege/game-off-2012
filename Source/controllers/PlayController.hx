@@ -3,6 +3,7 @@ package controllers;
 import nme.Lib;
 import nme.events.Event;
 import nme.events.KeyboardEvent;
+import com.eclecticdesignstudio.motion.Actuate;
 
 import views.PlayView;
 import models.BoxTimer;
@@ -17,6 +18,7 @@ class PlayController
 {
 	var playView:PlayView;
 	var boxTimer:BoxTimer;
+	var gameDuration:Int;
 	
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
@@ -33,6 +35,18 @@ class PlayController
 		robotEvent.addEventListener("PushPull", onPushPull);
 		
 		boxTimer = new BoxTimer();
+		
+		gameDuration = 12000;
+		Actuate.timer(gameDuration).onUpdate(onUpdateTime);
+	}
+	
+	private function onUpdateTime():Void 
+	{
+		gameDuration--;
+		if (gameDuration % 100 == 0)
+		{
+			playView.updateTime(gameDuration / 100);
+		}
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void

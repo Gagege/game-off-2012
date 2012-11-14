@@ -108,7 +108,7 @@ class OrderSubView extends Sprite
 		
 		if (isRight)
 		{
-			displayX = -(model.name.length * (Lib.current.stage.stageWidth * 0.006));
+			displayX = -(model.name.length * (Lib.current.stage.stageWidth * 0.008));
 		}
 		
 		var title = new TextField();
