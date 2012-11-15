@@ -50,7 +50,7 @@ class BoxHatchSubView extends Sprite
 			currentBox = box;
 			addChild(currentBox);
 			openDoors(delay);
-			Actuate.timer(delay).onComplete(box.changeBoxColor);
+			Actuate.timer(delay).onComplete(currentBox.changeBoxColor);
 		}
 	}
 	

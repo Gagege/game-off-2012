@@ -5,6 +5,7 @@ import nme.display.Sprite;
 import nme.Lib;
 import nme.text.TextField;
 import nme.text.TextFormat;
+import nme.text.TextFormatAlign;
 
 class OrderSubView extends Sprite
 {
@@ -102,25 +103,22 @@ class OrderSubView extends Sprite
 		var fontSize:Float = Lib.current.stage.stageHeight * 0.02;
 		var format:TextFormat = new TextFormat (fontSize, 0xFFFFFF);
 		
-		
 		var displayX = this.width + (Lib.current.stage.stageWidth * 0.01);
 		var	displayY = 0;
 		
-		if (isRight)
-		{
-			displayX = -(model.name.length * (Lib.current.stage.stageWidth * 0.008));
-		}
-		
 		var title = new TextField();
-		
-		title.x = displayX;
-		title.y = displayY;
-		
 		title.defaultTextFormat = format;
 		title.selectable = false;
 		title.embedFonts = true;
-		
 		title.text = model.name;
+		
+		if (isRight)
+		{
+			displayX = -(title.textWidth + Lib.current.stage.stageWidth * 0.01);
+		}
+		
+		title.x = displayX;
+		title.y = displayY;
 		
 		addChild(title);
 	}

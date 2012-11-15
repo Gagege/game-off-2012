@@ -10,6 +10,7 @@ import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
 import nme.text.TextField;
 import nme.text.TextFormat;
+import nme.text.TextFormatAlign;
 
 import DrawHelper;
 import views.BoxHatchSubView;
@@ -63,6 +64,24 @@ class PlayView extends Sprite
 		var minutes:Int = Std.int(secondsLeft / 60);
 		var seconds:Int = Std.int(secondsLeft - (minutes * 60));
 		timeDisplay.text = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds + "");
+	}
+	
+	public function endGame():Void 
+	{		
+		timeDisplay.getTextFormat().size *= 2;
+		
+		if (player1.model.money > player2.model.money)
+		{
+			timeDisplay.text = "Player 1 Wins!";
+		}
+		else if (player2.model.money > player1.model.money)
+		{
+			timeDisplay.text = "Player 2 Wins!";
+		}
+		else
+		{
+			timeDisplay.text = "Wow... a tie.";
+		}
 	}
 	
 	public function moveBox(goLeft:Bool, inHatch:Int):Void
@@ -217,7 +236,8 @@ class PlayView extends Sprite
 	{
 		var fontSize = Lib.current.stage.stageHeight * 0.03;
 		format = new TextFormat (fontSize, 0xFFFFFF);
-		var displayX = Lib.current.stage.stageWidth * 0.5;
+		
+		var displayX = Lib.current.stage.stageWidth * 0.473;
 		var	displayY = Lib.current.stage.stageHeight * 0.95;
 		
 		timeDisplay = new TextField();
@@ -229,7 +249,7 @@ class PlayView extends Sprite
 		timeDisplay.selectable = false;
 		timeDisplay.embedFonts = true;
 		
-		timeDisplay.text = "0";
+		timeDisplay.text = "2:00";
 		
 		addChild(timeDisplay);
 	}

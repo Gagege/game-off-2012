@@ -1,5 +1,6 @@
 package controllers;
 
+import haxe.Timer;
 import nme.Lib;
 import nme.events.Event;
 import nme.events.KeyboardEvent;
@@ -19,6 +20,7 @@ class PlayController
 	var playView:PlayView;
 	var boxTimer:BoxTimer;
 	var gameDuration:Int;
+	var millisecondsLeft:Int;
 	
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
@@ -36,17 +38,33 @@ class PlayController
 		
 		boxTimer = new BoxTimer();
 		
-		gameDuration = 12000;
-		Actuate.timer(gameDuration).onUpdate(onUpdateTime);
+		gameDuration = 3;
+		var timer = new Timer(1000);
+		timer.run = function() { onUpdateTime(); }
 	}
 	
 	private function onUpdateTime():Void 
 	{
-		gameDuration--;
-		if (gameDuration % 100 == 0)
+		if (gameDuration > 0)
 		{
-			playView.updateTime(gameDuration / 100);
+			gameDuration--;
+			playView.updateTime(gameDuration);
 		}
+		else
+			gameOver();
+	}
+	
+	private function gameOver():Void 
+	{
+		Actuate.pauseAll();
+		
+		Lib.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		boxSender.removeEventListener("SendBox", onSendBox);
+		boxSender.removeEventListener("RemoveBox", onRemoveBox);
+		boxSender.removeEventListener("BoxPushed", onBoxPushed);
+		robotEvent.removeEventListener("PushPull", onPushPull);
+		
+		playView.endGame();
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void

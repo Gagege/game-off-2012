@@ -6,8 +6,8 @@
     <movie input="" />
     <movie path="PushPullFactory.nmml" />
     <movie fps="60" />
-    <movie width="800" />
-    <movie height="600" />
+    <movie width="320" />
+    <movie height="240" />
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
@@ -17,15 +17,15 @@
   <classpaths>
     <class path="Source" />
     <class path="Source\Controllers" />
-    <class path="Export/html5/web/haxe" />
+    <class path="Export/webos/haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="nme_install_tool&#xA;web&#xA;html5&#xA;code_completion" />
+    <option directives="nme_install_tool&#xA;mobile&#xA;webos&#xA;HXCPP_RTLD_LAZY&#xA;code_completion" />
     <option flashStrict="True" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--dead-code-elimination&#xA;--remap flash:nme&#xA;--js-modern" />
+    <option additional="--remap flash:nme" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

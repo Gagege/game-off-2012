@@ -11,6 +11,7 @@ import nme.text.TextField;
 import nme.Assets;
 import nme.text.TextFormat;
 import nme.text.Font;
+import nme.text.TextFormatAlign;
 
 import DrawHelper;
 import controllers.PlayController;
@@ -19,7 +20,7 @@ import controllers.PlayController;
 class PlayerSubView extends Sprite
 {	
 	var robotArm:RobotArmSubView;
-	private var model:Player;
+	public var model:Player;
 	private var lithiumDisplay:TextField;
 	private var plutoniumDisplay:TextField;
 	private var uraniumDisplay:TextField;
@@ -143,7 +144,9 @@ class PlayerSubView extends Sprite
 	private function initialize(player:Int):Void
 	{
 		fontSize = Lib.current.stage.stageHeight * 0.03;
-		format = new TextFormat (fontSize, 0xFFFFFF);
+		format = new TextFormat();
+		format.size = fontSize;
+		format.color = 0xFFFFFF;
 		
 		drawField(player);
 	}
@@ -222,13 +225,6 @@ class PlayerSubView extends Sprite
 			displayX = Lib.current.stage.stageWidth * 0.78;
 		}
 		
-		lithiumDisplay.x = displayX;
-		lithiumDisplay.y = displayY;
-		plutoniumDisplay.x = displayX;
-		plutoniumDisplay.y = displayY * 3;
-		uraniumDisplay.x = displayX;
-		uraniumDisplay.y = displayY * 5;
-		
 		lithiumDisplay.defaultTextFormat = format;
 		lithiumDisplay.selectable = false;
 		lithiumDisplay.embedFonts = true;
@@ -238,6 +234,13 @@ class PlayerSubView extends Sprite
 		uraniumDisplay.defaultTextFormat = format;
 		uraniumDisplay.selectable = false;
 		uraniumDisplay.embedFonts = true;
+		
+		lithiumDisplay.x = displayX;
+		lithiumDisplay.y = displayY;
+		plutoniumDisplay.x = displayX;
+		plutoniumDisplay.y = displayY * 3;
+		uraniumDisplay.x = displayX;
+		uraniumDisplay.y = displayY * 5;
 		
 		addChild(lithiumDisplay);
 		addChild(plutoniumDisplay);
