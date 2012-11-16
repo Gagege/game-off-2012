@@ -38,7 +38,7 @@ class PlayController
 		
 		boxTimer = new BoxTimer();
 		
-		gameDuration = 3;
+		gameDuration = 120;
 		var timer = new Timer(1000);
 		timer.run = function() { onUpdateTime(); }
 	}
@@ -54,7 +54,7 @@ class PlayController
 			gameOver();
 	}
 	
-	private function gameOver():Void 
+	private function gameOver():Void
 	{
 		Actuate.pauseAll();
 		
