@@ -68,8 +68,6 @@ class PlayView extends Sprite
 	
 	public function endGame():Void 
 	{		
-		timeDisplay.getTextFormat().size *= 2;
-		
 		if (player1.model.money > player2.model.money)
 		{
 			timeDisplay.text = "Player 1 Wins!";
