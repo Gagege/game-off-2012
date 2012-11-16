@@ -225,12 +225,15 @@ class PlayerSubView extends Sprite
 			displayX = Lib.current.stage.stageWidth * 0.78;
 		}
 		
+		format.color = BoxSubView.lithiumColor;
 		lithiumDisplay.defaultTextFormat = format;
 		lithiumDisplay.selectable = false;
 		lithiumDisplay.embedFonts = true;
+		format.color = BoxSubView.plutoniumColor;
 		plutoniumDisplay.defaultTextFormat = format;
 		plutoniumDisplay.selectable = false;
 		plutoniumDisplay.embedFonts = true;
+		format.color = BoxSubView.uraniumColor;
 		uraniumDisplay.defaultTextFormat = format;
 		uraniumDisplay.selectable = false;
 		uraniumDisplay.embedFonts = true;
@@ -261,7 +264,7 @@ class PlayerSubView extends Sprite
 		
 		moneyDisplay.x = displayX;
 		moneyDisplay.y = displayY;
-		
+		format.color = 0xF5FA66;
 		moneyDisplay.defaultTextFormat = format;
 		moneyDisplay.selectable = false;
 		moneyDisplay.embedFonts = true;

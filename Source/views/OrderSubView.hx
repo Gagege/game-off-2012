@@ -79,7 +79,7 @@ class OrderSubView extends Sprite
 		
 		if (this.cursored)
 		{
-			border.graphics.lineStyle(1.5, 0x99FF99, 1);
+			border.graphics.lineStyle(3, 0xFFFFFF, 1);
 		}
 		else if (this.selected)
 		{
