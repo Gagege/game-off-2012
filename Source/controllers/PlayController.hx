@@ -22,6 +22,8 @@ class PlayController
 	var gameDuration:Int;
 	var millisecondsLeft:Int;
 	
+	var gameTimer:Timer;
+	
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
 	
@@ -39,8 +41,8 @@ class PlayController
 		boxTimer = new BoxTimer();
 		
 		gameDuration = 120;
-		var timer = new Timer(1000);
-		timer.run = function() { onUpdateTime(); }
+		gameTimer = new Timer(1000);
+		gameTimer.run = function() { onUpdateTime(); }
 	}
 	
 	private function onUpdateTime():Void 
@@ -51,7 +53,10 @@ class PlayController
 			playView.updateTime(gameDuration);
 		}
 		else
+		{
+			gameTimer.stop();
 			gameOver();
+		}
 	}
 	
 	private function gameOver():Void

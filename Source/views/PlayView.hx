@@ -68,18 +68,22 @@ class PlayView extends Sprite
 	
 	public function endGame():Void 
 	{		
+		darkenScreen();
+		
 		if (player1.model.money > player2.model.money)
 		{
-			timeDisplay.text = "Player 1 Wins!";
+			drawGameOverMessage("Player 1 Wins!");
 		}
 		else if (player2.model.money > player1.model.money)
 		{
-			timeDisplay.text = "Player 2 Wins!";
+			drawGameOverMessage("Player 2 Wins!");
 		}
 		else
 		{
-			timeDisplay.text = "Wow... a tie.";
+			drawGameOverMessage("Great... a tie.");
 		}
+		
+		drawResetMessage();
 	}
 	
 	public function moveBox(goLeft:Bool, inHatch:Int):Void
@@ -250,6 +254,61 @@ class PlayView extends Sprite
 		timeDisplay.text = "2:00";
 		
 		addChild(timeDisplay);
+	}
+	
+	private function darkenScreen():Void 
+	{
+		var darkener:Sprite = new Sprite();
+		darkener.graphics.clear();
+		darkener.graphics.beginFill(0x000000, 0.5);
+		darkener.graphics.drawRect(0, 0,
+			Lib.current.stage.stageWidth,
+			Lib.current.stage.stageHeight);
+		addChild(darkener);
+	}
+	
+	private function drawGameOverMessage(message:String):Void 
+	{
+		var fontSize = Lib.current.stage.stageHeight * 0.1;
+		format = new TextFormat (fontSize, 0xFFFFFF);
+		
+		var displayX = Lib.current.stage.stageWidth * 0.25;
+		var	displayY = Lib.current.stage.stageHeight * 0.4;
+		
+		var gameOverDisplay = new TextField();
+		
+		gameOverDisplay.x = displayX;
+		gameOverDisplay.y = displayY;
+		
+		gameOverDisplay.defaultTextFormat = format;
+		gameOverDisplay.selectable = false;
+		gameOverDisplay.embedFonts = true;
+		
+		gameOverDisplay.text = message;
+		
+		addChild(gameOverDisplay);
+	}
+	
+	private function drawResetMessage():Void 
+	{
+		var fontSize = Lib.current.stage.stageHeight * 0.05;
+		format = new TextFormat (fontSize, 0xFFFFFF);
+		
+		var displayX = Lib.current.stage.stageWidth * 0.21;
+		var	displayY = Lib.current.stage.stageHeight * 0.6;
+		
+		var resetMessage = new TextField();
+		
+		resetMessage.x = displayX;
+		resetMessage.y = displayY;
+		
+		resetMessage.defaultTextFormat = format;
+		resetMessage.selectable = false;
+		resetMessage.embedFonts = true;
+		
+		resetMessage.text = "Refresh this page to play again.";
+		
+		addChild(resetMessage);
 	}
 	
 	private function deleteBox(box:BoxSubView):Void

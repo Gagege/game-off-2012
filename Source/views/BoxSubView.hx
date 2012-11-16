@@ -9,6 +9,8 @@ import controllers.PlayController;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
 import com.eclecticdesignstudio.motion.easing.Linear;
+import nme.text.TextField;
+import nme.text.TextFormat;
 
 class BoxSubView extends Sprite
 {
@@ -87,6 +89,7 @@ class BoxSubView extends Sprite
 		
 		drawBox(boxColor);
 		fadeBoxIn(.5, 0);
+		drawAmount();
 	}
 	
 	private function firePushedEvent(goLeft:Bool):Void 
@@ -106,6 +109,22 @@ class BoxSubView extends Sprite
 			boxWidth,
 			boxWidth);
 		this.alpha = 0;
+	}
+	
+	private function drawAmount():Void 
+	{
+		var fontSize = Lib.current.stage.stageHeight * 0.05;
+		var format = new TextFormat(fontSize, 0x000000);
+		
+		var amountDisplay = new TextField();
+		
+		amountDisplay.defaultTextFormat = format;
+		amountDisplay.selectable = false;
+		amountDisplay.embedFonts = true;
+		
+		amountDisplay.text = resource.quantity + "";
+		
+		addChild(amountDisplay);
 	}
 	
 	private function fadeBoxIn(speed:Float, delay:Float = 0):Void
