@@ -14,3 +14,11 @@ class Game {
 		var game = new Game();
 	}
 }
+
+enum Command
+{
+	Left;
+	Right;
+	Up;
+	Down;
+}

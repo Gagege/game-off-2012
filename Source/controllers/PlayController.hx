@@ -9,7 +9,7 @@ import events.RobotMove;
 import events.SendBox;
 import haxe.Timer;
 import models.BoxTimer;
-import models.Options;
+import models.Option;
 import nme.events.KeyboardEvent;
 import nme.Lib;
 import views.PlayView;
@@ -27,7 +27,7 @@ class PlayController
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
 	
-	public function new(options:Options) 
+	public function new(options:Array<Option>) 
 	{
 		playView = new PlayView();
 		

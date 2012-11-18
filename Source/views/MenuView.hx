@@ -1,6 +1,7 @@
 package views;
 
 import models.Option;
+import nme.Assets;
 import nme.display.Sprite;
 import nme.Lib;
 import nme.text.TextField;
@@ -11,12 +12,29 @@ import com.eclecticdesignstudio.motion.easing.Linear;
 class MenuView extends Sprite
 {
 	private var options:Array<Option>;
+	public var selectedOptionIndex:Int;
 
 	public function new(optionList:Array<Option>) 
 	{
 		super();
 		options = optionList;
 		initialize();
+	}
+	
+	public function cursorTo(optionIndex:Int):Void
+	{
+		var cursor = getChildByName("cursor");
+		
+		var optionDisplay = getChildByName(options[optionIndex].name);
+		
+		var displayX = optionDisplay.x + optionDisplay.width +
+			(cursor.width * 0.35);
+		var	displayY = optionDisplay.y;
+		
+		cursor.x = displayX;
+		cursor.y = displayY;
+		
+		selectedOptionIndex = optionIndex;
 	}
 	
 	private function initialize():Void 
@@ -28,17 +46,19 @@ class MenuView extends Sprite
 			drawOption(options[i], i);
 		
 		drawCursor();
+		selectedOptionIndex = 0;
 	}
 	
 	private function drawTitle():Void 
 	{
 		var titleDisplay = new TextField();
 		var fontSize = Lib.current.stage.stageHeight * 0.1;
-		var format = new TextFormat (fontSize, 0x22FF22);
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		titleDisplay.defaultTextFormat = format;
-		titleDisplay.selectable = false;
 		titleDisplay.embedFonts = true;
+		titleDisplay.selectable = false;
 		
 		titleDisplay.text = "Push/Pull Factory";
 		
@@ -55,11 +75,12 @@ class MenuView extends Sprite
 	{
 		var optionDisplay = new TextField();
 		var fontSize = Lib.current.stage.stageHeight * 0.07;
-		var format = new TextFormat (fontSize, 0x000000);
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		optionDisplay.defaultTextFormat = format;
-		optionDisplay.selectable = false;
 		optionDisplay.embedFonts = true;
+		optionDisplay.selectable = false;
 		
 		optionDisplay.text = option.name;
 		
@@ -82,7 +103,8 @@ class MenuView extends Sprite
 	{
 		var selector = new TextField();
 		var fontSize = Lib.current.stage.stageHeight * 0.07;
-		var format = new TextFormat (fontSize, 0x000000);
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		selector.defaultTextFormat = format;
 		selector.selectable = false;
@@ -104,7 +126,8 @@ class MenuView extends Sprite
 	{
 		var cursor = new TextField();
 		var fontSize = Lib.current.stage.stageHeight * 0.07;
-		var format = new TextFormat (fontSize, 0x000000);
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		cursor.defaultTextFormat = format;
 		cursor.selectable = false;
@@ -115,15 +138,17 @@ class MenuView extends Sprite
 		var startGameOption = getChildByName("Start Game");
 		
 		var displayX = startGameOption.x + startGameOption.width +
-			(cursor.textWidth * 0.5);
+			(cursor.textWidth * 0.35);
 		var	displayY = startGameOption.y;
 		
 		cursor.x = displayX;
 		cursor.y = displayY;
 		
+		cursor.name = "cursor";
+		
 		addChild(cursor);
 		
-		Actuate.tween(cursor, 0.75, { alpha: 0 } ).repeat().reflect().ease(Linear.easeNone);
+		Actuate.tween(cursor, 0.1, { alpha: 0.25 } ).repeat().reflect().ease(Linear.easeNone);
 	}
 	
 }

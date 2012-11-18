@@ -39,22 +39,12 @@ class MenuController
 	{
 		switch(event.keyCode)
 		{
-			case 39: // 'right arrow' key
-				
-			case 37: // 'left arrow' key
-				
 			case 38: // 'up arrow' key
-				
+				if(menuView.selectedOptionIndex > 0)
+					menuView.cursorTo(menuView.selectedOptionIndex - 1);
 			case 40: // 'down arrow' key
-				
+				if(menuView.selectedOptionIndex < options.length - 1)
+					menuView.cursorTo(menuView.selectedOptionIndex + 1);
 		}
 	}
-}
-
-enum Command
-{
-	Left;
-	Right;
-	Up;
-	Down;
 }
