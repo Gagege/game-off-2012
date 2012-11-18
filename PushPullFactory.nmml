@@ -4,7 +4,7 @@
 	<meta title="Push/Pull Factory" package="com.gagege.pushpullfactory" version="1.0.0" company="Gage Herrmann" />
 	<app path="Export" file="Game" main="Game" />
 	
-	<window background="#000000" fps="60" orientation="landscape" />
+	<window background="#FFFFFF" fps="60" orientation="landscape" />
 	<window width="320" height="240" unless="mobile" />
 	<window vsync="true" antialiasing="0" if="cpp" />
 	

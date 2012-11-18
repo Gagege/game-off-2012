@@ -1,11 +1,11 @@
 package ;
-import controllers.PlayController;
+import controllers.MenuController;
 
 class Game {
 	
 	public function new() 
 	{
-		var play = new PlayController();
+		var play = new MenuController();
 	}
 	
 	// Entry point

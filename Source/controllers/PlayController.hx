@@ -1,19 +1,19 @@
 package controllers;
 
-import haxe.Timer;
-import nme.Lib;
-import nme.events.Event;
-import nme.events.KeyboardEvent;
 import com.eclecticdesignstudio.motion.Actuate;
-
-import views.PlayView;
-import models.BoxTimer;
 import events.BoxEvents;
-import events.RobotEvent;
-import events.SendBox;
-import events.RemoveBox;
-import events.RobotMove;
 import events.BoxPushed;
+import events.RemoveBox;
+import events.RobotEvent;
+import events.RobotMove;
+import events.SendBox;
+import haxe.Timer;
+import models.BoxTimer;
+import models.Options;
+import nme.events.KeyboardEvent;
+import nme.Lib;
+import views.PlayView;
+
 
 class PlayController 
 {
@@ -27,9 +27,10 @@ class PlayController
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
 	
-	public function new() 
+	public function new(options:Options) 
 	{
 		playView = new PlayView();
+		
 		Lib.current.addChild(playView);
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
