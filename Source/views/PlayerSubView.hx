@@ -144,8 +144,10 @@ class PlayerSubView extends Sprite
 	private function initialize(player:Int):Void
 	{
 		fontSize = Lib.current.stage.stageHeight * 0.03;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
 		format = new TextFormat();
 		format.size = fontSize;
+		format.font = font.fontName;
 		format.color = 0xFFFFFF;
 		
 		drawField(player);
@@ -264,7 +266,7 @@ class PlayerSubView extends Sprite
 		
 		moneyDisplay.x = displayX;
 		moneyDisplay.y = displayY;
-		format.color = 0xF5FA66;
+		format.color = 0x000000;
 		moneyDisplay.defaultTextFormat = format;
 		moneyDisplay.selectable = false;
 		moneyDisplay.embedFonts = true;

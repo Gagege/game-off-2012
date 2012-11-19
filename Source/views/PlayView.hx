@@ -69,15 +69,15 @@ class PlayView extends Sprite
 		
 		if (player1.model.money > player2.model.money)
 		{
-			drawGameOverMessage("Player 1 Wins!");
+			drawGameOverMessage("Player 1\nmade more money.");
 		}
 		else if (player2.model.money > player1.model.money)
 		{
-			drawGameOverMessage("Player 2 Wins!");
+			drawGameOverMessage("Player 2\nmade more money.");
 		}
 		else
 		{
-			drawGameOverMessage("Great... a tie.");
+			drawGameOverMessage("It is a tie.");
 		}
 		
 		drawResetMessage();
@@ -236,32 +236,35 @@ class PlayView extends Sprite
 	{
 		var darkener:Sprite = new Sprite();
 		darkener.graphics.clear();
-		darkener.graphics.beginFill(0x000000, 0.5);
+		darkener.graphics.beginFill(0x000000, 1);
 		darkener.graphics.drawRect(0, 0,
-			Lib.current.stage.stageWidth,
-			Lib.current.stage.stageHeight);
+			Lib.current.stage.stageWidth * 0.75,
+			Lib.current.stage.stageHeight * 0.75);
+			
+		darkener.x = (Lib.current.stage.stageWidth / 2) - (darkener.width / 2);
+		darkener.y = (Lib.current.stage.stageHeight / 2) - (darkener.height / 2);
 		addChild(darkener);
 	}
 	
 	private function drawGameOverMessage(message:String):Void 
 	{
-		var fontSize = Lib.current.stage.stageHeight * 0.1;
+		var fontSize = Lib.current.stage.stageHeight * 0.08;
 		var font = Assets.getFont("assets/Hyperspace.ttf");
-		var format = new TextFormat (font.fontName, fontSize, 0x000000);
-		
-		var displayX = Lib.current.stage.stageWidth * 0.25;
-		var	displayY = Lib.current.stage.stageHeight * 0.4;
+		var format = new TextFormat (font.fontName, fontSize, 0xFFFFFF);
 		
 		var gameOverDisplay = new TextField();
-		
-		gameOverDisplay.x = displayX;
-		gameOverDisplay.y = displayY;
 		
 		gameOverDisplay.defaultTextFormat = format;
 		gameOverDisplay.selectable = false;
 		gameOverDisplay.embedFonts = true;
 		
 		gameOverDisplay.text = message;
+		
+		var displayX = (Lib.current.stage.stageWidth / 2) - (gameOverDisplay.textWidth / 2);
+		var	displayY = Lib.current.stage.stageHeight * 0.3;
+		
+		gameOverDisplay.x = displayX;
+		gameOverDisplay.y = displayY;
 		
 		addChild(gameOverDisplay);
 	}
@@ -270,21 +273,21 @@ class PlayView extends Sprite
 	{
 		var fontSize = Lib.current.stage.stageHeight * 0.05;
 		var font = Assets.getFont("assets/Hyperspace.ttf");
-		var format = new TextFormat (font.fontName, fontSize, 0x000000);
-		
-		var displayX = Lib.current.stage.stageWidth * 0.21;
-		var	displayY = Lib.current.stage.stageHeight * 0.6;
+		var format = new TextFormat (font.fontName, fontSize, 0xFFFFFF);
 		
 		var resetMessage = new TextField();
-		
-		resetMessage.x = displayX;
-		resetMessage.y = displayY;
 		
 		resetMessage.defaultTextFormat = format;
 		resetMessage.selectable = false;
 		resetMessage.embedFonts = true;
 		
 		resetMessage.text = "Refresh this page to play again.";
+		
+		var displayX = (Lib.current.stage.stageWidth / 2) - (resetMessage.textWidth / 2);
+		var	displayY = Lib.current.stage.stageHeight * 0.6;
+		
+		resetMessage.x = displayX;
+		resetMessage.y = displayY;
 		
 		addChild(resetMessage);
 	}

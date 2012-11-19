@@ -3,6 +3,7 @@ package views;
 import models.Order;
 import nme.display.Sprite;
 import nme.Lib;
+import nme.Assets;
 import nme.text.TextField;
 import nme.text.TextFormat;
 import nme.text.TextFormatAlign;
@@ -57,20 +58,6 @@ class OrderSubView extends Sprite
 	
 	private function drawBackground():Void 
 	{
-		background.graphics.clear();
-		if (this.selected)
-		{
-			background.graphics.beginFill(0x99ff99, 0.8);
-		}
-		else
-		{
-			background.graphics.beginFill(0xffffff, 0.5);
-		}
-		background.graphics.drawRect(
-			0,
-			0,
-			Lib.current.stage.stageHeight * 0.05,
-			Lib.current.stage.stageWidth * 0.05);
 	}
 	
 	private function drawBorder():Void 
@@ -79,15 +66,15 @@ class OrderSubView extends Sprite
 		
 		if (this.cursored)
 		{
-			border.graphics.lineStyle(3, 0xFFFFFF, 1);
+			border.graphics.lineStyle(3, 0x000000, 1);
 		}
 		else if (this.selected)
 		{
-			border.graphics.lineStyle(.8, 0xFFFFFF, 0.5);
+			border.graphics.lineStyle(2, 0x000000, 1);
 		}
 		else
 		{
-			border.graphics.lineStyle(.5, 0xFFFFFF, 0.2);
+			border.graphics.lineStyle(1, 0x000000, 0.5);
 		}
 		
 		DrawHelper.makeLineRect(
@@ -100,17 +87,18 @@ class OrderSubView extends Sprite
 	
 	private function drawTitle(isRight:Bool):Void 
 	{
-		var fontSize:Float = Lib.current.stage.stageHeight * 0.02;
-		var format:TextFormat = new TextFormat (fontSize, 0xFFFFFF);
-		
-		var displayX = this.width + (Lib.current.stage.stageWidth * 0.01);
-		var	displayY = 0;
+		var fontSize:Float = Lib.current.stage.stageHeight * 0.025;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		var title = new TextField();
 		title.defaultTextFormat = format;
 		title.selectable = false;
 		title.embedFonts = true;
 		title.text = model.name;
+		
+		var displayX = this.width + (Lib.current.stage.stageWidth * 0.01);
+		var	displayY = (this.height / 2) - (title.textHeight / 2);
 		
 		if (isRight)
 		{

@@ -187,17 +187,8 @@ class RobotArmSubView extends Sprite
 		armSegment.graphics.lineStyle(Lib.current.stage.stageHeight * 0.01);
 		if (isRight) armSegmentLength = -armSegmentLength;
 		armSegment.graphics.lineTo(armSegmentLength, 0);
-		
-		var joint = new Sprite();
-		joint.graphics.clear();
-		joint.graphics.beginFill(0xA100E6, 0.75);
-		joint.graphics.drawRect(
-			(jointWidth / 2) * -1,
-			(jointWidth / 2) * -1,
-			jointWidth, jointWidth);
 			
 		arm.addChild(armSegment);
-		arm.addChild(joint);
 		
 		arm.x = homeX;
 		arm.y = DrawHelper.verticalCenter;
