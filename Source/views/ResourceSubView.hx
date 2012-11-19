@@ -1,5 +1,7 @@
 package views;
 
+import models.Player;
+import models.Order;
 import nme.Assets;
 import nme.display.Sprite;
 import nme.filters.BlurFilter;
@@ -11,7 +13,8 @@ import nme.text.TextFormat;
 class ResourceSubView extends Sprite
 {
 	private var resource:Sprite;
-	private var progressBar:Sprite;
+	private var progressBar:Sprite = new jeash.display.Sprite();
+	private var progressBarSegments:Array<Sprite> = new Array<Sprite>();
 	
 	public function new(type:ResourceType, player:Int) 
 	{
@@ -65,6 +68,10 @@ class ResourceSubView extends Sprite
 		symbolText.y = (resource.height / 2) - (symbolText.textHeight / 2);
 		
 		addChild(symbolText);
+	}
+	
+	public function drawProgressBar(currentAmount:Int, amountRequired:Int):Void 
+	{
 	}
 	
 }
