@@ -2,6 +2,8 @@ package views;
 
 import haxe.Timer;
 import nme.Assets;
+import nme.filters.BlurFilter;
+import nme.filters.DropShadowFilter;
 import nme.filters.GlowFilter;
 import nme.geom.ColorTransform;
 import nme.Lib;
@@ -18,9 +20,9 @@ class BoxSubView extends Sprite
 	public var resource(default, null):Resource;
 	public var pushed(default, null):Bool;
 	private var defaultColor:Int = 0xFFFFFF;
-	public static var lithiumColor:Int = 0x5287E3;
-	public static var plutoniumColor:Int = 0x00E6A1;
-	public static var uraniumColor:Int = 0xB8E600;
+	public static var lithiumColor:Int = 0xC9F8FF;
+	public static var plutoniumColor:Int = 0xF8FFC9;
+	public static var uraniumColor:Int = 0xFFC9F8;
 	private var boxWidth:Float;
 	private var moving:Bool;
 	var destroyed:Bool;
@@ -78,20 +80,26 @@ class BoxSubView extends Sprite
 	public function changeBoxColor():Void 
 	{
 		var boxColor:Int = 0;
+		var symbolText:String = "";
 		switch(resource.type)
 		{
 			case ResourceType.Lithium:
 				boxColor = lithiumColor;
+				symbolText = "Li";
 			case ResourceType.Plutonium:
 				boxColor = plutoniumColor;
+				symbolText = "Pu";
 			case ResourceType.Uranium:
 				boxColor = uraniumColor;
+				symbolText = "U";
 		}
 		
 		drawBox(boxColor);
 		fadeBoxIn(.5, 0);
 		if(resource.quantity > 1)
 			drawAmount();
+			
+		drawSymbol(symbolText);
 	}
 	
 	private function firePushedEvent(goLeft:Bool):Void 
@@ -111,11 +119,38 @@ class BoxSubView extends Sprite
 			boxWidth,
 			boxWidth);
 		this.alpha = 0;
+		if(fillColor == defaultColor)
+			this.filters = [new BlurFilter(1, 1, 1)];
+		else
+		{
+			this.filters = null;
+			this.filters = [new BlurFilter(2, 2, 4)];
+		}
+	}
+	
+	private function drawSymbol(text:String):Void
+	{
+		var fontSize = Lib.current.stage.stageHeight * 0.05;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
+		
+		var symbolText = new TextField();
+		
+		symbolText.defaultTextFormat = format;
+		symbolText.selectable = false;
+		symbolText.embedFonts = true;
+		
+		symbolText.text = text;
+		
+		symbolText.x = this.x - (symbolText.textWidth / 2);
+		symbolText.y = this.y - (symbolText.textHeight / 2);
+		
+		addChild(symbolText);
 	}
 	
 	private function drawAmount():Void 
 	{
-		var fontSize = Lib.current.stage.stageHeight * 0.03;
+		var fontSize = Lib.current.stage.stageHeight * 0.02;
 		var font = Assets.getFont("assets/Hyperspace.ttf");
 		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
