@@ -213,14 +213,14 @@ class PlayerSubView extends Sprite
 	
 	private function drawResources(player:Int):Void
 	{
-		var resourceSprites = new Array<Sprite>();
+		resourceSprites = new Array<ResourceSubView>();
 		var lithium = new ResourceSubView(ResourceType.Lithium, player);
 		var plutonium = new ResourceSubView(ResourceType.Plutonium, player);
 		var uranium = new ResourceSubView(ResourceType.Uranium, player);
 		
 		var resourceX = Lib.current.stage.stageWidth * 0.02;
 		if (player == 2)
-			resourceX = Lib.current.stage.stageWidth * 0.98 - lithium.width;
+			resourceX = Lib.current.stage.stageWidth * 0.98 - lithium.resourceWidth;
 		
 		lithium.x = resourceX;
 		lithium.y = (Lib.current.stage.stageHeight * 0.02);
@@ -294,5 +294,14 @@ class PlayerSubView extends Sprite
 	private function updateField():Void 
 	{
 		moneyDisplay.text = model.getFormattedMoney();
+		for (sprite in resourceSprites)
+		{
+			if(sprite.resourceType == "lithium")
+				sprite.updateProgressBar(model.lithium, currentOrder.model.lithium);
+			else if(sprite.resourceType == "plutonium")
+				sprite.updateProgressBar(model.plutonium, currentOrder.model.plutonium);
+			else if(sprite.resourceType == "uranium")
+				sprite.updateProgressBar(model.uranium, currentOrder.model.uranium);
+		}
 	}
 }

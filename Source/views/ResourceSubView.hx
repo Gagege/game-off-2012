@@ -3,6 +3,7 @@ package views;
 import models.Player;
 import models.Order;
 import nme.Assets;
+import nme.display.JointStyle;
 import nme.display.Sprite;
 import nme.filters.BlurFilter;
 import nme.Lib;
@@ -12,30 +13,62 @@ import nme.text.TextFormat;
 
 class ResourceSubView extends Sprite
 {
+	public var resourceType:String;
+	public var resourceWidth:Float;
+	
 	private var resource:Sprite;
-	private var progressBar:Sprite = new jeash.display.Sprite();
-	private var progressBarSegments:Array<Sprite> = new Array<Sprite>();
+	private var progressBar:Sprite;
+	private var progressBarSegments:Array<Sprite>;
 	
 	public function new(type:ResourceType, player:Int) 
 	{
 		super();
 		var color:Int;
 		var symbolText:String;
+		resourceWidth = Lib.current.stage.stageWidth * .08;
 		
 		switch(type)
 		{
 			case ResourceType.Lithium:
 				color = BoxSubView.lithiumColor;
 				symbolText = "Li";
+				resourceType = "lithium";
 			case ResourceType.Plutonium:
 				color = BoxSubView.plutoniumColor;
 				symbolText = "Pu";
+				resourceType = "plutonium";
 			case ResourceType.Uranium:
 				color = BoxSubView.uraniumColor;
 				symbolText = "U";
+				resourceType = "uranium";
 		}
 		drawResource(color);
 		drawSymbol(symbolText);
+		drawProgressBar(player, color);
+	}
+	
+	public function updateProgressBar(currentAmount:Int, amountRequired:Int):Void 
+	{
+		for (i in 0 ... progressBarSegments.length)
+		{
+			var segment = progressBarSegments[i];
+			if(i + 1 > amountRequired)
+			{
+				hideSegment(segment);
+			}
+			if(i + 1 <= amountRequired)
+			{
+				emptySegment(segment);
+			}
+			if(i + 1 <= currentAmount)
+			{
+				fillSegment(segment);
+			}
+			if(i + 1 > amountRequired && currentAmount > amountRequired)
+			{
+				extraSegment(segment);
+			}
+		}
 	}
 	
 	private function drawResource(color:Int):Void 
@@ -45,8 +78,8 @@ class ResourceSubView extends Sprite
 		resource.graphics.drawRect(
 			0,
 			0,
-			Lib.current.stage.stageWidth * .08,
-			Lib.current.stage.stageWidth * .08);
+			resourceWidth,
+			resourceWidth);
 		addChild(resource);
 	}
 	
@@ -70,8 +103,97 @@ class ResourceSubView extends Sprite
 		addChild(symbolText);
 	}
 	
-	public function drawProgressBar(currentAmount:Int, amountRequired:Int):Void 
+	private function drawProgressBar(player:Int, color:Int):Void 
 	{
+		progressBar = new Sprite();
+		progressBarSegments = new Array<Sprite>();
+		
+		var barY = resource.height * 1.02;
+		
+		progressBar.x = 0;
+		progressBar.y = barY;
+		
+		for (i in 1 ... 20)
+		{
+			progressBar.addChild(drawProgressBarSegment(i, player, color));
+		}
+		addChild(progressBar);
+	}
+	
+	private function drawProgressBarSegment(position:Int, player:Int, color:Int):Sprite 
+	{
+		var segment = new Sprite();
+		var segmentBackground = new Sprite();
+		segmentBackground.graphics.beginFill(0x000000);
+		segmentBackground.graphics.drawRect(
+			0,
+			0,
+			this.width * 0.13,
+			this.width * 0.16);
+		segmentBackground.alpha = 0;
+		segmentBackground.name = "segmentBackground";
+		
+		var extraSegmentBackground = new Sprite();
+		segmentBackground.graphics.beginFill(0xFF0000);
+		segmentBackground.graphics.drawRect(
+			0,
+			0,
+			this.width * 0.13,
+			this.width * 0.16);
+		segmentBackground.alpha = 0;
+		extraSegmentBackground.name = "extraSegmentBackground";
+		
+		var segmentBorder = new Sprite();
+		segmentBorder.graphics.lineStyle(this.width * 0.01, 0x000000, 1);
+		DrawHelper.makeLineRect(
+			segmentBorder,
+			0,
+			0,
+			this.width * 0.13,
+			this.width * 0.16);
+		segmentBorder.name = "segmentBorder";
+		
+		segment.addChild(segmentBackground);
+		segment.addChild(extraSegmentBackground);
+		segment.addChild(segmentBorder);
+			
+		segment.x = (segment.width * 1.2 * position) - (segment.width * 1.2);
+		segment.y = 0;
+		if (player == 2)
+		{
+			segment.x *= -1;
+			segment.x = segment.x + resource.width - segment.width;
+		}
+		
+		segment.alpha = 0;
+		
+		progressBarSegments.push(segment);
+		
+		return segment;
+	}
+	
+	private function fillSegment(segment:Sprite):Void 
+	{
+		segment.alpha = 1;
+		segment.getChildByName("segmentBackground").alpha = 1;
+	}
+	
+	private function emptySegment(segment:Sprite):Void 
+	{
+		segment.alpha = 1;
+		segment.getChildByName("segmentBackground").alpha = 0;
+	}
+	
+	private function extraSegment(segment:Sprite):Void 
+	{
+		segment.alpha = 1;
+		segment.getChildByName("segmentBackground").alpha = 0;
+		segment.getChildByName("extraSegmentBackground").alpha = 1;
+	}
+	
+	private function hideSegment(segment:Sprite):Void 
+	{
+		segment.alpha = 0;
 	}
 	
 }
