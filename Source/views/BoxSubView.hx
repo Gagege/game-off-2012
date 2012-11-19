@@ -3,8 +3,6 @@ package views;
 import haxe.Timer;
 import nme.Assets;
 import nme.filters.BlurFilter;
-import nme.filters.DropShadowFilter;
-import nme.filters.GlowFilter;
 import nme.geom.ColorTransform;
 import nme.Lib;
 import models.Resource;

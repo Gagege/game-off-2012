@@ -21,14 +21,12 @@ class PlayerSubView extends Sprite
 {	
 	var robotArm:RobotArmSubView;
 	public var model:Player;
-	private var lithiumDisplay:TextField;
-	private var plutoniumDisplay:TextField;
-	private var uraniumDisplay:TextField;
 	private var moneyDisplay:TextField;
 	private var font:Font;
 	private var fontSize:Float;
 	private var format:TextFormat;
 	private var orderSprites:Array<OrderSubView>;
+	private var resourceSprites:Array<ResourceSubView>;
 	private var orderX:Float;
 	private var yPositions:Array<Float>;
 	private var selectingOrder:Bool;
@@ -171,7 +169,7 @@ class PlayerSubView extends Sprite
 		addChild(robotArm);
 		
 		drawOrders();
-		drawResourceMessages(player);
+		drawResources(player);
 		drawMoneyMessage(player);
 		
 		updateField();
@@ -213,43 +211,30 @@ class PlayerSubView extends Sprite
 		orderSprites.push(orderSprite);
 	}
 	
-	private function drawResourceMessages(player:Int):Void
+	private function drawResources(player:Int):Void
 	{
-		var displayX = Lib.current.stage.stageWidth * 0.02;
-		var	displayY = Lib.current.stage.stageHeight * 0.02;
+		var resourceSprites = new Array<Sprite>();
+		var lithium = new ResourceSubView(ResourceType.Lithium, player);
+		var plutonium = new ResourceSubView(ResourceType.Plutonium, player);
+		var uranium = new ResourceSubView(ResourceType.Uranium, player);
 		
-		lithiumDisplay = new TextField();
-		plutoniumDisplay = new TextField();
-		uraniumDisplay = new TextField();
-		
+		var resourceX = Lib.current.stage.stageWidth * 0.02;
 		if (player == 2)
-		{
-			displayX = Lib.current.stage.stageWidth * 0.78;
-		}
+			resourceX = Lib.current.stage.stageWidth * 0.98 - lithium.width;
 		
-		format.color = BoxSubView.lithiumColor;
-		lithiumDisplay.defaultTextFormat = format;
-		lithiumDisplay.selectable = false;
-		lithiumDisplay.embedFonts = true;
-		format.color = BoxSubView.plutoniumColor;
-		plutoniumDisplay.defaultTextFormat = format;
-		plutoniumDisplay.selectable = false;
-		plutoniumDisplay.embedFonts = true;
-		format.color = BoxSubView.uraniumColor;
-		uraniumDisplay.defaultTextFormat = format;
-		uraniumDisplay.selectable = false;
-		uraniumDisplay.embedFonts = true;
+		lithium.x = resourceX;
+		lithium.y = (Lib.current.stage.stageHeight * 0.02);
+		plutonium.x = resourceX;
+		plutonium.y = (Lib.current.stage.stageHeight * 0.19);
+		uranium.x = resourceX;
+		uranium.y = (Lib.current.stage.stageHeight * 0.36);
 		
-		lithiumDisplay.x = displayX;
-		lithiumDisplay.y = displayY;
-		plutoniumDisplay.x = displayX;
-		plutoniumDisplay.y = displayY * 3;
-		uraniumDisplay.x = displayX;
-		uraniumDisplay.y = displayY * 5;
+		resourceSprites.push(lithium);
+		resourceSprites.push(plutonium);
+		resourceSprites.push(uranium);
 		
-		addChild(lithiumDisplay);
-		addChild(plutoniumDisplay);
-		addChild(uraniumDisplay);
+		for (sprite in resourceSprites)
+			addChild(sprite);
 	}
 	
 	private function drawMoneyMessage(player:Int):Void 
@@ -309,8 +294,5 @@ class PlayerSubView extends Sprite
 	private function updateField():Void 
 	{
 		moneyDisplay.text = model.getFormattedMoney();
-		lithiumDisplay.text = Std.format("Lithium: ${model.lithium} OF ${currentOrder.model.lithium}");
-		plutoniumDisplay.text = Std.format("Plutonium: ${model.plutonium} OF ${currentOrder.model.plutonium}");
-		uraniumDisplay.text = Std.format("Uranium: ${model.uranium} OF ${currentOrder.model.uranium}");
 	}
 }
