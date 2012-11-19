@@ -1,6 +1,7 @@
 package views;
 
 import haxe.Timer;
+import nme.Assets;
 import nme.filters.GlowFilter;
 import nme.geom.ColorTransform;
 import nme.Lib;
@@ -89,7 +90,8 @@ class BoxSubView extends Sprite
 		
 		drawBox(boxColor);
 		fadeBoxIn(.5, 0);
-		drawAmount();
+		if(resource.quantity > 1)
+			drawAmount();
 	}
 	
 	private function firePushedEvent(goLeft:Bool):Void 
@@ -113,8 +115,9 @@ class BoxSubView extends Sprite
 	
 	private function drawAmount():Void 
 	{
-		var fontSize = Lib.current.stage.stageHeight * 0.05;
-		var format = new TextFormat(fontSize, 0x000000);
+		var fontSize = Lib.current.stage.stageHeight * 0.03;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		var amountDisplay = new TextField();
 		
@@ -122,7 +125,10 @@ class BoxSubView extends Sprite
 		amountDisplay.selectable = false;
 		amountDisplay.embedFonts = true;
 		
-		amountDisplay.text = resource.quantity + "";
+		amountDisplay.text = "x" + resource.quantity;
+		
+		amountDisplay.x = this.x + boxWidth * 0.20;
+		amountDisplay.y = this.y + boxWidth * 0.20;
 		
 		addChild(amountDisplay);
 	}
