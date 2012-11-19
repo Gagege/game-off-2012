@@ -15,6 +15,7 @@ class BoxHatchSubView extends Sprite
 	private var currentBox:BoxSubView;
 	private var hatchWidth:Float;
 	private var doorsOpen:Bool;
+	private var boxIndex:Int;
 	
 	public function new(position:Int) 
 	{
@@ -49,6 +50,9 @@ class BoxHatchSubView extends Sprite
 			var delay:Float = 5;
 			currentBox = box;
 			addChild(currentBox);
+			// place box under door
+			swapChildren(currentBox, topDoor);
+			swapChildren(currentBox, bottomDoor);
 			openDoors(delay);
 			Actuate.timer(delay).onComplete(currentBox.changeBoxColor);
 		}

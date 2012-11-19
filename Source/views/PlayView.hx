@@ -246,7 +246,8 @@ class PlayView extends Sprite
 	private function drawGameOverMessage(message:String):Void 
 	{
 		var fontSize = Lib.current.stage.stageHeight * 0.1;
-		format = new TextFormat (fontSize, 0xFFFFFF);
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		var displayX = Lib.current.stage.stageWidth * 0.25;
 		var	displayY = Lib.current.stage.stageHeight * 0.4;
@@ -268,7 +269,8 @@ class PlayView extends Sprite
 	private function drawResetMessage():Void 
 	{
 		var fontSize = Lib.current.stage.stageHeight * 0.05;
-		format = new TextFormat (fontSize, 0xFFFFFF);
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		var displayX = Lib.current.stage.stageWidth * 0.21;
 		var	displayY = Lib.current.stage.stageHeight * 0.6;
