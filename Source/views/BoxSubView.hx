@@ -3,6 +3,7 @@ package views;
 import haxe.Timer;
 import nme.Assets;
 import nme.filters.BlurFilter;
+import nme.filters.DropShadowFilter;
 import nme.geom.ColorTransform;
 import nme.Lib;
 import models.Resource;
@@ -17,7 +18,7 @@ class BoxSubView extends Sprite
 {
 	public var resource(default, null):Resource;
 	public var pushed(default, null):Bool;
-	private var defaultColor:Int = 0xFFFFFF;
+	private var defaultColor:Int = 0xCCCCCC;
 	public static var lithiumColor:Int = 0xC9F8FF;
 	public static var plutoniumColor:Int = 0xF8FFC9;
 	public static var uraniumColor:Int = 0xFFC9F8;
@@ -117,13 +118,6 @@ class BoxSubView extends Sprite
 			boxWidth,
 			boxWidth);
 		this.alpha = 0;
-		if(fillColor == defaultColor)
-			this.filters = [new BlurFilter(1, 1, 1)];
-		else
-		{
-			this.filters = null;
-			this.filters = [new BlurFilter(2, 2, 4)];
-		}
 	}
 	
 	private function drawSymbol(text:String):Void
@@ -168,7 +162,7 @@ class BoxSubView extends Sprite
 	
 	private function fadeBoxIn(speed:Float, delay:Float = 0):Void
 	{
-		Actuate.tween(this, speed, { alpha: 1 } ).delay(delay);
+		Actuate.tween(this, speed, { alpha: 1 } ).delay(delay).ease(Linear.easeNone);
 	}
 	
 	private function setMoving(isMoving:Bool)
