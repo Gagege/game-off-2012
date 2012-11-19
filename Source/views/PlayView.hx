@@ -11,6 +11,7 @@ import com.eclecticdesignstudio.motion.Actuate;
 import nme.text.TextField;
 import nme.text.TextFormat;
 import nme.text.TextFormatAlign;
+import nme.Assets;
 
 import DrawHelper;
 import views.BoxHatchSubView;
@@ -38,8 +39,6 @@ class PlayView extends Sprite
 		Lib.current.stage.align = StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		
-		drawBackground();
-		
 		hatch1 = new BoxHatchSubView(1);
 		hatch2 = new BoxHatchSubView(2);
 		hatch3 = new BoxHatchSubView(3);
@@ -55,8 +54,6 @@ class PlayView extends Sprite
 		addChild(player2);
 		
 		drawTimeDisplay();
-		
-		drawBorder();
 	}
 	
 	public function updateTime(secondsLeft:Float):Void 
@@ -212,46 +209,25 @@ class PlayView extends Sprite
 		}
 	}
 	
-	private function drawBackground():Void 
-	{
-		var background = new Sprite();
-		background.graphics.clear();
-		background.graphics.beginFill(0xE60045,0.60);
-		background.graphics.drawRect(0, 0,
-			Lib.current.stage.stageWidth,
-			Lib.current.stage.stageHeight);
-		addChild(background);
-	}
-	
-	private function drawBorder():Void 
-	{
-		var outerBorder = new Sprite();
-		outerBorder.graphics.clear();
-		outerBorder.graphics.lineStyle(3.0, 0xE60045);
-		outerBorder = DrawHelper.makeLineRect(outerBorder, 2, 2,
-			Lib.current.stage.stageWidth - 3,
-			Lib.current.stage.stageHeight - 3);
-		addChild(outerBorder);
-	}
-	
 	private function drawTimeDisplay():Void 
 	{
-		var fontSize = Lib.current.stage.stageHeight * 0.03;
-		format = new TextFormat (fontSize, 0xFFFFFF);
-		
-		var displayX = Lib.current.stage.stageWidth * 0.473;
-		var	displayY = Lib.current.stage.stageHeight * 0.95;
+		var fontSize = Lib.current.stage.stageHeight * 0.08;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
 		timeDisplay = new TextField();
-		
-		timeDisplay.x = displayX;
-		timeDisplay.y = displayY;
 		
 		timeDisplay.defaultTextFormat = format;
 		timeDisplay.selectable = false;
 		timeDisplay.embedFonts = true;
 		
 		timeDisplay.text = "2:00";
+		
+		var displayX = (Lib.current.stage.stageWidth / 2) - (timeDisplay.textWidth / 2);
+		var	displayY = -4;
+		
+		timeDisplay.x = displayX;
+		timeDisplay.y = displayY;
 		
 		addChild(timeDisplay);
 	}

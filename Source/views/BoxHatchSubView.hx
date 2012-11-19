@@ -76,24 +76,20 @@ class BoxHatchSubView extends Sprite
 			(hatchWidth / 2) * -1, 
 			hatchWidth, 
 			hatchWidth);
-			
-		topDoor.graphics.clear();
-		topDoor.graphics.beginFill(0xAAAAAA, .75);
-		topDoor.graphics.drawRect(
+		
+		topDoor.graphics.lineStyle(hatchWidth * 0.02, 0x000000, 1);
+		DrawHelper.makeLineRect(topDoor,
 			((hatchWidth * 1.1) / 2) * -1,
 			((hatchWidth * 1.1) / 2) * -1,
 			hatchWidth * 1.1,
-			(hatchWidth * 1.1) / 2
-			);
-				
-		bottomDoor.graphics.clear();
-		bottomDoor.graphics.beginFill(0xAAAAAA, .75);
-		bottomDoor.graphics.drawRect(
+			(hatchWidth / 2) * 1.1);
+		
+		bottomDoor.graphics.lineStyle(hatchWidth * 0.02, 0x000000, 1);
+		DrawHelper.makeLineRect(bottomDoor,
 			((hatchWidth * 1.1) / 2) * -1,
 			0,
 			hatchWidth * 1.1,
-			(hatchWidth * 1.1) / 2
-			);
+			(hatchWidth / 2) * 1.1);
 		
 		this.x = Lib.current.stage.stageWidth / 2;
 		

@@ -16,7 +16,7 @@ class BoxSubView extends Sprite
 {
 	public var resource(default, null):Resource;
 	public var pushed(default, null):Bool;
-	private var defaultColor:Int = 0xAAAAAA;
+	private var defaultColor:Int = 0xFFFFFF;
 	public static var lithiumColor:Int = 0x5287E3;
 	public static var plutoniumColor:Int = 0x00E6A1;
 	public static var uraniumColor:Int = 0xB8E600;

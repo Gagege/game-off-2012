@@ -1,14 +1,18 @@
 package controllers;
 
+import events.StartGame;
 import models.Option;
 import nme.events.KeyboardEvent;
 import nme.Lib;
 import views.MenuView;
+import events.MenuEvent;
 
 class MenuController 
 {
 	var menuView:MenuView;
 	var options:Array<Option>;
+	
+	public static var menuEvent:MenuEvent = new MenuEvent();
 	
 	public function new() 
 	{
@@ -28,17 +32,21 @@ class MenuController
 		Lib.current.addChild(menuView);
 		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		menuEvent.addEventListener("StartGame", onStartGame);
 	}
 	
-	private function startGame():Void 
+	private function onStartGame(event:StartGame):Void 
 	{
-		var newGame = new PlayController(options);
+		menuView.hide();
+		var newGame = new PlayController(event.options);
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void
 	{
 		switch(event.keyCode)
 		{
+			case 13:
+				menuView.selectOption();
 			case 38: // 'up arrow' key
 				if(menuView.selectedOptionIndex > 0)
 					menuView.cursorTo(menuView.selectedOptionIndex - 1);

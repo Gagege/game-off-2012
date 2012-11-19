@@ -1,5 +1,8 @@
 package views;
 
+import controllers.MenuController;
+import controllers.PlayController;
+import events.MenuEvent;
 import models.Option;
 import nme.Assets;
 import nme.display.Sprite;
@@ -21,6 +24,23 @@ class MenuView extends Sprite
 		initialize();
 	}
 	
+	public function selectOption():Void 
+	{
+		
+		options[selectedOptionIndex].selected = true;
+		
+		switch(options[selectedOptionIndex].name)
+		{
+			case "Start Game":
+				MenuController.menuEvent.startGame(options);
+			case "1 Player":
+				playerSelectorTo(1);
+			case "2 Player":
+				playerSelectorTo(2);
+			case "Instructions":
+		}
+	}
+	
 	public function cursorTo(optionIndex:Int):Void
 	{
 		var cursor = getChildByName("cursor");
@@ -35,6 +55,20 @@ class MenuView extends Sprite
 		cursor.y = displayY;
 		
 		selectedOptionIndex = optionIndex;
+	}
+	
+	public function hide():Void 
+	{
+		this.visible = false;
+	}
+	
+	private function playerSelectorTo(numPlayers:Int):Void 
+	{
+		var selector = getChildByName("playerSelector");
+		var playerOption = getChildByName(numPlayers + " Player");
+		var	displayY = playerOption.y;
+		
+		selector.y = displayY;
 	}
 	
 	private function initialize():Void 
@@ -67,6 +101,8 @@ class MenuView extends Sprite
 		
 		titleDisplay.x = displayX;
 		titleDisplay.y = displayY;
+		
+		titleDisplay.name = "title";
 		
 		addChild(titleDisplay);
 	}
@@ -118,6 +154,8 @@ class MenuView extends Sprite
 		
 		selector.x = displayX;
 		selector.y = displayY;
+		
+		selector.name = "playerSelector";
 		
 		addChild(selector);
 	}
