@@ -39,7 +39,6 @@ class MenuView extends Sprite
 			case "2 Player":
 				playerSelectorTo(2);
 				options[selectedOptionIndex - 1].selected = false; // set 1 player to false
-			case "Instructions":
 		}
 	}
 	

@@ -25,7 +25,6 @@ class MenuController
 		options.push(new Option("Start Game", false)); 
 		options.push(new Option("1 Player", true));
 		options.push(new Option("2 Player", false));
-		options.push(new Option("Instructions", false));
 		
 		menuView = new MenuView(options);
 		
