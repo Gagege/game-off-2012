@@ -8,6 +8,7 @@ import events.RobotEvent;
 import events.RobotMove;
 import events.SendBox;
 import haxe.Timer;
+import models.AIBrain;
 import models.BoxTimer;
 import models.Option;
 import nme.events.KeyboardEvent;
@@ -17,11 +18,11 @@ import views.PlayView;
 
 class PlayController 
 {
+	var player1AI:Bool;
 	var playView:PlayView;
 	var boxTimer:BoxTimer;
 	var gameDuration:Int;
 	var millisecondsLeft:Int;
-	
 	var gameTimer:Timer;
 	
 	public static var boxSender:BoxEvents = new BoxEvents();
@@ -29,6 +30,17 @@ class PlayController
 	
 	public function new(options:Array<Option>) 
 	{
+		for (option in options)
+		{
+			if (option.name == "1 Player")
+				player1AI = option.selected;
+		}
+		
+		if (player1AI)
+		{
+			var brain = new AIBrain();
+		}
+		
 		playView = new PlayView();
 		
 		Lib.current.addChild(playView);
@@ -79,22 +91,29 @@ class PlayController
 	
 	private function onKeyDown(event:KeyboardEvent):Void
 	{
+		if (!player1AI)
+		{
+			switch(event.keyCode)
+			{
+				case 68: // 'D' key
+					playView.playerMotion(1, Command.Right);
+				case 65: // 'A' key
+					playView.playerMotion(1, Command.Left);
+				case 87: // 'W' key
+					playView.playerMotion(1, Command.Up);
+				case 83: // 'S' key
+					playView.playerMotion(1, Command.Down);
+				case 81: // 'Q' key
+					playView.orderMenuUp(1);
+				case 90: // 'Z' key
+					playView.orderMenuDown(1);
+				case 69: // 'E' key
+					playView.selectOrder(1);
+			}
+		}
+		
 		switch(event.keyCode)
 		{
-			case 68: // 'D' key
-				playView.playerMotion(1, Command.Right);
-			case 65: // 'A' key
-				playView.playerMotion(1, Command.Left);
-			case 87: // 'W' key
-				playView.playerMotion(1, Command.Up);
-			case 83: // 'S' key
-				playView.playerMotion(1, Command.Down);
-			case 81: // 'Q' key
-				playView.orderMenuUp(1);
-			case 90: // 'Z' key
-				playView.orderMenuDown(1);
-			case 69: // 'E' key
-				playView.selectOrder(1);
 			case 39: // 'right arrow' key
 				playView.playerMotion(2, Command.Right);
 			case 37: // 'left arrow' key
