@@ -29,7 +29,7 @@ class BoxTimer
 		
 		Timer.delay(
 			callback(deliverAndSetRemoveTimer, box, position), 
-			getRandomMillisecondsBelow(10000)
+			getRandomMillisecondsBelow(5000)
 		);
 	}
 	
@@ -38,7 +38,7 @@ class BoxTimer
 		deliverToPosition(box, position);
 		Timer.delay(
 			callback(removeAndSetCreateTimer, position),
-			10000
+			5000
 		);
 	}
 	
