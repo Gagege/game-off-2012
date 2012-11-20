@@ -56,11 +56,26 @@ class PlayView extends Sprite
 		drawTimeDisplay();
 	}
 	
+	public function readySetGo():Void 
+	{
+		setTimeTextAndAdjust("Ready?");
+		Timer.delay(callback(setTimeTextAndAdjust, "3"), 1000);
+		Timer.delay(callback(setTimeTextAndAdjust, "2"), 2000);
+		Timer.delay(callback(setTimeTextAndAdjust, "1"), 3000);
+		Timer.delay(callback(setTimeTextAndAdjust, "Go!"), 4000);
+	}
+	
 	public function updateTime(secondsLeft:Float):Void 
 	{
 		var minutes:Int = Std.int(secondsLeft / 60);
 		var seconds:Int = Std.int(secondsLeft - (minutes * 60));
-		timeDisplay.text = minutes + ":" + (seconds < 10 ? "0" + seconds : seconds + "");
+		setTimeTextAndAdjust(minutes + ":" + (seconds < 10 ? "0" + seconds : seconds + ""));
+	}
+	
+	private function setTimeTextAndAdjust(text:String):Void 
+	{
+		timeDisplay.text = text;
+		timeDisplay.x = (Lib.current.stage.stageWidth / 2) - (timeDisplay.width / 2);
 	}
 	
 	public function endGame():Void 

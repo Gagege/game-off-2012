@@ -39,19 +39,23 @@ class PlayController
 		boxSender.addEventListener("BoxPushed", onBoxPushed);
 		robotEvent.addEventListener("PushPull", onPushPull);
 		
-		boxTimer = new BoxTimer();
+		playView.readySetGo();
 		
-		gameDuration = 120;
-		gameTimer = new Timer(1000);
-		gameTimer.run = function() { onUpdateTime(); }
+		Timer.delay(function () {
+			boxTimer = new BoxTimer();
+			gameDuration = 120;
+			gameTimer = new Timer(1000);
+			onUpdateTime();
+			gameTimer.run = function() { onUpdateTime(); }
+		}, 5000);
 	}
 	
 	private function onUpdateTime():Void 
 	{
 		if (gameDuration > 0)
 		{
-			gameDuration--;
 			playView.updateTime(gameDuration);
+			gameDuration--;
 		}
 		else
 		{
