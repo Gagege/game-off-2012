@@ -37,6 +37,7 @@ class MenuController
 	private function onStartGame(event:StartGame):Void 
 	{
 		menuView.hide();
+		menuEvent.removeEventListener("StartGame", onStartGame);
 		var newGame = new PlayController(event.options);
 	}
 	

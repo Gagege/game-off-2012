@@ -54,8 +54,8 @@ class PlayController
 	{
 		if (gameDuration > 0)
 		{
-			playView.updateTime(gameDuration);
 			gameDuration--;
+			playView.updateTime(gameDuration);
 		}
 		else
 		{

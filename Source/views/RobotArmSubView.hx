@@ -30,7 +30,7 @@ class RobotArmSubView extends Sprite
 		
 		moving = false;
 		
-		speed = 0.2;
+		speed = 0.1;
 		
 		pushPullSpeed = speed * 3;
 		
@@ -120,7 +120,7 @@ class RobotArmSubView extends Sprite
 			var newY:Float = DrawHelper.verticalCenter;
 			position = 2;
 			
-			if (arm.y <= (DrawHelper.verticalCenter * 1.3))
+			if (arm.y <= (DrawHelper.verticalCenter * 1.4))
 			{
 				position = 1;
 				newY = DrawHelper.vertical1Fourth;
@@ -130,10 +130,10 @@ class RobotArmSubView extends Sprite
 		}
 		else
 		{
-			if ((arm.y > (DrawHelper.verticalCenter * .7) &&
-				arm.y < (DrawHelper.verticalCenter * 1.3)) ||
-				arm.y < (DrawHelper.vertical1Fourth * 1.3) ||
-				arm.y > (DrawHelper.vertical3Fourths * .7))
+			if ((arm.y > (DrawHelper.verticalCenter * .6) &&
+				arm.y < (DrawHelper.verticalCenter * 1.4)) ||
+				arm.y < (DrawHelper.vertical1Fourth * 1.4) ||
+				arm.y > (DrawHelper.vertical3Fourths * .6))
 			{
 				Actuate.stop(arm);
 				moving = false;
@@ -150,7 +150,7 @@ class RobotArmSubView extends Sprite
 			var newY:Float = DrawHelper.verticalCenter;
 			position = 2;
 			
-			if (arm.y >= (DrawHelper.verticalCenter * .7))
+			if (arm.y >= (DrawHelper.verticalCenter * .6))
 			{
 				position = 3;
 				newY = DrawHelper.vertical3Fourths;
@@ -160,10 +160,10 @@ class RobotArmSubView extends Sprite
 		}
 		else
 		{
-			if ((arm.y > (DrawHelper.verticalCenter * .7) &&
-				arm.y < (DrawHelper.verticalCenter * 1.3)) ||
-				arm.y < (DrawHelper.vertical1Fourth * 1.3) ||
-				arm.y > (DrawHelper.vertical3Fourths * .7))
+			if ((arm.y > (DrawHelper.verticalCenter * .6) &&
+				arm.y < (DrawHelper.verticalCenter * 1.4)) ||
+				arm.y < (DrawHelper.vertical1Fourth * 1.4) ||
+				arm.y > (DrawHelper.vertical3Fourths * .6))
 			{
 				Actuate.stop(arm);
 				moving = false;

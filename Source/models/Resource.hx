@@ -15,8 +15,8 @@ class Resource
 			case 1: type = ResourceType.Lithium;
 			case 2: type = ResourceType.Lithium;
 			case 3: type = ResourceType.Lithium;
-			case 4: type = ResourceType.Lithium;
 			
+			case 4: type = ResourceType.Plutonium;
 			case 5: type = ResourceType.Plutonium;
 			case 6: type = ResourceType.Plutonium;
 			case 7: type = ResourceType.Plutonium;
