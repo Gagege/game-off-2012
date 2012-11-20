@@ -85,6 +85,12 @@ class PlayController
 				playView.playerMotion(1, Command.Up);
 			case 83: // 'S' key
 				playView.playerMotion(1, Command.Down);
+			case 81: // 'Q' key
+				playView.orderMenuUp(1);
+			case 90: // 'Z' key
+				playView.orderMenuDown(1);
+			case 69: // 'E' key
+				playView.selectOrder(1);
 			case 39: // 'right arrow' key
 				playView.playerMotion(2, Command.Right);
 			case 37: // 'left arrow' key
@@ -93,6 +99,12 @@ class PlayController
 				playView.playerMotion(2, Command.Up);
 			case 40: // 'down arrow' key
 				playView.playerMotion(2, Command.Down);
+			case 79: // 'O' key
+				playView.orderMenuUp(2);
+			case 76: // 'L' key
+				playView.orderMenuDown(2);
+			case 80: // 'P' key
+				playView.selectOrder(2);
 		}
 	}
 	

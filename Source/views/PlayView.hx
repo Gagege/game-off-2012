@@ -187,6 +187,42 @@ class PlayView extends Sprite
 		}
 	}
 	
+	public function orderMenuUp(player:Int):Void
+	{
+		if (player == 1)
+		{
+			player1.orderMenuUp();
+		}
+		else
+		{
+			player2.orderMenuUp();
+		}
+	}
+	
+	public function orderMenuDown(player:Int):Void
+	{
+		if (player == 1)
+		{
+			player1.orderMenuDown();
+		}
+		else
+		{
+			player2.orderMenuDown();
+		}
+	}
+	
+	public function selectOrder(player:Int):Void
+	{
+		if (player == 1)
+		{
+			player1.selectOrder();
+		}
+		else
+		{
+			player2.selectOrder();
+		}
+	}
+	
 	public function absorbResource(resource:Resource, toLeft:Bool):Void 
 	{
 		if (toLeft)

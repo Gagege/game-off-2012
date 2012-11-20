@@ -25,7 +25,6 @@ class OrderSubView extends Sprite
 	public function select(selected:Bool):Void
 	{
 		this.selected = selected;
-		drawBackground();
 		drawBorder();
 	}
 	
@@ -56,10 +55,6 @@ class OrderSubView extends Sprite
 		return fulfilled;
 	}
 	
-	private function drawBackground():Void 
-	{
-	}
-	
 	private function drawBorder():Void 
 	{
 		border.graphics.clear();
@@ -87,7 +82,7 @@ class OrderSubView extends Sprite
 	
 	private function drawTitle(isRight:Bool):Void 
 	{
-		var fontSize:Float = Lib.current.stage.stageHeight * 0.025;
+		var fontSize:Float = Lib.current.stage.stageHeight * 0.03;
 		var font = Assets.getFont("assets/Hyperspace.ttf");
 		var format = new TextFormat (font.fontName, fontSize, 0x000000);
 		
@@ -117,7 +112,6 @@ class OrderSubView extends Sprite
 		selected = false;
 		
 		background = new Sprite();
-		drawBackground();
 		addChild(background);
 		
 		border = new Sprite();

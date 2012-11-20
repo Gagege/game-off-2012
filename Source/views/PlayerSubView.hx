@@ -42,94 +42,78 @@ class PlayerSubView extends Sprite
 	
 	public function robotForward():Void
 	{
-		//if selecting order, select cursored order and clear previous selection
-		if (selectingOrder)
-		{
-			selectingOrder = false;
-			for (order in orderSprites)
-			{
-				order.select(false);
-				
-				if (order.cursored)
-				{
-					order.select(true);
-					currentOrder = order;
-				}
-					
-				order.cursorTo(false);
-			}
-			isOrderFulfilled(currentOrder);
-		}
-		else //otherwise move arm
-		{
-			robotArm.forward();
-		}
+		robotArm.forward();
 	}
 	
 	public function robotBack():Void
 	{
-		//only move back if not currently selecting order, otherwise do nothing
-		if (!selectingOrder)
-		{
-			//if arm doesn't move, that means the user wants to select an order.
-			var moved = robotArm.back();
-			if (!moved)
-			{
-				selectingOrder = true;
-				for (order in orderSprites)
-				{
-					if (order.selected)
-					{
-						order.cursorTo(true);
-					}
-				}
-			}
-		}
+		robotArm.back();
 	}
 	
 	public function robotUp():Void
 	{
-		//if selecting order, move cursor up unless already at order[0]
-		if (selectingOrder)
-		{
-			for (i in 0 ... orderSprites.length)
-			{
-				if (orderSprites[i].cursored && i > 0)
-				{
-					orderSprites[i].cursorTo(false);
-					orderSprites[i - 1].cursorTo(true);
-					currentOrder = orderSprites[i - 1];
-					updateField();
-					break;
-				}
-			}
-		}
-		else //otherwise move arm
-		{
-			robotArm.up();
-		}
+		robotArm.up();
 	}
 	
 	public function robotDown():Void
 	{
-		//if selecting order, move cursor down unless already at order[2]
-		if (selectingOrder)
+		robotArm.down();
+	}
+	
+	public function orderMenuUp():Void
+	{
+		selectingOrder = true;
+		if (!currentOrder.cursored)
 		{
-			for (i in 0 ... orderSprites.length)
+			currentOrder.cursorTo(true);
+		}
+		
+		for (i in 0 ... orderSprites.length)
+		{
+			if (orderSprites[i].cursored && i > 0)
 			{
-				if (orderSprites[i].cursored && i < 2)
-				{
-					orderSprites[i].cursorTo(false);
-					orderSprites[i + 1].cursorTo(true);
-					currentOrder = orderSprites[i + 1];
-					updateField();
-					break;
-				}
+				orderSprites[i].cursorTo(false);
+				orderSprites[i - 1].cursorTo(true);
+				currentOrder = orderSprites[i - 1];
+				break;
 			}
 		}
-		else //otherwise move arm
+		updateField();
+	}
+	
+	public function orderMenuDown():Void
+	{
+		selectingOrder = true;
+		if (!currentOrder.cursored)
 		{
-			robotArm.down();
+			currentOrder.cursorTo(true);
+		}
+		
+		for (i in 0 ... orderSprites.length)
+		{
+			if (orderSprites[i].cursored && i < orderSprites.length - 1)
+			{
+				orderSprites[i].cursorTo(false);
+				orderSprites[i + 1].cursorTo(true);
+				currentOrder = orderSprites[i + 1];
+				break;
+			}
+		}
+		updateField();
+	}
+	
+	public function selectOrder():Void 
+	{
+		selectingOrder = false;
+		for (i in 0 ... orderSprites.length)
+		{
+			orderSprites[i].select(false);
+			if (orderSprites[i].cursored)
+			{
+				orderSprites[i].select(true);
+				orderSprites[i].cursorTo(false);
+				isOrderFulfilled(orderSprites[i]);
+			}
 		}
 	}
 	
@@ -141,7 +125,7 @@ class PlayerSubView extends Sprite
 	
 	private function initialize(player:Int):Void
 	{
-		fontSize = Lib.current.stage.stageHeight * 0.03;
+		fontSize = Lib.current.stage.stageHeight * 0.05;
 		var font = Assets.getFont("assets/Hyperspace.ttf");
 		format = new TextFormat();
 		format.size = fontSize;
@@ -192,6 +176,7 @@ class PlayerSubView extends Sprite
 			orderPositioner++;
 		}
 		orderSprites[0].select(true);
+		orderSprites[0].cursorTo(true);
 		currentOrder = orderSprites[0];
 	}
 	
@@ -239,24 +224,25 @@ class PlayerSubView extends Sprite
 	
 	private function drawMoneyMessage(player:Int):Void 
 	{
-		var displayX = Lib.current.stage.stageWidth * 0.3;
-		var	displayY = Lib.current.stage.stageHeight * 0.02;
 		
 		moneyDisplay = new TextField();
-		
-		if (player == 2)
-		{
-			displayX = Lib.current.stage.stageWidth * 0.65;
-		}
-		
-		moneyDisplay.x = displayX;
-		moneyDisplay.y = displayY;
 		format.color = 0x000000;
 		moneyDisplay.defaultTextFormat = format;
 		moneyDisplay.selectable = false;
 		moneyDisplay.embedFonts = true;
 		
 		moneyDisplay.text = model.getFormattedMoney();
+		
+		var displayX = (Lib.current.stage.stageWidth * 0.25) - (moneyDisplay.textWidth / 2);
+		var	displayY = Lib.current.stage.stageHeight * 0.02;
+		
+		if (player == 2)
+		{
+			displayX = (Lib.current.stage.stageWidth * 0.75) - (moneyDisplay.textWidth / 2);
+		}
+		
+		moneyDisplay.x = displayX;
+		moneyDisplay.y = displayY;
 		
 		addChild(moneyDisplay);
 	}
