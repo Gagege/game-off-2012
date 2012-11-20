@@ -55,18 +55,19 @@ class ResourceSubView extends Sprite
 			if(i + 1 > amountRequired)
 			{
 				hideSegment(segment);
+				if(currentAmount > amountRequired && i + 1 <= currentAmount)
+				{
+					extraSegment(segment);
+				}
 			}
-			if(i + 1 <= amountRequired)
+			else if(i + 1 <= amountRequired)
 			{
 				emptySegment(segment);
-			}
-			if(i + 1 <= currentAmount)
-			{
-				fillSegment(segment);
-			}
-			if(i + 1 > amountRequired && currentAmount > amountRequired)
-			{
-				extraSegment(segment);
+				
+				if(i + 1 <= currentAmount)
+				{
+					fillSegment(segment);
+				}
 			}
 		}
 	}
@@ -134,13 +135,13 @@ class ResourceSubView extends Sprite
 		segmentBackground.name = "segmentBackground";
 		
 		var extraSegmentBackground = new Sprite();
-		segmentBackground.graphics.beginFill(0xFF0000);
-		segmentBackground.graphics.drawRect(
+		extraSegmentBackground.graphics.beginFill(0xFF0000);
+		extraSegmentBackground.graphics.drawRect(
 			0,
 			0,
 			this.width * 0.13,
 			this.width * 0.16);
-		segmentBackground.alpha = 0;
+		extraSegmentBackground.alpha = 0;
 		extraSegmentBackground.name = "extraSegmentBackground";
 		
 		var segmentBorder = new Sprite();
@@ -176,12 +177,14 @@ class ResourceSubView extends Sprite
 	{
 		segment.alpha = 1;
 		segment.getChildByName("segmentBackground").alpha = 1;
+		segment.getChildByName("extraSegmentBackground").alpha = 0;
 	}
 	
 	private function emptySegment(segment:Sprite):Void 
 	{
 		segment.alpha = 1;
 		segment.getChildByName("segmentBackground").alpha = 0;
+		segment.getChildByName("extraSegmentBackground").alpha = 0;
 	}
 	
 	private function extraSegment(segment:Sprite):Void 
