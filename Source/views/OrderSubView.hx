@@ -93,7 +93,7 @@ class OrderSubView extends Sprite
 		title.text = model.name;
 		
 		var displayX = this.width + (Lib.current.stage.stageWidth * 0.01);
-		var	displayY = (this.height / 2) - (title.textHeight / 2);
+		var	displayY = -(border.height * 0.05);
 		
 		if (isRight)
 		{
@@ -104,6 +104,32 @@ class OrderSubView extends Sprite
 		title.y = displayY;
 		
 		addChild(title);
+	}
+	
+	private function drawWorth(isRight:Bool):Void 
+	{
+		var fontSize:Float = Lib.current.stage.stageHeight * 0.03;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
+		
+		var money = new TextField();
+		money.defaultTextFormat = format;
+		money.selectable = false;
+		money.embedFonts = true;
+		money.text = "$" + model.money;
+		
+		var displayX = border.width + (Lib.current.stage.stageWidth * 0.01);
+		var	displayY = border.height * 0.5;
+		
+		if (isRight)
+		{
+			displayX = -(money.textWidth + Lib.current.stage.stageWidth * 0.01);
+		}
+		
+		money.x = displayX;
+		money.y = displayY;
+		
+		addChild(money);
 	}
 	
 	private function initialize(assignedOrder:Order, isRight:Bool):Void 
@@ -119,6 +145,7 @@ class OrderSubView extends Sprite
 		addChild(border);
 		
 		drawTitle(isRight);
+		drawWorth(isRight);
 	}
 	
 }
