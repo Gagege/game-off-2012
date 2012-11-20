@@ -35,8 +35,10 @@ class MenuView extends Sprite
 				MenuController.menuEvent.startGame(options);
 			case "1 Player":
 				playerSelectorTo(1);
+				options[selectedOptionIndex + 1].selected = false; // set 2 player to false
 			case "2 Player":
 				playerSelectorTo(2);
+				options[selectedOptionIndex - 1].selected = false; // set 1 player to false
 			case "Instructions":
 		}
 	}
