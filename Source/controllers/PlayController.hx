@@ -43,7 +43,7 @@ class PlayController
 		
 		Timer.delay(function () {
 			boxTimer = new BoxTimer();
-			gameDuration = 120;
+			gameDuration = 180;
 			gameTimer = new Timer(1000);
 			onUpdateTime();
 			gameTimer.run = function() { onUpdateTime(); }
