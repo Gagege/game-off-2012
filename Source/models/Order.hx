@@ -4,7 +4,9 @@ class Order
 {
 	static var companies:Array<String> = ["Ruin", "Explosions", "Tragedy", "Trouble", "Danger", 
 		"Intrusion", "Death", "Terrible", "Veridian", "Massive", "Skynet", "Sabotage", "Murder", 
-		"Decimation", "Poison"];
+		"Decimation", "Poison", "Agitation", "Strife", "Pain", "Tribulation", "Suffer", "Bother",
+		"Predicament", "Misfortune", "Disquiet", "Dischord", "Nuisance", "Vexation", "Irritation",
+		"Hindrance", "Dissatisfaction"];
 	static var types:Array<String> = ["Inc.", "Ltd.", "Corp.", "Ind."];
 	
 	public var name(default, null):String;
@@ -24,8 +26,8 @@ class Order
 	
 	public static function getRandomOrder():Order 
 	{
-		var amountLithium:Int = Math.round(Math.random() * 13);
-		var amountPlutonium:Int = Math.round(Math.random() * 6);
+		var amountLithium:Int = Math.round(Math.random() * 6);
+		var amountPlutonium:Int = Math.round(Math.random() * 4);
 		var amountUranium:Int = Math.round(Math.random() * 2);
 		
 		var worth:Int = (amountLithium * 10) + (amountPlutonium * 50) + (amountUranium * 100);
