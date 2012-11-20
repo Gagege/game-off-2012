@@ -20,8 +20,8 @@ class Resource
 			case 5: type = ResourceType.Plutonium;
 			case 6: type = ResourceType.Plutonium;
 			case 7: type = ResourceType.Plutonium;
-			case 8: type = ResourceType.Plutonium;
 			
+			case 8: type = ResourceType.Uranium;
 			case 9: type = ResourceType.Uranium;
 			case 10: type = ResourceType.Uranium;
 		}
