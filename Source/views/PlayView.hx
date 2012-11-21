@@ -22,12 +22,12 @@ class PlayView extends Sprite
 {
 	public var player1:PlayerSubView;
     public var player2:PlayerSubView;
-	var hatch1:BoxHatchSubView;
-	var hatch2:BoxHatchSubView;
-	var hatch3:BoxHatchSubView;
-	var topBox:BoxSubView;
-	var middleBox:BoxSubView;
-	var bottomBox:BoxSubView;
+	private var hatch1:BoxHatchSubView;
+	private var hatch2:BoxHatchSubView;
+	private var hatch3:BoxHatchSubView;
+	private var topBox:BoxSubView;
+	private var middleBox:BoxSubView;
+	private var bottomBox:BoxSubView;
 	
 	private var timeDisplay:TextField;
 	private var format:TextFormat;

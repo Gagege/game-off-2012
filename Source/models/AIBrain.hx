@@ -1,14 +1,39 @@
 package models;
 import controllers.PlayController;
 import haxe.Timer;
+import views.PlayView;
 
 class AIBrain 
 {
-	public var player1(null, default):Player;
-	public var player2(null, default):Player;
 	
 	var timer:Timer;
-	var potentialMoves:Array<{stupidity:Int, move:Command}>;
+	var potentialMoves:Array<{smartness:Int, move:Command}>;
+	var thinking:Bool;
+	
+	public var hatch1HasBox(null, default):Bool;
+	public var hatch2HasBox(null, default):Bool;
+	public var hatch3HasBox(null, default):Bool;
+	
+	public var hatch1Box(null, default):Resource;
+	public var hatch2Box(null, default):Resource;
+	public var hatch3Box(null, default):Resource;
+	
+	public var player1Position(null, default):Int;
+	public var player2Position(null, default):Int;
+	
+	public var player1LithiumRequired(null, default):Int;
+	public var player1LithiumCurrent(null, default):Int;
+	public var player1PlutoniumRequired(null, default):Int;
+	public var player1PlutoniumCurrent(null, default):Int;
+	public var player1UraniumRequired(null, default):Int;
+	public var player1UraniumCurrent(null, default):Int;
+	
+	public var player2LithiumRequired(null, default):Int;
+	public var player2LithiumCurrent(null, default):Int;
+	public var player2PlutoniumRequired(null, default):Int;
+	public var player2PlutoniumCurrent(null, default):Int;
+	public var player2UraniumRequired(null, default):Int;
+	public var player2UraniumCurrent(null, default):Int;
 	
 	public function new() 
 	{
@@ -18,6 +43,43 @@ class AIBrain
 	
 	private function think():Void 
 	{
+		if (!thinking)
+		{
+			thinking = true;
+			potentialMoves = new Array<{smartness:Int, move:Command}>();
+			
+			potentialMoves.push(getUpMove());
+			potentialMoves.push(getDownMove());
+			potentialMoves.push(getLeftMove());
+			potentialMoves.push(getRightMove());
+			potentialMoves.push(getDoNothingMove());
+			
+			thinking = false;
+		}
+	}
+	
+	private function getUpMove():{smartness:Int, move:Command}
+	{
+	}
+	
+	private function getDownMove():{smartness:Int, move:Command}
+	{
+		
+	}
+	
+	private function getLeftMove():{smartness:Int, move:Command}
+	{
+		
+	}
+	
+	private function getRightMove():{smartness:Int, move:Command}
+	{
+		
+	}
+	
+	private function getDoNothingMove():{smartness:Int, move:Command}
+	{
+		
 	}
 	
 }

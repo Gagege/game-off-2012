@@ -9,12 +9,12 @@ import com.eclecticdesignstudio.motion.Actuate;
 class BoxHatchSubView extends Sprite
 {
 
+	private var doorsOpen:Bool;
+	private var currentBox:BoxSubView;
 	private var hole:Sprite;
 	private var topDoor:Sprite;
 	private var bottomDoor:Sprite;
-	private var currentBox:BoxSubView;
 	private var hatchWidth:Float;
-	private var doorsOpen:Bool;
 	private var boxIndex:Int;
 	
 	public function new(position:Int) 

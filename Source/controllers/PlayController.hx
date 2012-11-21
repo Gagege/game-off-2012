@@ -41,8 +41,7 @@ class PlayController
 		if (player1AI)
 		{
 			var brain:AIBrain = new AIBrain();
-			brain.player1 = playView.player1.model;
-			brain.player2 = playView.player2.model;
+			brain.playView = playView;
 		}
 		
 		Lib.current.addChild(playView);
@@ -136,11 +135,19 @@ class PlayController
 	private function onSendBox(event:SendBox):Void 
 	{
 		playView.deliverBoxToHatch(event.deliverTo, event.resource);
+		if (brain != null)
+		{
+			Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", true);
+		}
 	}
 	
 	private function onRemoveBox(event:RemoveBox):Void 
 	{
 		playView.removeBoxFromHatch(event.removeFrom);
+		if (brain != null)
+		{
+			Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", false);
+		}
 	}
 	
 	private function onPushPull(event:RobotMove):Void
@@ -151,6 +158,10 @@ class PlayController
 	private function onBoxPushed(event:BoxPushed):Void 
 	{
 		playView.absorbResource(event.resource, event.toLeft);
+		if (brain != null)
+		{
+			Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", false);
+		}
 	}
 }
 	
