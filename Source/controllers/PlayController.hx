@@ -36,12 +36,14 @@ class PlayController
 				player1AI = option.selected;
 		}
 		
+		playView = new PlayView();
+		
 		if (player1AI)
 		{
-			var brain = new AIBrain();
+			var brain:AIBrain = new AIBrain();
+			brain.player1 = playView.player1.model;
+			brain.player2 = playView.player2.model;
 		}
-		
-		playView = new PlayView();
 		
 		Lib.current.addChild(playView);
 		

@@ -20,8 +20,8 @@ import controllers.PlayController;
 
 class PlayView extends Sprite
 {
-	var player1:PlayerSubView;
-    var player2:PlayerSubView;
+	public var player1:PlayerSubView;
+    public var player2:PlayerSubView;
 	var hatch1:BoxHatchSubView;
 	var hatch2:BoxHatchSubView;
 	var hatch3:BoxHatchSubView;

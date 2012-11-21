@@ -7,7 +7,7 @@ class Order
 		"Decimation", "Poison", "Agitation", "Strife", "Pain", "Tribulation", "Suffer", "Bother",
 		"Predicament", "Misfortune", "Disquiet", "Dischord", "Nuisance", "Vexation", "Irritation",
 		"Hindrance", "Dissatisfaction"];
-	static var types:Array<String> = ["Inc.", "Ltd.", "Corp.", "Ind."];
+	static var types:Array<String> = ["Inc", "Ltd", "Corp", "Ind", "Dyn", ""];
 	
 	public var name(default, null):String;
 	public var lithium(default, null):Int;
