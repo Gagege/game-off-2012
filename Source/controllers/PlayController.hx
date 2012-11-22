@@ -19,6 +19,7 @@ import views.PlayView;
 class PlayController 
 {
 	var player1AI:Bool;
+	var brain:AIBrain;
 	var playView:PlayView;
 	var boxTimer:BoxTimer;
 	var gameDuration:Int;
@@ -40,8 +41,7 @@ class PlayController
 		
 		if (player1AI)
 		{
-			var brain:AIBrain = new AIBrain();
-			brain.playView = playView;
+			brain = new AIBrain();
 		}
 		
 		Lib.current.addChild(playView);
@@ -56,7 +56,7 @@ class PlayController
 		
 		Timer.delay(function () {
 			boxTimer = new BoxTimer();
-			gameDuration = 180;
+			gameDuration = 240;
 			gameTimer = new Timer(1000);
 			onUpdateTime();
 			gameTimer.run = function() { onUpdateTime(); }
@@ -146,7 +146,7 @@ class PlayController
 		playView.removeBoxFromHatch(event.removeFrom);
 		if (brain != null)
 		{
-			Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", false);
+			Reflect.setField(brain, "hatch" + event.removeFrom + "HasBox", false);
 		}
 	}
 	
@@ -158,10 +158,6 @@ class PlayController
 	private function onBoxPushed(event:BoxPushed):Void 
 	{
 		playView.absorbResource(event.resource, event.toLeft);
-		if (brain != null)
-		{
-			Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", false);
-		}
 	}
 }
 	

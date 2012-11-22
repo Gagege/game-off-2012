@@ -60,26 +60,27 @@ class AIBrain
 	
 	private function getUpMove():{smartness:Int, move:Command}
 	{
+		return null;
 	}
 	
 	private function getDownMove():{smartness:Int, move:Command}
 	{
-		
+		return null;
 	}
 	
 	private function getLeftMove():{smartness:Int, move:Command}
 	{
-		
+		return null;
 	}
 	
 	private function getRightMove():{smartness:Int, move:Command}
 	{
-		
+		return null;
 	}
 	
 	private function getDoNothingMove():{smartness:Int, move:Command}
 	{
-		
+		return null;
 	}
 	
 }

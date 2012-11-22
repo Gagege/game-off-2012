@@ -47,7 +47,7 @@ class BoxHatchSubView extends Sprite
 	{
 		if (currentBox == null)
 		{
-			var delay:Float = 1;
+			var delay:Float = 2;
 			currentBox = box;
 			addChild(currentBox);
 			// place box under door
