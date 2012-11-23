@@ -256,7 +256,7 @@ class PlayView extends Sprite
 		destroyed = box.move(goLeft);
 		if (!destroyed)
 		{
-			Timer.delay(callback(deleteBox, box), 1000);
+			Timer.delay(callback(deleteBox, box), 500);
 		}
 	}
 	

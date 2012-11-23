@@ -32,7 +32,7 @@ class RobotArmSubView extends Sprite
 		
 		speed = 0.1;
 		
-		pushPullSpeed = speed * 3;
+		pushPullSpeed = speed * 4;
 		
 		position = 2;
 		
