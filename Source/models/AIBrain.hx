@@ -43,6 +43,7 @@ class AIBrain
 	
 	private function think():Void 
 	{
+		var selectedMove:Command = null;
 		if (!thinking)
 		{
 			thinking = true;
@@ -50,22 +51,55 @@ class AIBrain
 			
 			potentialMoves.push(getUpMove());
 			potentialMoves.push(getDownMove());
-			potentialMoves.push(getLeftMove());
-			potentialMoves.push(getRightMove());
-			potentialMoves.push(getDoNothingMove());
+			
+			selectedMove = potentialMoves[potentialMoves.length - 1].move;
 			
 			thinking = false;
 		}
+		
+		
 	}
 	
 	private function getUpMove():{smartness:Int, move:Command}
 	{
-		return null;
+		var smartnessFactor = 0;
+		
+		if (player1Position == 2 && hatch1HasBox)
+		{
+			smartnessFactor += 2;
+		}
+		if (player1Position == 3)
+		{
+			if (hatch3HasBox)
+				smartnessFactor += -1;
+			if (hatch1HasBox)
+				smartnessFactor += 1;
+			if(hatch2HasBox)
+				smartnessFactor += 2;
+		}
+		
+		return {smartness: smartnessFactor, move: Command.Up};
 	}
 	
 	private function getDownMove():{smartness:Int, move:Command}
 	{
-		return null;
+		var smartnessFactor = 0;
+		
+		if (player1Position == 2 && hatch3HasBox)
+		{
+			smartnessFactor += 2;
+		}
+		if (player1Position == 1)
+		{
+			if (hatch1HasBox)
+				smartnessFactor += -1;
+			if (hatch3HasBox)
+				smartnessFactor += 1;
+			if(hatch2HasBox)
+				smartnessFactor += 2;
+		}
+		
+		return {smartness: smartnessFactor, move: Command.Down};
 	}
 	
 	private function getLeftMove():{smartness:Int, move:Command}

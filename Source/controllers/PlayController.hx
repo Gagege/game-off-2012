@@ -132,6 +132,28 @@ class PlayController
 		}
 	}
 	
+	private function movePlayer(player:Int, direction:Command):Void 
+	{
+		playView.playerMotion(player, direction);
+		if (brain != null)
+		{
+			var newPositionY:Int = 0;
+			switch(direction)
+			{
+				case Up:
+					newPositionY = Reflect.getProperty(playView, 
+						"player" + player).robotArm.position - 1;
+				case Down:
+					newPositionY = Reflect.getProperty(playView, 
+						"player" + player).robotArm.position + 1;
+				case Right:
+				case Left:
+			}
+			Reflect.setField(brain, "player" + player + "Position",
+				newPositionY);
+		}
+	}
+	
 	private function onSendBox(event:SendBox):Void 
 	{
 		playView.deliverBoxToHatch(event.deliverTo, event.resource);

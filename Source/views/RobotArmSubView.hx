@@ -20,7 +20,7 @@ class RobotArmSubView extends Sprite
 	private var homeX:Float;
 	private var moving:Bool;
 	private var speed:Float;
-	private var position:Int;
+	public var position:Int;
 
 	public function new(isRightIn:Bool) 
 	{

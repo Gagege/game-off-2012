@@ -19,7 +19,7 @@ import controllers.PlayController;
 // This class ain't pretty.
 class PlayerSubView extends Sprite
 {	
-	var robotArm:RobotArmSubView;
+	public var robotArm:RobotArmSubView;
 	public var model:Player;
 	private var moneyDisplay:TextField;
 	private var font:Font;
