@@ -66,18 +66,15 @@ class AIBrain
 			thinking = false;
 		}
 		var event = new AIEvent();
-		if (selectedMove != DoNothing)
-		{
-			PlayController.aiEvent.move(selectedMove);
-		}
+		PlayController.aiEvent.move(selectedMove);
 	}
 	
 	private function calculateSmartnessBasedOnBox(box:Resource):Int
 	{
+		var smartness = 0;
 		Lambda.map(Type.getEnumConstructs(ResourceType), function (type):Void 
 		{
-			var smartness = 0;
-			if (box.type == type)
+			if (box.type == Type.createEnum(ResourceType, type))
 			{
 				if (Reflect.field(this, "player1" + type + "Current") <
 					Reflect.field(this, "player1" + type + "Required"))

@@ -200,6 +200,7 @@ class PlayView extends Sprite
 			case Down:
 				(player == 1) ? player1.robotDown() : player2.robotDown();
 			case DoNothing:
+				return;
 		}
 	}
 	
