@@ -16,6 +16,7 @@ import nme.text.TextFormat;
 
 class BoxSubView extends Sprite
 {
+	public static var fadeInSpeed:Float;
 	public var resource(default, null):Resource;
 	public var pushed(default, null):Bool;
 	private var defaultColor:Int = 0xCCCCCC;
@@ -31,13 +32,14 @@ class BoxSubView extends Sprite
 		super();
 		
 		resource = itemInBox;
+		fadeInSpeed = 7;
 		
 		boxWidth = Lib.current.stage.stageWidth * .08;
 		
 		moving = false;
 		
 		drawBox(defaultColor);
-		fadeBoxIn(7);
+		fadeBoxIn(fadeInSpeed);
 	}
 	
 	public function move(goLeft:Bool):Bool
@@ -94,7 +96,7 @@ class BoxSubView extends Sprite
 		}
 		
 		drawBox(boxColor);
-		fadeBoxIn(.5, 0);
+		fadeBoxIn(0.5, 0);
 		if(resource.quantity > 1)
 			drawAmount();
 			

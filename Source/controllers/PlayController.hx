@@ -13,8 +13,11 @@ import haxe.Timer;
 import models.AIBrain;
 import models.BoxTimer;
 import models.Option;
+import models.Order;
+import models.Player;
 import nme.events.KeyboardEvent;
 import nme.Lib;
+import views.BoxSubView;
 import views.PlayView;
 
 
@@ -151,8 +154,14 @@ class PlayController
 	{
 		playView.deliverBoxToHatch(event.deliverTo, event.resource);
 		if (brain != null)
-		{
-			Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", true);
+		{	Timer.delay(function(){
+				Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", true);
+			},
+			Math.round(BoxSubView.fadeInSpeed * 250));
+			Timer.delay(function(){
+				Reflect.setField(brain, "hatch" + event.deliverTo + "Box", event.resource);
+			},
+			Math.round(BoxSubView.fadeInSpeed * 325));
 		}
 	}
 	
@@ -173,6 +182,28 @@ class PlayController
 	private function onBoxPushed(event:BoxPushed):Void 
 	{
 		playView.absorbResource(event.resource, event.toLeft);
+		if (brain != null)
+		{
+			updateResourcesForAI(playView.player1.model, playView.player2.model,
+				playView.player1.currentOrder.model, playView.player2.currentOrder.model);
+		}
+	}
+	
+	private function updateResourcesForAI(player1:Player, player2:Player, player1Order:Order, player2Order:Order):Void
+	{
+		brain.player1LithiumCurrent = player1.lithium;
+		brain.player1PlutoniumCurrent = player1.plutonium;
+		brain.player1UraniumCurrent = player1.uranium;
+		brain.player2LithiumCurrent = player2.lithium;
+		brain.player2PlutoniumCurrent = player2.plutonium;
+		brain.player2UraniumCurrent = player2.uranium;
+		
+		brain.player1LithiumRequired = player1Order.lithium;
+		brain.player1PlutoniumRequired = player1Order.plutonium;
+		brain.player1UraniumRequired = player1Order.uranium;
+		brain.player2LithiumRequired = player2Order.lithium;
+		brain.player2PlutoniumRequired = player2Order.plutonium;
+		brain.player2UraniumRequired = player2Order.uranium;
 	}
 }
 	

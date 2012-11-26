@@ -30,7 +30,7 @@ class PlayerSubView extends Sprite
 	private var orderX:Float;
 	private var yPositions:Array<Float>;
 	private var selectingOrder:Bool;
-	private var currentOrder:OrderSubView;
+	public var currentOrder:OrderSubView;
 	private var isRight:Bool;
 	
 	public function new(player:Int) 
