@@ -1,6 +1,8 @@
 package controllers;
 
 import com.eclecticdesignstudio.motion.Actuate;
+import events.AIEvent;
+import events.AIMove;
 import events.BoxEvents;
 import events.BoxPushed;
 import events.RemoveBox;
@@ -28,8 +30,9 @@ class PlayController
 	
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
+	public static var aiEvent:AIEvent = new AIEvent();
 	
-	public function new(options:Array<Option>) 
+	public function new(options:Array<Option>)
 	{
 		for (option in options)
 		{
@@ -42,6 +45,9 @@ class PlayController
 		if (player1AI)
 		{
 			brain = new AIBrain();
+			brain.player1Position = 2;
+			brain.player2Position = 2;
+			aiEvent.addEventListener("AIMove", moveAIPlayer);
 		}
 		
 		Lib.current.addChild(playView);
@@ -132,25 +138,12 @@ class PlayController
 		}
 	}
 	
-	private function movePlayer(player:Int, direction:Command):Void 
+	private function moveAIPlayer(event:AIMove):Void 
 	{
-		playView.playerMotion(player, direction);
+		playView.playerMotion(1, event.direction);
 		if (brain != null)
 		{
-			var newPositionY:Int = 0;
-			switch(direction)
-			{
-				case Up:
-					newPositionY = Reflect.getProperty(playView, 
-						"player" + player).robotArm.position - 1;
-				case Down:
-					newPositionY = Reflect.getProperty(playView, 
-						"player" + player).robotArm.position + 1;
-				case Right:
-				case Left:
-			}
-			Reflect.setField(brain, "player" + player + "Position",
-				newPositionY);
+			brain.player1Position = playView.player1.robotArm.position;
 		}
 	}
 	
@@ -189,4 +182,5 @@ enum Command
 	Right;
 	Up;
 	Down;
+	DoNothing;
 }

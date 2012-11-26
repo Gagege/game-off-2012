@@ -1,5 +1,6 @@
 package models;
 import controllers.PlayController;
+import events.AIEvent;
 import haxe.Timer;
 import views.PlayView;
 
@@ -51,17 +52,24 @@ class AIBrain
 			
 			potentialMoves.push(getUpMove());
 			potentialMoves.push(getDownMove());
+			potentialMoves.push(getDoNothingMove());
+			
+			potentialMoves.sort(function(x, y) return x.smartness);
 			
 			selectedMove = potentialMoves[potentialMoves.length - 1].move;
 			
 			thinking = false;
 		}
-		
-		
+		var event = new AIEvent();
+		if (selectedMove != DoNothing)
+		{
+			PlayController.aiEvent.move(selectedMove);
+		}
 	}
 	
 	private function getUpMove():{smartness:Int, move:Command}
 	{
+		trace(player1Position);
 		var smartnessFactor = 0;
 		
 		if (player1Position == 2 && hatch1HasBox)
@@ -114,7 +122,16 @@ class AIBrain
 	
 	private function getDoNothingMove():{smartness:Int, move:Command}
 	{
-		return null;
+		var smartnessFactor = 0;
+		
+		if (!hatch1HasBox &&
+			!hatch2HasBox &&
+			!hatch3HasBox)
+		{
+			smartnessFactor += 5;
+		}
+		
+		return {smartness: smartnessFactor, move: Command.DoNothing};
 	}
 	
 }

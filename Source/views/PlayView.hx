@@ -199,6 +199,7 @@ class PlayView extends Sprite
 				(player == 1) ? player1.robotUp() : player2.robotUp();
 			case Down:
 				(player == 1) ? player1.robotDown() : player2.robotDown();
+			case DoNothing:
 		}
 	}
 	

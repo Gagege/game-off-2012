@@ -1,4 +1,5 @@
 package events;
+import controllers.PlayController;
 import nme.events.EventDispatcher;
 
 class AIEvent extends EventDispatcher
@@ -12,7 +13,7 @@ class AIEvent extends EventDispatcher
 	public function move(direction:Command):Void
 	{
 		
-		var event = new SendBox(resource, position, "SendBox");
+		var event = new AIMove(direction, "AIMove");
 		dispatchEvent(event);
 	}
 	
