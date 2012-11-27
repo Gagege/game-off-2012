@@ -72,28 +72,30 @@ class AIBrain
 	private function calculateSmartnessBasedOnBox(box:Resource):Int
 	{
 		var smartness = 0;
-		Lambda.map(Type.getEnumConstructs(ResourceType), function (type):Void 
+		if (box != null)
 		{
-			if (box.type == Type.createEnum(ResourceType, type))
+			Lambda.map(Type.getEnumConstructs(ResourceType), function (type):Void 
 			{
-				if (Reflect.field(this, "player1" + type + "Current") <
-					Reflect.field(this, "player1" + type + "Required"))
+				if (box.type == Type.createEnum(ResourceType, type))
 				{
-					smartness += 2;
+					if (Reflect.field(this, "player1" + type + "Current") <
+						Reflect.field(this, "player1" + type + "Required"))
+					{
+						smartness += 2;
+					}
+					if (box.quantity + Reflect.field(this, "player1" + type + "Current") >
+						Reflect.field(this, "player1" + type + "Required"))
+					{
+						smartness -= 1;
+					}
 				}
-				if (box.quantity + Reflect.field(this, "player1" + type + "Current") >
-					Reflect.field(this, "player1" + type + "Required"))
-				{
-					smartness -= 1;
-				}
-			}
-		});
+			});
+		}
 		return smartness;
 	}
 	
 	private function getUpMove():{smartness:Int, move:Command}
 	{
-		trace(player1Position);
 		var smartnessFactor = 0;
 		
 		if (player1Position == 2 && hatch1HasBox)
