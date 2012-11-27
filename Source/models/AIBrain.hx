@@ -57,8 +57,15 @@ class AIBrain
 			potentialMoves.push(getRightMove());
 			potentialMoves.push(getDoNothingMove());
 			
-			potentialMoves.sort(function(x, y) return x.smartness);
-			selectedMove = potentialMoves[potentialMoves.length - 1].move;
+			potentialMoves.sort(function(x, y)
+			{
+				if (x.smartness < y.smartness) return 1;
+				if (x.smartness > y.smartness) return -1;
+				return 0;
+			});
+			
+			var randomMoveIndex = Math.round((Math.random() * 2));
+			selectedMove = potentialMoves[randomMoveIndex].move;
 			
 			thinking = false;
 		}
@@ -78,7 +85,7 @@ class AIBrain
 					if (Reflect.field(this, "player1" + type + "Current") <
 						Reflect.field(this, "player1" + type + "Required"))
 					{
-						smartness += 2;
+						smartness += 3;
 					}
 					if (box.quantity + Reflect.field(this, "player1" + type + "Current") >
 						Reflect.field(this, "player1" + type + "Required"))
@@ -97,7 +104,7 @@ class AIBrain
 		
 		if (player1Position == 2 && hatch1HasBox)
 		{
-			smartnessFactor += 1;
+			smartnessFactor += 2;
 			smartnessFactor += calculateSmartnessBasedOnBox(hatch1Box);
 		}
 		if (player1Position == 3)
@@ -114,7 +121,7 @@ class AIBrain
 			}
 			if(hatch2HasBox)
 			{
-				smartnessFactor += 1;
+				smartnessFactor += 2;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch2Box);
 			}
 		}
@@ -128,7 +135,7 @@ class AIBrain
 		
 		if (player1Position == 2 && hatch3HasBox)
 		{
-			smartnessFactor += 1;
+			smartnessFactor += 2;
 			smartnessFactor += calculateSmartnessBasedOnBox(hatch3Box);
 		}
 		if (player1Position == 1)
@@ -145,7 +152,7 @@ class AIBrain
 			}
 			if(hatch2HasBox)
 			{
-				smartnessFactor += 1;
+				smartnessFactor += 2;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch2Box);
 			}
 		}
@@ -168,7 +175,7 @@ class AIBrain
 	{
 		var smartnessFactor = 0;
 		
-		smartnessFactor += 7;
+		smartnessFactor += 5;
 		
 		return {smartness: smartnessFactor, move: Command.DoNothing};
 	}
