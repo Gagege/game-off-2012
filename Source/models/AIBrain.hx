@@ -1,10 +1,9 @@
 package models;
 
-import models.Resource;
 import controllers.PlayController;
 import events.AIEvent;
 import haxe.Timer;
-import views.PlayView;
+import models.Resource;
 
 class AIBrain 
 {
@@ -59,8 +58,6 @@ class AIBrain
 			potentialMoves.push(getDoNothingMove());
 			
 			potentialMoves.sort(function(x, y) return x.smartness);
-			
-			
 			selectedMove = potentialMoves[potentialMoves.length - 1].move;
 			
 			thinking = false;
@@ -100,7 +97,7 @@ class AIBrain
 		
 		if (player1Position == 2 && hatch1HasBox)
 		{
-			smartnessFactor += 2;
+			smartnessFactor += 1;
 			smartnessFactor += calculateSmartnessBasedOnBox(hatch1Box);
 		}
 		if (player1Position == 3)
@@ -117,7 +114,7 @@ class AIBrain
 			}
 			if(hatch2HasBox)
 			{
-				smartnessFactor += 2;
+				smartnessFactor += 1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch2Box);
 			}
 		}
@@ -131,7 +128,7 @@ class AIBrain
 		
 		if (player1Position == 2 && hatch3HasBox)
 		{
-			smartnessFactor += 2;
+			smartnessFactor += 1;
 			smartnessFactor += calculateSmartnessBasedOnBox(hatch3Box);
 		}
 		if (player1Position == 1)
@@ -148,7 +145,7 @@ class AIBrain
 			}
 			if(hatch2HasBox)
 			{
-				smartnessFactor += 2;
+				smartnessFactor += 1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch2Box);
 			}
 		}
@@ -158,6 +155,7 @@ class AIBrain
 	
 	private function getLeftMove():{smartness:Int, move:Command}
 	{
+		
 		return {smartness: 0, move: Command.Left};
 	}
 	
@@ -170,7 +168,7 @@ class AIBrain
 	{
 		var smartnessFactor = 0;
 		
-		smartnessFactor += 5;
+		smartnessFactor += 7;
 		
 		return {smartness: smartnessFactor, move: Command.DoNothing};
 	}

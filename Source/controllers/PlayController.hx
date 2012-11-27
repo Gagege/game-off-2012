@@ -51,6 +51,11 @@ class PlayController
 			brain.player1Position = 2;
 			brain.player2Position = 2;
 			aiEvent.addEventListener("AIMove", moveAIPlayer);
+			updateResourcesForAI(
+				playView.player1.model,
+				playView.player2.model,
+				playView.player1.currentOrder.model,
+				playView.player2.currentOrder.model);
 		}
 		
 		Lib.current.addChild(playView);
@@ -158,10 +163,11 @@ class PlayController
 				Reflect.setField(brain, "hatch" + event.deliverTo + "HasBox", true);
 			},
 			Math.round(BoxSubView.fadeInSpeed * 250));
-			Timer.delay(function(){
-				Reflect.setField(brain, "hatch" + event.deliverTo + "Box", event.resource);
+			Timer.delay(function() {
+				var boxHatch = "hatch" + event.deliverTo + "Box";
+				Reflect.setField(brain, boxHatch, event.resource);
 			},
-			Math.round(BoxSubView.fadeInSpeed * 325));
+			Math.round(BoxSubView.fadeInSpeed * 400));
 		}
 	}
 	
