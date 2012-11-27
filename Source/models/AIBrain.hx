@@ -100,30 +100,55 @@ class AIBrain
 		return smartness;
 	}
 	
+	private function calculateSmartnessOfPushingToEnemy(box:Resource):Int
+	{
+		var smartness = 0;
+		if (box != null)
+		{
+			Lambda.map(Type.getEnumConstructs(ResourceType), function (type):Void 
+			{
+				if (box.type == Type.createEnum(ResourceType, type))
+				{
+					if (Reflect.field(this, "player2" + type + "Current") >=
+						Reflect.field(this, "player2" + type + "Required"))
+					{
+						smartness += 6;
+					}
+					if (box.quantity + Reflect.field(this, "player2" + type + "Current") >
+						Reflect.field(this, "player2" + type + "Required"))
+					{
+						smartness -= 2;
+					}
+				}
+			});
+		}
+		return smartness;
+	}
+	
 	private function getUpMove():{smartness:Int, move:Command}
 	{
 		var smartnessFactor = 0;
 		
 		if (player1Position == 2 && hatch1HasBox)
 		{
-			smartnessFactor += 2;
+			smartnessFactor += 1;
 			smartnessFactor += calculateSmartnessBasedOnBox(hatch1Box);
 		}
 		if (player1Position == 3)
 		{
 			if (hatch3HasBox)
 			{
-				smartnessFactor += -2;
+				smartnessFactor += -1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch3Box);
 			}
 			if (hatch1HasBox)
 			{
-				smartnessFactor += 2;
+				smartnessFactor += 1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch1Box);
 			}
 			if(hatch2HasBox)
 			{
-				smartnessFactor += 2;
+				smartnessFactor += 1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch2Box);
 			}
 		}
@@ -137,24 +162,24 @@ class AIBrain
 		
 		if (player1Position == 2 && hatch3HasBox)
 		{
-			smartnessFactor += 2;
+			smartnessFactor += 1;
 			smartnessFactor += calculateSmartnessBasedOnBox(hatch3Box);
 		}
 		if (player1Position == 1)
 		{
 			if (hatch1HasBox)
 			{
-				smartnessFactor += -2;
+				smartnessFactor += -1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch1Box);
 			}
 			if (hatch3HasBox)
 			{
-				smartnessFactor += 2;
+				smartnessFactor += 1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch3Box);
 			}
 			if(hatch2HasBox)
 			{
-				smartnessFactor += 2;
+				smartnessFactor += 1;
 				smartnessFactor += calculateSmartnessBasedOnBox(hatch2Box);
 			}
 		}
@@ -187,8 +212,9 @@ class AIBrain
 		{
 			if (Reflect.getProperty(this, "hatch" + player1Position + "HasBox"))
 			{
-				smartnessFactor += 3;
+				smartnessFactor += 2;
 				smartnessFactor += calculateSmartnessBasedOnBox(Reflect.getProperty(this, "hatch" + player1Position + "Box"));
+				smartnessFactor += calculateSmartnessOfPushingToEnemy(Reflect.getProperty(this, "hatch" + player1Position + "Box"));
 			}
 			else
 			{
@@ -202,7 +228,7 @@ class AIBrain
 	{
 		var smartnessFactor = 0;
 		
-		smartnessFactor += 7;
+		smartnessFactor += 6;
 		
 		return {smartness: smartnessFactor, move: Command.DoNothing};
 	}
