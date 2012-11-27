@@ -21,6 +21,7 @@ class RobotArmSubView extends Sprite
 	private var moving:Bool;
 	private var speed:Float;
 	public var position:Int;
+	public var atPushPoint:Bool;
 
 	public function new(isRightIn:Bool) 
 	{
@@ -37,6 +38,8 @@ class RobotArmSubView extends Sprite
 		position = 2;
 		
 		homeX = Lib.current.stage.stageWidth * .20;
+		
+		atPushPoint = false;
 
 		if (isRight)
 		{
@@ -62,6 +65,7 @@ class RobotArmSubView extends Sprite
 			
 			if (arm.x == pushPoint)
 			{
+				atPushPoint = false;
 				firePushEvent();
 				Actuate.tween(arm, pushPullSpeed,
 							{ x: newX } )
@@ -70,6 +74,7 @@ class RobotArmSubView extends Sprite
 			}
 			else
 			{
+				atPushPoint = true;
 				Actuate.tween(arm, speed,
 						{ x: newX } )
 						.onComplete(setMoving, [false]);
@@ -96,6 +101,7 @@ class RobotArmSubView extends Sprite
 				
 				if (arm.x == pushPoint)
 				{
+					atPushPoint = false;
 					firePullEvent();
 					Actuate.tween(arm, pushPullSpeed,
 								{ x: newX } )
@@ -104,6 +110,7 @@ class RobotArmSubView extends Sprite
 				}
 				else
 				{
+					atPushPoint = false;
 					Actuate.tween(arm, speed,
 							{ x: newX } )
 							.onComplete(setMoving, [false]);
@@ -114,6 +121,7 @@ class RobotArmSubView extends Sprite
 	
 	public function up():Void
 	{
+		atPushPoint = false;
 		if (!moving)
 		{
 			moving = true;
@@ -144,6 +152,7 @@ class RobotArmSubView extends Sprite
 	
 	public function down():Void
 	{
+		atPushPoint = false;
 		if (!moving)
 		{
 			moving = true;

@@ -151,6 +151,7 @@ class PlayController
 		playView.playerMotion(1, event.direction);
 		if (brain != null)
 		{
+			brain.player1AtBox = playView.player1.robotArm.atPushPoint;
 			brain.player1Position = playView.player1.robotArm.position;
 		}
 	}
