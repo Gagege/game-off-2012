@@ -5,10 +5,12 @@ import events.AIEvent;
 import events.AIMove;
 import events.BoxEvents;
 import events.BoxPushed;
+import events.MenuEvent;
 import events.RemoveBox;
 import events.RobotEvent;
 import events.RobotMove;
 import events.SendBox;
+import events.StartGame;
 import haxe.Timer;
 import models.AIBrain;
 import models.BoxTimer;
@@ -18,6 +20,7 @@ import models.Player;
 import nme.events.KeyboardEvent;
 import nme.Lib;
 import views.BoxSubView;
+import views.InstructionView;
 import views.PlayView;
 
 
@@ -30,10 +33,12 @@ class PlayController
 	var gameDuration:Int;
 	var millisecondsLeft:Int;
 	var gameTimer:Timer;
+	var instructionsScreen:InstructionView;
 	
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
 	public static var aiEvent:AIEvent = new AIEvent();
+	public static var menuEvent:MenuEvent = new MenuEvent();
 	
 	public function new(options:Array<Option>)
 	{
@@ -43,8 +48,11 @@ class PlayController
 				player1AI = option.selected;
 		}
 		
-		playView = new PlayView();
+		instructionsScreen = new InstructionView();
+		Lib.current.addChild(instructionsScreen);
 		
+		
+		playView = new PlayView();
 		if (player1AI)
 		{
 			brain = new AIBrain();
@@ -63,14 +71,16 @@ class PlayController
 				playView.player2.currentOrder.model);
 		}
 		
-		Lib.current.addChild(playView);
-		
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		boxSender.addEventListener("SendBox", onSendBox);
 		boxSender.addEventListener("RemoveBox", onRemoveBox);
 		boxSender.addEventListener("BoxPushed", onBoxPushed);
 		robotEvent.addEventListener("PushPull", onPushPull);
-		
+		menuEvent.addEventListener("StartGame", onStartGame);
+	}
+	
+	private function onStartGame(event:StartGame):Void 
+	{
 		playView.readySetGo();
 		
 		Timer.delay(function () {
@@ -80,6 +90,8 @@ class PlayController
 			onUpdateTime();
 			gameTimer.run = function() { onUpdateTime(); }
 		}, 5000);
+		
+		Lib.current.addChild(playView);
 	}
 	
 	private function onUpdateTime():Void 
@@ -148,6 +160,8 @@ class PlayController
 				playView.orderMenuDown(2);
 			case 80: // 'P' key
 				playView.selectOrder(2);
+			case 13: // 'enter' key
+				instructionsScreen.playerIsReady();
 		}
 	}
 	

@@ -43,7 +43,10 @@ class AIBrain
 	
 	public function new() 
 	{
-		timer = new Timer(100);
+		if (mercy)
+			timer = new Timer(200);
+		else
+			timer = new Timer(100);
 		timer.run = function() { think();}
 	}
 	

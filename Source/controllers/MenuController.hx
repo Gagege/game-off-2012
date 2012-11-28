@@ -38,6 +38,7 @@ class MenuController
 	private function onStartGame(event:StartGame):Void 
 	{
 		menuView.hide();
+		Lib.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		menuEvent.removeEventListener("StartGame", onStartGame);
 		var newGame = new PlayController(event.options);
 	}
@@ -46,7 +47,7 @@ class MenuController
 	{
 		switch(event.keyCode)
 		{
-			case 13:
+			case 13: // 'enter' key
 				menuView.selectOption();
 			case 38: // 'up arrow' key
 				if(menuView.selectedOptionIndex > 0)

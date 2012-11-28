@@ -15,6 +15,7 @@ import com.eclecticdesignstudio.motion.easing.Linear;
 class MenuView extends Sprite
 {
 	private var options:Array<Option>;
+	private var mercySelectorText:TextField;
 	public var selectedOptionIndex:Int;
 
 	public function new(optionList:Array<Option>) 
@@ -39,6 +40,9 @@ class MenuView extends Sprite
 			case "2 Player":
 				playerSelectorTo(2);
 				options[selectedOptionIndex - 1].selected = false; // set 1 player to false
+			case "Mercy":
+				toggleMercySelector();
+				options[selectedOptionIndex - 1].selected = !options[selectedOptionIndex - 1].selected; // set 1 player to false
 		}
 	}
 	
@@ -63,6 +67,14 @@ class MenuView extends Sprite
 		this.visible = false;
 	}
 	
+	private function toggleMercySelector():Void 
+	{
+		if(mercySelectorText.text == "[X]")
+			mercySelectorText.text = "[ ]";
+		else
+			mercySelectorText.text = "[X]";
+	}
+	
 	private function playerSelectorTo(numPlayers:Int):Void 
 	{
 		var selector = getChildByName("playerSelector");
@@ -74,7 +86,6 @@ class MenuView extends Sprite
 	
 	private function initialize():Void 
 	{
-		
 		drawTitle();
 		
 		for(i in 0 ... options.length)
@@ -134,6 +145,33 @@ class MenuView extends Sprite
 		
 		if (option.name == "1 Player")
 			drawPlayerSelector(optionDisplay);
+		if (option.name == "Mercy")
+			drawMercySelector(optionDisplay);
+	}
+	
+	private function drawMercySelector(optionDisplay:TextField):Void 
+	{
+		mercySelectorText = new TextField();
+		var fontSize = Lib.current.stage.stageHeight * 0.07;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
+		
+		mercySelectorText.defaultTextFormat = format;
+		mercySelectorText.selectable = false;
+		mercySelectorText.embedFonts = true;
+		
+		mercySelectorText.text = "[X]";
+		
+		var displayX = optionDisplay.x -
+			mercySelectorText.textWidth * 1.5;
+		var	displayY = optionDisplay.y;
+		
+		mercySelectorText.x = displayX;
+		mercySelectorText.y = displayY;
+		
+		mercySelectorText.name = "mercySelector";
+		
+		addChild(mercySelectorText);
 	}
 	
 	private function drawPlayerSelector(optionDisplay:TextField):Void 
