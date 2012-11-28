@@ -1,16 +1,20 @@
 package controllers;
 
+import events.ShowInstructions;
 import events.StartGame;
 import models.Option;
 import nme.events.KeyboardEvent;
 import nme.Lib;
 import views.MenuView;
 import events.MenuEvent;
+import views.InstructionView;
 
 class MenuController 
 {
 	var menuView:MenuView;
 	var options:Array<Option>;
+	var instructionsScreen:InstructionView;
+	var newGame:PlayController;
 	
 	public static var menuEvent:MenuEvent = new MenuEvent();
 	
@@ -25,22 +29,35 @@ class MenuController
 		options.push(new Option("Start Game", false)); 
 		options.push(new Option("1 Player", true));
 		options.push(new Option("2 Player", false));
-		options.push(new Option("Mercy", true));
+		options.push(new Option("Merciful AI", true));
+		options.push(new Option("Instructions", false));
+		
+		instructionsScreen = new InstructionView();
+		instructionsScreen.hide();
 		
 		menuView = new MenuView(options);
 		
 		Lib.current.addChild(menuView);
-		
+		Lib.current.addChild(instructionsScreen);
+		instructionsScreen.hide();
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-		menuEvent.addEventListener("StartGame", onStartGame);
+		menuEvent.addEventListener("ShowInstructions", showInstructions);
+	}
+	
+	private function toggleInstructions(event:ShowInstructions):Void 
+	{
+		if(instructionsScreen.visible)
+			instructionsScreen.hide();
+		else
+			instructionsScreen.show();
 	}
 	
 	private function onStartGame(event:StartGame):Void 
 	{
-		menuView.hide();
-		Lib.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
+		Lib.current.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyDown);
 		menuEvent.removeEventListener("StartGame", onStartGame);
-		var newGame = new PlayController(event.options);
+		newGame = new PlayController(options);
+		newGame.start();
 	}
 	
 	private function onKeyDown(event:KeyboardEvent):Void

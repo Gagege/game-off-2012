@@ -20,7 +20,6 @@ import models.Player;
 import nme.events.KeyboardEvent;
 import nme.Lib;
 import views.BoxSubView;
-import views.InstructionView;
 import views.PlayView;
 
 
@@ -33,12 +32,10 @@ class PlayController
 	var gameDuration:Int;
 	var millisecondsLeft:Int;
 	var gameTimer:Timer;
-	var instructionsScreen:InstructionView;
 	
 	public static var boxSender:BoxEvents = new BoxEvents();
 	public static var robotEvent:RobotEvent = new RobotEvent();
 	public static var aiEvent:AIEvent = new AIEvent();
-	public static var menuEvent:MenuEvent = new MenuEvent();
 	
 	public function new(options:Array<Option>)
 	{
@@ -47,9 +44,6 @@ class PlayController
 			if (option.name == "1 Player")
 				player1AI = option.selected;
 		}
-		
-		instructionsScreen = new InstructionView();
-		Lib.current.addChild(instructionsScreen);
 		
 		
 		playView = new PlayView();
@@ -60,7 +54,7 @@ class PlayController
 			brain.player2Position = 2;
 			for (option in options)
 			{
-				if (option.name == "Mercy")
+				if (option.name == "Merciful AI")
 					brain.mercy = option.selected;
 			}
 			aiEvent.addEventListener("AIMove", moveAIPlayer);
@@ -76,10 +70,9 @@ class PlayController
 		boxSender.addEventListener("RemoveBox", onRemoveBox);
 		boxSender.addEventListener("BoxPushed", onBoxPushed);
 		robotEvent.addEventListener("PushPull", onPushPull);
-		menuEvent.addEventListener("StartGame", onStartGame);
 	}
 	
-	private function onStartGame(event:StartGame):Void 
+	public function start():Void 
 	{
 		playView.readySetGo();
 		
@@ -160,8 +153,6 @@ class PlayController
 				playView.orderMenuDown(2);
 			case 80: // 'P' key
 				playView.selectOrder(2);
-			case 13: // 'enter' key
-				instructionsScreen.playerIsReady();
 		}
 	}
 	

@@ -1,10 +1,13 @@
 package views;
-import controllers.PlayController;
+import controllers.MenuController;
+import events.MenuEvent;
 import nme.Assets;
 import nme.display.Sprite;
+import nme.events.KeyboardEvent;
 import nme.Lib;
 import nme.text.TextField;
 import nme.text.TextFormat;
+import nme.ui.Keyboard;
 
 class InstructionView extends Sprite
 {
@@ -15,9 +18,14 @@ class InstructionView extends Sprite
 		initialize();
 	}
 	
-	public function playerIsReady():Void 
+	public function show():Void
 	{
-		PlayController.menuEvent.startGame(null);
+		this.visible = true;
+	}
+	
+	public function hide():Void
+	{
+		this.visible = false;
 	}
 	
 	private function initialize():Void 
@@ -36,7 +44,7 @@ class InstructionView extends Sprite
 		titleDisplay.embedFonts = true;
 		titleDisplay.selectable = false;
 		
-		titleDisplay.text = "Press enter to begin.";
+		titleDisplay.text = "Press any key to begin.";
 		
 		var displayX = (Lib.current.stage.stageWidth / 2) - ((titleDisplay.textWidth) / 2);
 		var	displayY = Lib.current.stage.stageHeight * 0.9;

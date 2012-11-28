@@ -5,7 +5,7 @@
 	<app path="Export" file="Game" main="Game" />
 	
 	<window background="#FFFFFF" fps="60" orientation="landscape" />
-	<window width="640" height="480" unless="mobile" />
+	<window width="320" height="240" unless="mobile" />
 	<window vsync="true" antialiasing="0" if="cpp" />
 	
 	<source path="Source" />

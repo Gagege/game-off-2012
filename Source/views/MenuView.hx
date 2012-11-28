@@ -40,9 +40,11 @@ class MenuView extends Sprite
 			case "2 Player":
 				playerSelectorTo(2);
 				options[selectedOptionIndex - 1].selected = false; // set 1 player to false
-			case "Mercy":
+			case "Merciful AI":
 				toggleMercySelector();
 				options[selectedOptionIndex - 1].selected = !options[selectedOptionIndex - 1].selected; // set 1 player to false
+			case "Instructions":
+				MenuController.menuEvent.toggleInstructions();
 		}
 	}
 	
@@ -145,7 +147,7 @@ class MenuView extends Sprite
 		
 		if (option.name == "1 Player")
 			drawPlayerSelector(optionDisplay);
-		if (option.name == "Mercy")
+		if (option.name == "Merciful AI")
 			drawMercySelector(optionDisplay);
 	}
 	
