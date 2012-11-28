@@ -174,16 +174,26 @@ class PlayController
 	
 	private function onRemoveBox(event:RemoveBox):Void 
 	{
-		playView.removeBoxFromHatch(event.removeFrom);
 		if (brain != null)
 		{
 			Reflect.setField(brain, "hatch" + event.removeFrom + "HasBox", false);
+			Reflect.setField(brain, "hatch" + event.removeFrom + "Box", null);
+			updateResourcesForAI(playView.player1.model, playView.player2.model,
+				playView.player1.currentOrder.model, playView.player2.currentOrder.model);
 		}
+		playView.removeBoxFromHatch(event.removeFrom);
 	}
 	
 	private function onPushPull(event:RobotMove):Void
 	{
 		playView.moveBox(event.moveLeft, event.position);
+		if (brain != null)
+		{
+			Reflect.setField(brain, "hatch" + event.position + "HasBox", false);
+			Reflect.setField(brain, "hatch" + event.position + "Box", null);
+			updateResourcesForAI(playView.player1.model, playView.player2.model,
+				playView.player1.currentOrder.model, playView.player2.currentOrder.model);
+		}
 	}
 	
 	private function onBoxPushed(event:BoxPushed):Void 
@@ -191,6 +201,8 @@ class PlayController
 		playView.absorbResource(event.resource, event.toLeft);
 		if (brain != null)
 		{
+			Reflect.setField(brain, "hatch" + event.hatch + "HasBox", false);
+			Reflect.setField(brain, "hatch" + event.hatch + "Box", null);
 			updateResourcesForAI(playView.player1.model, playView.player2.model,
 				playView.player1.currentOrder.model, playView.player2.currentOrder.model);
 		}

@@ -155,7 +155,7 @@ class PlayView extends Sprite
 				//set visible because we hid it before we recreated it
 				box.visible = true;
 			}
-			slideBox(box, goLeft);
+			slideBox(box, goLeft, inHatch);
 		}
 	}
 	
@@ -252,10 +252,10 @@ class PlayView extends Sprite
 		}
 	}
 	
-	private function slideBox(box:BoxSubView, goLeft:Bool):Void 
+	private function slideBox(box:BoxSubView, goLeft:Bool, hatch:Int):Void 
 	{
 		var destroyed:Bool = false;
-		destroyed = box.move(goLeft);
+		destroyed = box.move(goLeft, hatch);
 		if (!destroyed)
 		{
 			Timer.delay(callback(deleteBox, box), 500);

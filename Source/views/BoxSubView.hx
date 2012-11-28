@@ -42,7 +42,7 @@ class BoxSubView extends Sprite
 		fadeBoxIn(fadeInSpeed);
 	}
 	
-	public function move(goLeft:Bool):Bool
+	public function move(goLeft:Bool, hatch:Int):Bool
 	{
 		pushed = true;
 		if (!moving)
@@ -58,7 +58,7 @@ class BoxSubView extends Sprite
 				.ease(Linear.easeNone)
 				.onComplete(setMoving, [false]);
 			Actuate.timer(RobotArmSubView.pushPullSpeed)
-				.onComplete(firePushedEvent, [goLeft]);
+				.onComplete(firePushedEvent, [goLeft, hatch]);
 		}
 		else
 		{
@@ -103,11 +103,11 @@ class BoxSubView extends Sprite
 		drawSymbol(symbolText);
 	}
 	
-	private function firePushedEvent(goLeft:Bool):Void 
+	private function firePushedEvent(goLeft:Bool, hatch:Int):Void 
 	{
 		if (!destroyed)
 		{
-			PlayController.boxSender.pushed(resource, goLeft);
+			PlayController.boxSender.pushed(resource, goLeft, hatch);
 		}
 	}
 	
