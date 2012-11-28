@@ -50,6 +50,11 @@ class PlayController
 			brain = new AIBrain();
 			brain.player1Position = 2;
 			brain.player2Position = 2;
+			for (option in options)
+			{
+				if (option.name == "Mercy")
+					brain.mercy = option.selected;
+			}
 			aiEvent.addEventListener("AIMove", moveAIPlayer);
 			updateResourcesForAI(
 				playView.player1.model,

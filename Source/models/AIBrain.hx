@@ -12,6 +12,8 @@ class AIBrain
 	var potentialMoves:Array<{smartness:Int, move:Command}>;
 	var thinking:Bool;
 	
+	public var mercy(null, default):Bool;
+	
 	public var hatch1HasBox(null, default):Bool;
 	public var hatch2HasBox(null, default):Bool;
 	public var hatch3HasBox(null, default):Bool;
@@ -116,6 +118,8 @@ class AIBrain
 						Reflect.field(this, "player2" + type + "Required"))
 					{
 						smartness += 9;
+						if (mercy)
+							smartness -= 3;
 					}
 				}
 			});
