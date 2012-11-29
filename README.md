@@ -4,7 +4,7 @@ My GitHub Game Off Game
 - [Official Website](http://pushpullfactory.gageh.us)
 - [Development Blog]( http://blog.gageh.us/?tag=github-gameoff)
 
-![screenshot](http://pushpullfactory.gageh.us/images/screenshot2.png)
+![screenshot](http://pushpullfactory.gageh.us/images/screenshot2.PNG)
 
 [![endorse](http://api.coderwall.com/gagege/endorsecount.png)](http://coderwall.com/gagege)
 
