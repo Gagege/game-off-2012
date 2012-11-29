@@ -21,3 +21,11 @@ Boxes will appear in any one of the three hatches in front of you. You can eithe
 When the timer buzzes, the robot with the most cash wins!
 
 ![mockup](http://blog.gageh.us/wp-content/uploads/2012/10/20121026_134936-1024x768.jpg)
+
+## Resources Used
+
+	- Language: Haxe
+	- Graphics Library: NME
+	- Tweening: Actuate
+	- Font: Hyperspace by Neale Davidson
+	- All graphics procedurally generated
