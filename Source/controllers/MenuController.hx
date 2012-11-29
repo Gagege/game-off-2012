@@ -1,6 +1,6 @@
 package controllers;
 
-import events.ShowInstructions;
+import events.ToggleInstructions;
 import events.StartGame;
 import models.Option;
 import nme.events.KeyboardEvent;
@@ -41,10 +41,11 @@ class MenuController
 		Lib.current.addChild(instructionsScreen);
 		instructionsScreen.hide();
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
-		menuEvent.addEventListener("ShowInstructions", showInstructions);
+		menuEvent.addEventListener("ToggleInstructions", toggleInstructions);
+		menuEvent.addEventListener("StartGame", onStartGame);
 	}
 	
-	private function toggleInstructions(event:ShowInstructions):Void 
+	private function toggleInstructions(event:ToggleInstructions):Void 
 	{
 		if(instructionsScreen.visible)
 			instructionsScreen.hide();
@@ -54,7 +55,7 @@ class MenuController
 	
 	private function onStartGame(event:StartGame):Void 
 	{
-		Lib.current.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyDown);
+		menuView.hide();
 		menuEvent.removeEventListener("StartGame", onStartGame);
 		newGame = new PlayController(options);
 		newGame.start();
