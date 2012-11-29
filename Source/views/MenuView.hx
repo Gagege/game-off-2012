@@ -27,6 +27,8 @@ class MenuView extends Sprite
 	
 	public function selectOption():Void 
 	{
+		var sound = Assets.getSound ("assets/menu_select.wav");
+		sound.play();
 		
 		options[selectedOptionIndex].selected = true;
 		
