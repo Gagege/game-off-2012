@@ -29,8 +29,9 @@ class MenuController
 		options.push(new Option("Start Game", false)); 
 		options.push(new Option("1 Player", true));
 		options.push(new Option("2 Player", false));
-		options.push(new Option("Merciful AI", true));
 		options.push(new Option("Instructions", false));
+		options.push(new Option("Merciful AI", true));
+		options.push(new Option("Mute", false));
 		
 		instructionsScreen = new InstructionView();
 		instructionsScreen.hide();
@@ -56,6 +57,7 @@ class MenuController
 	private function onStartGame(event:StartGame):Void 
 	{
 		menuView.hide();
+		Lib.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		menuEvent.removeEventListener("StartGame", onStartGame);
 		newGame = new PlayController(options);
 		newGame.start();

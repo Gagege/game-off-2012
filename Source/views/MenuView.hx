@@ -7,6 +7,7 @@ import models.Option;
 import nme.Assets;
 import nme.display.Sprite;
 import nme.Lib;
+import nme.media.Sound;
 import nme.text.TextField;
 import nme.text.TextFormat;
 import com.eclecticdesignstudio.motion.Actuate;
@@ -14,8 +15,12 @@ import com.eclecticdesignstudio.motion.easing.Linear;
 
 class MenuView extends Sprite
 {
+	private var menuSelectSound:Sound;
+	private var menuUpSound:Sound;
+	private var menuDownSound:Sound;
 	private var options:Array<Option>;
 	private var mercySelectorText:TextField;
+	private var muteSelectorText:TextField;
 	public var selectedOptionIndex:Int;
 
 	public function new(optionList:Array<Option>) 
@@ -27,8 +32,7 @@ class MenuView extends Sprite
 	
 	public function selectOption():Void 
 	{
-		var sound = Assets.getSound ("assets/menu_select.wav");
-		sound.play();
+		menuSelectSound.play();
 		
 		options[selectedOptionIndex].selected = true;
 		
@@ -42,11 +46,14 @@ class MenuView extends Sprite
 			case "2 Player":
 				playerSelectorTo(2);
 				options[selectedOptionIndex - 1].selected = false; // set 1 player to false
-			case "Merciful AI":
-				toggleMercySelector();
-				options[selectedOptionIndex - 1].selected = !options[selectedOptionIndex - 1].selected; // set 1 player to false
 			case "Instructions":
 				MenuController.menuEvent.toggleInstructions();
+			case "Merciful AI":
+				toggleMercySelector();
+				options[selectedOptionIndex - 1].selected = !options[selectedOptionIndex - 1].selected;
+			case "Mute":
+				toggleMuteSelector();
+				options[selectedOptionIndex - 1].selected = !options[selectedOptionIndex - 1].selected;
 		}
 	}
 	
@@ -59,6 +66,15 @@ class MenuView extends Sprite
 		var displayX = optionDisplay.x + optionDisplay.width +
 			(cursor.width * 0.35);
 		var	displayY = optionDisplay.y;
+		
+		if (cursor.y < displayY)
+		{
+			menuDownSound.play();
+		}
+		else
+		{
+			menuUpSound.play();
+		}
 		
 		cursor.x = displayX;
 		cursor.y = displayY;
@@ -79,6 +95,14 @@ class MenuView extends Sprite
 			mercySelectorText.text = "[X]";
 	}
 	
+	private function toggleMuteSelector():Void 
+	{
+		if(muteSelectorText.text == "[X]")
+			muteSelectorText.text = "[ ]";
+		else
+			muteSelectorText.text = "[X]";
+	}
+	
 	private function playerSelectorTo(numPlayers:Int):Void 
 	{
 		var selector = getChildByName("playerSelector");
@@ -97,6 +121,9 @@ class MenuView extends Sprite
 		
 		drawCursor();
 		selectedOptionIndex = 0;
+		menuSelectSound = Assets.getSound("assets/menu_select.wav");
+		menuUpSound = Assets.getSound("assets/menu_up.wav");
+		menuDownSound = Assets.getSound("assets/menu_down.wav");
 	}
 	
 	private function drawTitle():Void 
@@ -151,6 +178,8 @@ class MenuView extends Sprite
 			drawPlayerSelector(optionDisplay);
 		if (option.name == "Merciful AI")
 			drawMercySelector(optionDisplay);
+		if (option.name == "Mute")
+			drawMuteSelector(optionDisplay);
 	}
 	
 	private function drawMercySelector(optionDisplay:TextField):Void 
@@ -176,6 +205,31 @@ class MenuView extends Sprite
 		mercySelectorText.name = "mercySelector";
 		
 		addChild(mercySelectorText);
+	}
+	
+	private function drawMuteSelector(optionDisplay:TextField):Void 
+	{
+		muteSelectorText = new TextField();
+		var fontSize = Lib.current.stage.stageHeight * 0.07;
+		var font = Assets.getFont("assets/Hyperspace.ttf");
+		var format = new TextFormat (font.fontName, fontSize, 0x000000);
+		
+		muteSelectorText.defaultTextFormat = format;
+		muteSelectorText.selectable = false;
+		muteSelectorText.embedFonts = true;
+		
+		muteSelectorText.text = "[ ]";
+		
+		var displayX = optionDisplay.x -
+			muteSelectorText.textWidth * 1.5;
+		var	displayY = optionDisplay.y;
+		
+		muteSelectorText.x = displayX;
+		muteSelectorText.y = displayY;
+		
+		muteSelectorText.name = "muteSelector";
+		
+		addChild(muteSelectorText);
 	}
 	
 	private function drawPlayerSelector(optionDisplay:TextField):Void 

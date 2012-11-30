@@ -8,6 +8,7 @@ import nme.display.StageAlign;
 import nme.display.StageScaleMode;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
+import nme.media.Sound;
 import nme.text.TextField;
 import nme.text.TextFormat;
 import nme.text.TextFormatAlign;
@@ -31,6 +32,8 @@ class PlayView extends Sprite
 	
 	private var timeDisplay:TextField;
 	private var format:TextFormat;
+	private var boxDestroySound:Sound;
+	private var boxCollectSound:Sound;
 	
 	public function new() 
 	{
@@ -54,6 +57,8 @@ class PlayView extends Sprite
 		addChild(player2);
 		
 		drawTimeDisplay();
+		
+		boxCollectSound = Assets.getSound("assets/box_collect.wav");
 	}
 	
 	public function readySetGo():Void 
@@ -242,6 +247,7 @@ class PlayView extends Sprite
 	
 	public function absorbResource(resource:Resource, toLeft:Bool):Void 
 	{
+		boxCollectSound.play();
 		if (toLeft)
 		{
 			player1.absorbResource(resource);
@@ -355,6 +361,7 @@ class PlayView extends Sprite
 			bottomBox = null;
 			
 		removeChild(getChildByName(box.name));
+		
 	}
 	
 }

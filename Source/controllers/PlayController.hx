@@ -37,12 +37,16 @@ class PlayController
 	public static var robotEvent:RobotEvent = new RobotEvent();
 	public static var aiEvent:AIEvent = new AIEvent();
 	
+	public static var mute:Bool;
+	
 	public function new(options:Array<Option>)
 	{
 		for (option in options)
 		{
 			if (option.name == "1 Player")
 				player1AI = option.selected;
+			if (option.name == "Mute")
+				mute = option.selected;
 		}
 		
 		

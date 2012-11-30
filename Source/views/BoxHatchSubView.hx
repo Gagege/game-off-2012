@@ -1,10 +1,12 @@
 package views;
 
 import haxe.Timer;
+import nme.Assets;
 import nme.Lib;
 import nme.display.Sprite;
 import nme.display.DisplayObject;
 import com.eclecticdesignstudio.motion.Actuate;
+import nme.media.Sound;
 
 class BoxHatchSubView extends Sprite
 {
@@ -16,6 +18,7 @@ class BoxHatchSubView extends Sprite
 	private var bottomDoor:Sprite;
 	private var hatchWidth:Float;
 	private var boxIndex:Int;
+	private var boxDestroySound:Sound;
 	
 	public function new(position:Int) 
 	{
@@ -26,6 +29,7 @@ class BoxHatchSubView extends Sprite
 		hatchWidth = Lib.current.stage.stageWidth * 0.1;
 		
 		drawHatch(position);
+		boxDestroySound = Assets.getSound("assets/box_destroy.wav");
 	}
 	
 	public function getBox():BoxSubView
@@ -37,7 +41,8 @@ class BoxHatchSubView extends Sprite
 			{
 				currentBox.visible = false;
 				box = currentBox;
-				removeBox();
+				removeOldBox();
+				closeDoors();
 			}
 		}
 		return box;
@@ -62,6 +67,7 @@ class BoxHatchSubView extends Sprite
 	{
 		if (currentBox != null)
 		{
+			boxDestroySound.play();
 			removeOldBox();
 			closeDoors();
 		}
