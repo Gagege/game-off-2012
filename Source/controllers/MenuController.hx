@@ -70,9 +70,11 @@ class MenuController
 			case 13: // 'enter' key
 				menuView.selectOption();
 			case 38: // 'up arrow' key
+				instructionsScreen.hide();
 				if(menuView.selectedOptionIndex > 0)
 					menuView.cursorTo(menuView.selectedOptionIndex - 1);
 			case 40: // 'down arrow' key
+				instructionsScreen.hide();
 				if(menuView.selectedOptionIndex < options.length - 1)
 					menuView.cursorTo(menuView.selectedOptionIndex + 1);
 		}

@@ -129,7 +129,7 @@ class InstructionView extends Sprite
 		closeMessage.embedFonts = true;
 		closeMessage.selectable = false;
 		
-		closeMessage.text = "Press any key to close.";
+		closeMessage.text = "Press enter to close.";
 		
 		var displayX = (Lib.current.stage.stageWidth / 2) - ((closeMessage.textWidth) / 2);
 		var	displayY = Lib.current.stage.stageHeight * 0.9;
