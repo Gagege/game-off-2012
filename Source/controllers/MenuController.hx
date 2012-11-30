@@ -15,7 +15,7 @@ class MenuController
 	var options:Array<Option>;
 	var instructionsScreen:InstructionView;
 	var newGame:PlayController;
-	
+	public static var mute:Bool = false;
 	public static var menuEvent:MenuEvent = new MenuEvent();
 	
 	public function new() 

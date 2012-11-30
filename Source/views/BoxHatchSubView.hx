@@ -1,5 +1,6 @@
 package views;
 
+import controllers.MenuController;
 import haxe.Timer;
 import nme.Assets;
 import nme.Lib;
@@ -67,9 +68,11 @@ class BoxHatchSubView extends Sprite
 	{
 		if (currentBox != null)
 		{
-			boxDestroySound.play();
 			removeOldBox();
 			closeDoors();
+			
+			if(!MenuController.mute)
+				boxDestroySound.play();
 		}
 	}
 	

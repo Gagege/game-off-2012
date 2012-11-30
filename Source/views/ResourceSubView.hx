@@ -1,5 +1,6 @@
 package views;
 
+import controllers.MenuController;
 import models.Player;
 import models.Order;
 import nme.Assets;
@@ -8,6 +9,7 @@ import nme.display.Sprite;
 import nme.filters.BlurFilter;
 import nme.Lib;
 import models.Resource;
+import nme.media.Sound;
 import nme.text.TextField;
 import nme.text.TextFormat;
 
@@ -19,6 +21,9 @@ class ResourceSubView extends Sprite
 	private var resource:Sprite;
 	private var progressBar:Sprite;
 	private var progressBarSegments:Array<Sprite>;
+	
+	private var resourceGoodSound:Sound;
+	private var resourceBadSound:Sound;
 	
 	public function new(type:ResourceType, player:Int) 
 	{
@@ -45,6 +50,8 @@ class ResourceSubView extends Sprite
 		drawResource(color);
 		drawSymbol(symbolText);
 		drawProgressBar(player, color);
+		resourceGoodSound = Assets.getSound("assets/resource_good.wav");
+		resourceBadSound = Assets.getSound("assets/resource_bad.wav");
 	}
 	
 	public function updateProgressBar(currentAmount:Int, amountRequired:Int):Void 
@@ -58,6 +65,8 @@ class ResourceSubView extends Sprite
 				if(currentAmount > amountRequired && i + 1 <= currentAmount)
 				{
 					extraSegment(segment);
+					if(!MenuController.mute)
+						resourceBadSound.play();
 				}
 			}
 			else if(i + 1 <= amountRequired)
@@ -67,6 +76,8 @@ class ResourceSubView extends Sprite
 				if(i + 1 <= currentAmount)
 				{
 					fillSegment(segment);
+					if(!MenuController.mute)
+						resourceGoodSound.play();
 				}
 			}
 		}

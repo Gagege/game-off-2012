@@ -1,5 +1,6 @@
 package views;
 
+import controllers.MenuController;
 import haxe.Timer;
 import models.Player;
 import models.Order;
@@ -7,6 +8,7 @@ import models.Resource;
 import nme.display.Sprite;
 import nme.display.GradientType;
 import nme.Lib;
+import nme.media.Sound;
 import nme.text.TextField;
 import nme.Assets;
 import nme.text.TextFormat;
@@ -32,6 +34,7 @@ class PlayerSubView extends Sprite
 	private var selectingOrder:Bool;
 	public var currentOrder:OrderSubView;
 	private var isRight:Bool;
+	private var moneyGetSound:Sound;
 	
 	public function new(player:Int) 
 	{
@@ -133,6 +136,8 @@ class PlayerSubView extends Sprite
 		format.color = 0xFFFFFF;
 		
 		drawField(player);
+		
+		moneyGetSound = Assets.getSound("assets/money_get.wav");
 	}
 	
 	private function drawField(player:Int):Void
@@ -264,6 +269,9 @@ class PlayerSubView extends Sprite
 		currentOrder.select(true);
 		
 		drawOrder(Order.getRandomOrder(), 3);
+		
+		if(!MenuController.mute)
+			moneyGetSound.play();
 	}
 	
 	private function isOrderFulfilled(orderSprite:OrderSubView):Void 

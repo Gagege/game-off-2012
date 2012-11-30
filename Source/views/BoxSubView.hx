@@ -1,5 +1,6 @@
 package views;
 
+import controllers.MenuController;
 import haxe.Timer;
 import nme.Assets;
 import nme.filters.BlurFilter;
@@ -11,6 +12,7 @@ import controllers.PlayController;
 import nme.display.Sprite;
 import com.eclecticdesignstudio.motion.Actuate;
 import com.eclecticdesignstudio.motion.easing.Linear;
+import nme.media.Sound;
 import nme.text.TextField;
 import nme.text.TextFormat;
 
@@ -26,6 +28,7 @@ class BoxSubView extends Sprite
 	private var boxWidth:Float;
 	private var moving:Bool;
 	var destroyed:Bool;
+	private var boxStretchSound:Sound;
 	
 	public function new(itemInBox:Resource) 
 	{
@@ -40,6 +43,7 @@ class BoxSubView extends Sprite
 		
 		drawBox(defaultColor);
 		fadeBoxIn(fadeInSpeed);
+		boxStretchSound = Assets.getSound("assets/box_stretch.wav");
 	}
 	
 	public function move(goLeft:Bool, hatch:Int):Bool
@@ -74,6 +78,8 @@ class BoxSubView extends Sprite
 			
 			Actuate.tween(this, RobotArmSubView.pushPullSpeed, { scaleX: scale } )
 				.ease(Linear.easeNone);
+			if(!MenuController.mute)
+				boxStretchSound.play();
 		}
 		return destroyed;
 	}

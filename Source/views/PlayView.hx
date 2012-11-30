@@ -1,5 +1,6 @@
 package views;
 
+import controllers.MenuController;
 import haxe.Public;
 import haxe.Timer;
 import models.Resource;
@@ -247,7 +248,9 @@ class PlayView extends Sprite
 	
 	public function absorbResource(resource:Resource, toLeft:Bool):Void 
 	{
-		boxCollectSound.play();
+			
+		if(!MenuController.mute)
+			boxCollectSound.play();
 		if (toLeft)
 		{
 			player1.absorbResource(resource);

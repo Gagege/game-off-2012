@@ -32,7 +32,6 @@ class MenuView extends Sprite
 	
 	public function selectOption():Void 
 	{
-		menuSelectSound.play();
 		
 		options[selectedOptionIndex].selected = true;
 		
@@ -53,8 +52,11 @@ class MenuView extends Sprite
 				options[selectedOptionIndex - 1].selected = !options[selectedOptionIndex - 1].selected;
 			case "Mute":
 				toggleMuteSelector();
-				options[selectedOptionIndex - 1].selected = !options[selectedOptionIndex - 1].selected;
+				MenuController.mute = !MenuController.mute;
 		}
+		
+		if(!MenuController.mute)
+			menuSelectSound.play();
 	}
 	
 	public function cursorTo(optionIndex:Int):Void
@@ -67,13 +69,16 @@ class MenuView extends Sprite
 			(cursor.width * 0.35);
 		var	displayY = optionDisplay.y;
 		
-		if (cursor.y < displayY)
+		if (!MenuController.mute)
 		{
-			menuDownSound.play();
-		}
-		else
-		{
-			menuUpSound.play();
+			if (cursor.y < displayY)
+			{
+				menuDownSound.play();
+			}
+			else
+			{
+				menuUpSound.play();
+			}
 		}
 		
 		cursor.x = displayX;
@@ -124,6 +129,7 @@ class MenuView extends Sprite
 		menuSelectSound = Assets.getSound("assets/menu_select.wav");
 		menuUpSound = Assets.getSound("assets/menu_up.wav");
 		menuDownSound = Assets.getSound("assets/menu_down.wav");
+		menuSelectSound.play();
 	}
 	
 	private function drawTitle():Void 
